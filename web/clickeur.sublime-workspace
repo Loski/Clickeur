@@ -32,19 +32,10 @@
 	"buffers":
 	[
 		{
-			"file": "logout.php",
+			"contents": "<!DOCTYPE html>\n<html lang=\"fr\">\n  <head>\n    <!-- Required meta tags -->\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n\n    <!-- Bootstrap CSS -->\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css\" integrity=\"sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ\" crossorigin=\"anonymous\">\n  </head>\n  <body>\n    <h1>Hello, world!</h1>\n\n    <!-- jQuery first, then Tether, then Bootstrap JS. -->\n    <script src=\"https://code.jquery.com/jquery-3.1.1.slim.min.js\" integrity=\"sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n\" crossorigin=\"anonymous\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js\" integrity=\"sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb\" crossorigin=\"anonymous\"></script>\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js\" integrity=\"sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn\" crossorigin=\"anonymous\"></script>\n  </body>\n</html>",
 			"settings":
 			{
-				"buffer_size": 209,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "index.php",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 1166,
 				"line_ending": "Windows"
 			}
 		}
@@ -81,6 +72,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Maxime/Documents/GitHub/Clickeur/web/index.php",
+		"/C/Users/Maxime/Documents/GitHub/Clickeur/web/logout.php",
 		"/C/Users/Maxime/AppData/Local/Temp/GenerateurBenchmark.java",
 		"/E/ilp4tme10/compiler/Compiler.java",
 		"/E/ilp4tme9/C/ilp.h",
@@ -206,9 +199,7 @@
 		"/C/Users/Maxime/Desktop/Bot6/Finder/Sniper/user.xml",
 		"/C/Users/Maxime/Desktop/Bot7/Config/config.json",
 		"/C/Users/Maxime/Desktop/Bot7/Config/auth.json",
-		"/C/Users/Maxime/Desktop/CirisBotBundle_XPBuildLatestReleaseV3.0/Bot7/Config/auth.json",
-		"/C/Users/Maxime/Desktop/CirisBotBundle_XPBuildLatestReleaseV3.0/Bot1/Config/auth.json",
-		"/C/Users/Maxime/AppData/Local/Temp/config100%IVDRATINIHUMAN.json"
+		"/C/Users/Maxime/Desktop/CirisBotBundle_XPBuildLatestReleaseV3.0/Bot7/Config/auth.json"
 	],
 	"find":
 	{
@@ -323,45 +314,15 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "logout.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 209,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								209,
-								209
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "index.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
+						"buffer_size": 1166,
 						"regions":
 						{
 						},
@@ -369,12 +330,14 @@
 						[
 							[
 								0,
-								0
+								1166
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
