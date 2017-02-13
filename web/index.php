@@ -3,8 +3,8 @@
 ?>
 	<div class="container">
 		<div class="row" id="connexion">
-				<span class="icon" id="teaching">
-					<i class="fa fa-cc-mastercard fa-5x" aria-hidden="true"></i>
+				<span class="icon main" id="teaching">
+					<i class="fa fa-lock fa-5x" aria-hidden="true"></i>
 					<form class="form-horizontal" style="display: none;">
 						<fieldset>
 							<!-- Form Name -->
@@ -22,7 +22,7 @@
 						</fieldset>
 					</form>
 				</span>
-				<span class="icon rounded" id="student">
+				<span class="icon main" id="student">
 					<i class="fa fa-graduation-cap fa-5x" aria-hidden="true"></i>
 					<form class="form-horizontal" style="display: none;">
 						<fieldset>

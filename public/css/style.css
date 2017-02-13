@@ -1,0 +1,89 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+body{
+    font-family: "Roboto", "Verdana", "Times New Roman", Times, "Nimbus Roman No9 L", serif;
+    font-size: 0.9em;
+    background-color: #579AFF;
+    color: black;
+}
+
+.main{
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+.main.container{
+    margin-bottom: 3rem;
+}
+.bd-pageheader {
+    margin-bottom: 3rem;
+    text-align: left;
+    padding: 2rem 15px;
+    color: white;
+    background-color: #2B4D7F;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+nav ul li{
+    margin:auto;
+}
+nav ul li:hover{
+    font-weight: 1220;
+}
+
+button,input[type="checkbox"],label>input[type="checkbox"]{
+    cursor: pointer;
+}
+
+#connexion span.icon{
+	width: 400px;
+	height: 400px;
+}
+
+#connexion>span, #connexion{
+	display: flex;
+}
+
+#connexion{
+    margin-top: 100px;
+}
+#connexion>div, #connexion>span{
+	flex: row nowrap;
+}
+#connexion span.icon>i, #connexion form, #connexion>span{
+	margin: auto;
+}
+
+#questionnaire>fieldset>div{
+    margin-bottom:50px;
+}
+
+#questionnaire input[type="checkbox"]{
+    display: inline;
+}
+
+#questionnaire .reponse_valide{
+    text-align: center;
+    margin: auto;
+}
+#questionnaire .reponse{
+    margin-left: 5%;
+}
+
+#questionnaire legend{
+    margin: 35px 0 35px 0;
+    text-align: center; 
+}
+
+#questionnaire button[type="submit"]{
+    margin: auto;
+}
+
+#questionnaire .fa{
+    cursor: pointer;
+}
+
