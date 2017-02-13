@@ -1,0 +1,8 @@
+@extends('layouts.master')
+
+@section('title', 'Page Title')
+@section('content')
+<div class="container">
+	<p>???????????????</p>
+</div>
+@endsection

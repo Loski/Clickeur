@@ -22,3 +22,12 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('page');
 });
+
+Route::get('/ues', function () {
+    return view('ue');
+});
+
+Route::get('/questionnaires', function () {
+    return view('questionnaires');
+
+});
