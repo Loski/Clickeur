@@ -87,3 +87,20 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     cursor: pointer;
 }
 
+.box_title
+{
+    text-align: center;
+    font-weight:bold;
+}
+
+.list_header div
+{
+    font-weight:bold;
+}
+
+.questionnaire_Row div, .list_header div
+{
+    width:30%;
+    text-align: center;
+    display:inline-block;
+}
