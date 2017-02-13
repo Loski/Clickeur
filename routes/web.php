@@ -23,11 +23,9 @@ Route::get('/login', function () {
     return view('page');
 });
 
-Route::get('/ues', function () {
-    return view('ue');
+Route::post('/questionnaires', function () {
+    return View::make('questionnaires')->with('ues', \App\Ue::all());
 });
-
 Route::get('/questionnaires', function () {
-    return view('questionnaires');
-
+    return View::make('questionnaires')->with('ues', \App\Ue::all());
 });

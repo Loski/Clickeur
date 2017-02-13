@@ -12,11 +12,11 @@ body{
     color: black;
 }
 
-.main{
+.flat{
     background-color: #fff;
     box-shadow: 0 1px 2px rgba(0,0,0,.3);
 }
-.main.container{
+.flat.container{
     margin-bottom: 3rem;
 }
 .bd-pageheader {
@@ -27,7 +27,9 @@ body{
     background-color: #2B4D7F;
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
-
+.top_elem{
+    margin-top: 100px;
+}
 nav ul li{
     margin:auto;
 }
@@ -48,9 +50,6 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
 	display: flex;
 }
 
-#connexion{
-    margin-top: 100px;
-}
 #connexion>div, #connexion>span{
 	flex: row nowrap;
 }
@@ -87,3 +86,6 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     cursor: pointer;
 }
 
+#questionnaire .bootstrap-select{
+    width:100%;
+}

@@ -15,8 +15,5 @@ $(document).ready(function() {
   $('.delete').on('click', function(){
     $(this).parent().parent().remove();
   })
-  $('.selectpicker').selectpicker({
-  style: 'btn-info',
-  size: 4
-});
+  $('#nom_ue').selectpicker("show");
 });
