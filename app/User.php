@@ -43,7 +43,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Ue::class);
     }
 
-    public static function createUserFromLDAP(\Adldap\Models\User $ldapUser, array $credentials): User
+    public static function createUserFromLDAP(\Adldap\Models\User $ldapUser, array $credentials)
     {
         $name = explode(' ', $ldapUser->getCommonName());
         $user = new User();
