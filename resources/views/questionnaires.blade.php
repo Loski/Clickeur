@@ -35,15 +35,15 @@
 					<input type="datetime" class="form-control" placeholder="Date séance" name="new_seance" id="new_seance">
 				</div>
 			</div>
-			<div id="question_1">
-				<div class="form-group row">
+			<div class="question" id="question_1">
+				<div class="form-group row ">
 					<label for="question_1_input" class="col-2 col-form-label">Question 1</label>
 					<div class="col-10">
 						<input type="text" autocapitalize="sentences" required class="form-control" placeholder="Question" name="question_1_input" id="question_1_input">
 					</div>
 				</div>
-				<div class="reponse">
-					<div class="form-group row">
+				<div class="reponseList">
+					<div class="form-group row reponse">
 						<label for="reponse_1_question_1" class="col-2 col-form-label">Réponse 1</label>
 						<div class="col-6">
 							<textarea  name="reponse_1_question_1" class="form-control" required></textarea>
@@ -56,7 +56,7 @@
 					  	<i class="fa fa-trash-o fa-2x delete" aria-hidden="true"></i>
 						</div>
 					</div>
-					<div class="form-group row">
+					<div class="form-group row reponse">
 						<label for="reponse_2_question_1" class="col-2 col-form-label">Réponse 2</label>
 						<div class="col-6">
 							<textarea  name="reponse_2_question_1" class="form-control" required></textarea>
@@ -70,9 +70,9 @@
 						</div>
 					</div>
 				</div>
-			<button type="button" class="btn btn-primary">Nouvelle réponse</button>
+			<button type="button" class="btn btn-primary new_Rep">Nouvelle réponse</button>
 			</div>
-			<button type="button" class="btn btn-primary">Nouvelle question</button>
+			<button type="button" id="new_Quest" class="btn btn-primary">Nouvelle question</button>
 		</fieldset>
 		<button type="submit" class="btn btn-primary">Enregistrer</button>
 		{!! Form::close() !!}

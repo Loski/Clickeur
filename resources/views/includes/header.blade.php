@@ -5,13 +5,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="./login"><img src="includes/img/logo.png" class="img-responsive"> <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ URL::to('/')}}"><img src="includes/img/logo.png" class="img-responsive"> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./ues">Mes UEs</a>
+        <a class="nav-link" href="{{URL::to('/ues')}}">Mes UEs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./questionnaires">Mes Questionnaires</a>
+        <a class="nav-link" href="{{ URL::to('/questionnaires/5')}}">Mes Questionnaires</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ URL::to('/questionnaires')}}">Ajouter un questionnaire</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

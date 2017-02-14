@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,1200);
 
 html, body {
   height: 100%;
@@ -42,8 +42,8 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
 }
 
 #connexion span.icon{
-	width: 400px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 }
 
 #connexion>span, #connexion{
@@ -88,4 +88,136 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
 
 #questionnaire .bootstrap-select{
     width:100%;
+}
+=======
+.box_title
+{
+    text-align: center;
+    font-weight:bold;
+}
+
+.list_header div
+{
+    font-weight:bold;
+}
+
+.questionnaire_Row div, .list_header div
+{
+    width:30%;
+    text-align: center;
+    display:inline-block;
+}
+
+
+.bootstrap-select.show>.dropdown-menu>.dropdown-menu {
+    display: block;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{
+    display:none;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a{
+    display: block;
+    width: 100%;
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;
+    border: 0;
+}
+.centerize { 
+    text-align: center;
+}
+
+.display-ues a{
+    min-height: 50px;
+    min-width: 50px;
+    padding: 12px;
+}
+.display-ues span{
+    margin:5px;
+}
+.display-ues{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+.display-ues a{
+    font-weight: 600;
+    display: inline-flex;
+    font-size: 1.2em;
+}
+
+a:link 
+{ 
+ text-decoration:none; 
+}
+
+.bonne-reponse{
+    background-color: SeaGreen;
+    padding: 15px;
+    font-weight: 700;
+}
+
+.mauvaise-reponse{
+    background-color: #CC6666;
+    padding: 15px;
+}
+
+
+.container-question div{
+  padding: 10px;
+}
+
+.container-reponse{
+    display: flex;
+    align-items: normal;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container-reponse div{
+    display: inline-flex;
+}
+
+
+.information, .question{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-around;
+}
+.information{
+    padding: 30px;
+}
+.information .data{
+    align-self: flex-end;
+}
+
+.information .code-ue{
+    align-self: flex-start;
+}
+
+.information span, .question span{
+    margin: auto;
+}
+.information .libelle{
+    font-weight: 800;
+    font-size: 1.2em;
+}
+
+.qcm>.flat{
+    margin-bottom: 25px;
+}
+
+.question span{
+    font-size: 1.1em;
+}
+.container-question{
+    margin-bottom: 15px;
 }
