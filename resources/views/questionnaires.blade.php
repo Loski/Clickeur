@@ -13,7 +13,7 @@
 						<select class="selectpicker"  data-live-search="true" name ="nom_ue" id="nom_ue">
 							<option selected value="0">Pas d'UE sélectionné</option>
 							@foreach ($ues as $ue)
-		    				<option value ="{{ $ue->code_ue}}">{{ $ue->code_ue . $ue->name}} </option>
+		    				<option value ="{{ $ue->code_ue}}">{{ $ue->code_ue . " - " . $ue->name}} </option>
 							@endforeach
 						</select>
 					</div>
@@ -33,6 +33,12 @@
 			<label for="new_seance" class="col-2 col-form-label">Nouvelle séance</label>
 				<div class="col-4">
 					<input type="datetime" class="form-control" placeholder="Date séance" name="new_seance" id="new_seance">
+				</div>
+			</div>
+			<div class="form-group row ">
+				<label for="question_1_input" class="col-2 col-form-label">Nom du questionnaire</label>
+				<div class="col-10">
+					<input type="text" autocapitalize="sentences" required class="form-control" placeholder="Nom du questionnaire" name="libelle" id="libelle">
 				</div>
 			</div>
 			<div class="question" id="question_1">
@@ -74,7 +80,9 @@
 			</div>
 			<button type="button" id="new_Quest" class="btn btn-primary">Nouvelle question</button>
 		</fieldset>
-		<button type="submit" class="btn btn-primary">Enregistrer</button>
+		<div class="centerize">
+  			<button type="submit" class="btn btn-primary">Enregistrer</button>
+  		</div>
 		{!! Form::close() !!}
 </div>
 @endsection
