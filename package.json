@@ -1,0 +1,17 @@
+{
+    "name": "Clickeur",
+    "version": "0.0.0",
+    "dependencies": {
+        "angular":  "1.6.2",
+        "ngstorage": "*",
+        "angular-ui-router": "*",
+        "angular-cookies":"*",
+        "angular-resource":"*",
+        "angular-jwt":"*"
+    },
+    "analytics": false,
+    "scripts": {
+	    "prestart": "npm install",
+		"start": "http-server ./app -a localhost -p 8000 -c-1"
+	}
+}

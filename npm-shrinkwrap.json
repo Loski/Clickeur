@@ -1,0 +1,26 @@
+{
+  "name": "Clickeur",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": {
+      "version": "1.6.2",
+      "from": "angular@1.6.2",
+      "resolved": "https://registry.npmjs.org/angular/-/angular-1.6.2.tgz"
+    },
+    "angular-cookies": {
+      "version": "1.6.2",
+      "from": "angular-cookies@*",
+      "resolved": "https://registry.npmjs.org/angular-cookies/-/angular-cookies-1.6.2.tgz"
+    },
+    "angular-ui-router": {
+      "version": "0.4.2",
+      "from": "angular-ui-router@*",
+      "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-0.4.2.tgz"
+    },
+    "ngstorage": {
+      "version": "0.3.11",
+      "from": "ngstorage@*",
+      "resolved": "https://registry.npmjs.org/ngstorage/-/ngstorage-0.3.11.tgz"
+    }
+  }
+}
