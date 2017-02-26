@@ -3,7 +3,12 @@ var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'co
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
-        .state('home', {
+        .state('index', {
+            url:'/',
+            templateUrl: 'templates/connexion.html',
+            controller:'connexion'
+        })
+        .state('login', {
             url:'/login',
             templateUrl: 'templates/connexion.html',
             controller:'connexion'
@@ -13,20 +18,32 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/ue.html',
             controller: 'ueController'
         })
-        .state('addUe', {
-            url:'/addUe',
+        .state('ue/create', {
+            url:'/ue/create',
             templateUrl: 'templates/ajouterUe.html',
             controller: 'ueController'
         })
-        .state('addquestionnaires', {
-            url: '/questionnaires/{id}',
-            templateUrl: 'templates/questionnaires.html',
-            controller: 'questionnairesController'
+        .state('question/create', {
+            url: 'question/create',
+            templateUrl: 'templates/ajouterQuestion.html',
+            controller: 'questionnairesController',
+      /*      resolve: {
+                item: ['$route', 'questionRepository', function ($route, questionRepository) {
+                    return questionRepository.getNew();
+                }],
+            formType: function () { return Enums.FormType.CREATE; }
+        },*/
         })
-        .state('questionnaires', {
+        .state('ue/:ueID/session/:sessionID/question/:idQuestionnaire/edit', {
             url: '/questionnaires',
-            templateUrl: 'templates/ajouterQuestionnaire.html',
-            controller: 'questionnairesController'
+            templateUrl: 'templates/ajouterQuestion.html',
+            controller: 'questionnairesController',
+            resolve: {
+                item: ['$stateParams', 'questionRepository', function ($stateParams, questionRepository) {
+                return questionRepository.get($stateParams.idQuestionnaire);
+            }],
+                formType: function () { return Enums.FormType.EDIT; },
+            },
         })
     
     // default route
