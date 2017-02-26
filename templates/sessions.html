@@ -1,6 +1,6 @@
 <div class="container top_elem display-sessions" ng-controller="sessionController" ng-init="loadList()">
     <fieldset>
-      <legend>Mes UEs</legend>
+      <legend>Sessions</legend>
        <div class="flat"  ng-repeat="id in id_ue"><a ui-sref="addSession({ id: {{id}} })">Créer une session</a></div>
       <div class=" flat session_row" ng-repeat="session in sessions" data-id="{{session.id}}">
         <a>{{session.title}}</a>
