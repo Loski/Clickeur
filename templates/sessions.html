@@ -1,8 +1,8 @@
 <div class="container top_elem display-sessions" ng-controller="sessionController" ng-init="loadList()">
     <fieldset>
       <legend>Mes UEs</legend>
+       <div class="flat"  ng-repeat="id in id_ue"><a ui-sref="addSession({ id: {{id}} })">Créer une session</a></div>
       <div class=" flat session_row" ng-repeat="session in sessions" data-id="{{session.id}}">
-        <div class="flat"><a ui-sref="addSession({ id: {{sessions[0].ue_id}} })">Créer une session</a></div>
         <a>{{session.title}}</a>
         <span class="trash">TIME TO DELETE</span>
       </div>

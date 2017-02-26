@@ -45,7 +45,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 $scope.data = newVal;
 
                 $scope.sessions = $scope.data['sessions'];
-                $scope.url = $stateParams.id;
+                $scope.id_ue = $stateParams.id;
             }); 
         }   
 
