@@ -47,7 +47,6 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
                 }).then(function(response)
                 {
                     $scope.data = response.data;
-                    $scope.error = response.error;
                 });
             }
         }
@@ -82,11 +81,16 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
         {
 
             $scope.data = [];
-            $scope.error = [];
+            $scope.errors = [];
             ue.add($scope.code_ue,$scope.nom_ue,$scope);
-            $scope.$watch('error', function(newVal) {
-                $scope.error = newVal;
-                console.log($scope.error);
+            $scope.$watch('data', function(newVal) {
+                $scope.data = newVal;
+
+                if($scope.data.error.errors!=null)
+                {
+                    $scope.errors=$scope.data.error.errors;
+                    console.log($scope.data.error.errors);
+                }
             }); 
             
         }

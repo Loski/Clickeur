@@ -10,7 +10,7 @@
              <input ng-model="nom_ue" placeholder="NOM UE" class="form-control form-control-lg" required="" type="text">
            </div>
            <button class="btn btn-primary btn-lg">Enregistrer</button>
-           <div class="error" ng-model="errors">
+           <div class="error" ng-repeat="error in errors">{{error}}
            </div>
         </fieldset>
 </form>
