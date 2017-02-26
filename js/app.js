@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule']);
+var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         .state('ue', {
             url:'/ue',
             templateUrl: 'templates/ue.html',
-            controller: 'UeController'
+            controller: 'ueController'
         })
         .state('addquestionnaires', {
             url: '/questionnaires/{id}',

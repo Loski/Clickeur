@@ -138,11 +138,10 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     min-width: 50px;
     padding: 12px;
 }
-.display-ues span{
+.display-ues div{
     margin:5px;
 }
 .display-ues{
-    display: flex;
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
@@ -151,6 +150,14 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     font-weight: 600;
     display: inline-flex;
     font-size: 1.2em;
+}
+
+.ue_row:hover
+{
+    cursor:pointer;
+    -o-box-shadow: 2px 2px 19px #000;
+    -webkit-box-shadow: 2px 2px 19px #000;
+    -moz-box-shadow: 2px 2px 19px #000;
 }
 
 a:link 
