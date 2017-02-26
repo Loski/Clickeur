@@ -83,7 +83,7 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
 
             $scope.data = [];
             $scope.error = [];
-            ue.add($scope.code_ue,$scope.nom_ue);
+            ue.add($scope.code_ue,$scope.nom_ue,$scope);
             $scope.$watch('error', function(newVal) {
                 $scope.error = newVal;
                 console.log($scope.error);

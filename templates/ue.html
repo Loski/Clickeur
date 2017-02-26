@@ -2,7 +2,7 @@
     <fieldset>
       <legend>Mes UEs</legend>
       <div class="flat"><a ui-sref="addUe">Créer une UE</a></div>
-      <div class=" flat my_ues ue_row" ng-repeat="ue in my_ues">
+      <div class=" flat my_ues ue_row" ng-repeat="ue in my_ues" data-id="{{ue.id}}">
         <a>[{{ue.code_ue}}] {{ue.name}}</a>
         <span class="trash">TIME TO DELETE</span>
       </div>
