@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser']);
+var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -28,13 +28,16 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider.otherwise("/");
     //Interceptor of request and response
     $httpProvider.interceptors.push('APIInterceptor');
-})
-.service('APIInterceptor', function($rootScope, $localStorage) {
+}).service('APIInterceptor', function($rootScope, $localStorage) {
         var service = this;
         service.request = function(config) {
+            config.params = config.params || {};
             var access_token =$localStorage.token;
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             if (access_token) {
-                config.headers.authorization = access_token;
+                config.params.token = access_token;
+            }else{
+               config.params.token = "";
             }
             return config;
         };
@@ -51,75 +54,25 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         }
     });
 
-function run($rootScope, $location, $localStorage) {
+function run($rootScope, $location, $localStorage, $http) {
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        if ($localStorage.currentUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
+        if ($localStorage.token) {
+          //  $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
-
         // redirect to login page if not logged in
         if ($location.path() !== '/login' && !$localStorage.currentUser) {
             $location.path('/login');
         }
     });
 }
+
 app.run(run);
-/** Module Connexion **/
-var connexionModule = angular.module('connexionUser', ['ui.router', 'ngStorage'])
-    .factory('connexionModule', ['$localStorage', '$http', function($localStorage, $http){
-        return{
-            'login' : function(usernameUser, passwordUser){
-                $http.defaults.useXDomain = true;
-                $http({
-                	method: 'POST',
-                	url:'http://127.0.0.1:8000/api/auth',
-                	headers : {
-           				'Content-Type': 'application/x-www-form-urlencoded'
-        			},
-        			data: "username="+usernameUser+"&password="+passwordUser
- 		   		}).then(function(response){
-                   // saveToken(response.token);
-                })
-            },
-            'logout' : function(){
-              //  $http.get('http://127.0.0.1:8000/api/auth', {token: $localStoragetoken});
-                $localStorage = {};
-            },
-            'saveToken' : function(token){
-                $localStorage.token = token;
-            },
-            'errorLogin' : function(response){
-                console.log('michel');
-            },
-            'isIdentified' : function(){
-                var token = this.getToken();
-                if(token) {
-                    var params = this.parseJwt(token);
-                    return Math.round(new Date().getTime() / 1000) <= params.exp;
-                } else {
-                    return false;
-                }
-            },
-            'logout' : function(){
-                userService.clearCookies();
-            },
-            'getUser': function(){
-                $http.get('http://127.0.0.1:8000/api/user');
-            },
-            getToken: function(){
-                return $localStorage.token;
-            },
-            parseJwt : function(token) {
-              var base64Url = token.split('.')[1];
-              var base64 = base64Url.replace('-', '+').replace('_', '/');
-              return JSON.parse($window.atob(base64));
-            }
-        }
-    }])
-    .controller('connexion', ['$scope', 'connexionModule', function($scope, connexionModule){
-    $scope.password ='';
-    $scope.username = '';
-    $scope.login = function(){
-        connexionModule.login($scope.username, $scope.password);
+
+
+app.controller('navController',  ['$scope', 'userAuth', function($scope, userAuth){
+    $scope.logout = function(){
+        console.log("michou");
+        userAuth.logout();
     }
-    }]);
+    $scope.walid = "walid";
+}]);
