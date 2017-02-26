@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule']);
+var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -13,10 +13,20 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/ue.html',
             controller: 'ueController'
         })
+        .state('ueView', {
+            url:'/ue/{id}',
+            templateUrl: 'templates/sessions.html',
+            controller: 'sessionController'
+        })
         .state('addUe', {
             url:'/addUe',
             templateUrl: 'templates/ajouterUe.html',
             controller: 'ueController'
+        })
+        .state('addSession', {
+            url:'/ue/{id}/session',
+            templateUrl: 'templates/ajouterSession.html',
+            controller: 'sessionController'
         })
         .state('addquestionnaires', {
             url: '/questionnaires/{id}',
