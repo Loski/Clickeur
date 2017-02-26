@@ -1,0 +1,45 @@
+<form>
+	<fieldset>
+		<legend>Ajouter une nouvelle question</legend>
+		<div class="question" id="question_1">
+			<div class="form-group row ">
+				<label for="question_1_input" class="col-2 col-form-label">Question</label>
+				<div class="col-10">
+					<input type="text" autocapitalize="sentences" required class="form-control" placeholder="Question" name="question_1_input" id="question_1_input">
+				</div>
+			</div>
+			<div class="reponseList">
+				<div class="form-group row reponse">
+					<label for="reponse_1_question_1" class="col-2 col-form-label">Réponse 1</label>
+					<div class="col-6">
+						<textarea  name="reponse_1_question_1" class="form-control" required></textarea>
+					</div>
+					<div class="col-3 offset-1">
+						<label class="col-form-label reponse_valide">
+				  			<input  class="form-check" type="checkbox" id="cbox1_reponse_1_question_1" value="checkbox1">
+				  			Réponse correcte.
+				  		</label>
+				  	<i class="fa fa-trash-o fa-2x delete" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="form-group row reponse">
+					<label for="reponse_2_question_1" class="col-2 col-form-label">Réponse 2</label>
+					<div class="col-6">
+						<textarea  name="reponse_2_question_1" class="form-control" required></textarea>
+					</div>
+					<div class="col-3 offset-1">
+						<label class="col-form-label reponse_valide">
+				  			<input  class="form-check" type="checkbox" id="cbox1_reponse_2_question_1" value="checkbox2">
+				  			Réponse correcte.
+						</label>
+						<i class="fa fa-trash-o fa-2x delete" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary new_Rep">Nouvelle réponse</button>
+		</div>
+	</fieldset>
+	<div class="centerize">
+			<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</div>
+</form>
