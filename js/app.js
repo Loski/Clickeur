@@ -13,6 +13,11 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/ue.html',
             controller: 'ueController'
         })
+        .state('addUe', {
+            url:'/addUe',
+            templateUrl: 'templates/ajouterUe.html',
+            controller: 'ueController'
+        })
         .state('addquestionnaires', {
             url: '/questionnaires/{id}',
             templateUrl: 'templates/questionnaires.html',

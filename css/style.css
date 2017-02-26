@@ -150,9 +150,10 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     font-weight: 600;
     display: inline-flex;
     font-size: 1.2em;
+    width:100%;
 }
 
-.ue_row:hover
+.display-ues a:hover
 {
     cursor:pointer;
     -o-box-shadow: 2px 2px 19px #000;

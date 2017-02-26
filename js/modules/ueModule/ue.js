@@ -25,9 +25,37 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
                     $scope.data = response.data;
                 });
             },
+
+            delete: function($id){
+                var that = this;
+                $http({
+                    method: 'DELETE',
+                    url:'http://127.0.0.1:8000/api/ues/'+$id,
+                }).then(function(response)
+                {
+                    
+                });
+            },
+
+            add: function($code_ue,$nom_ue,$scope)
+            {
+                var that = this;
+                $http({
+                    method: 'POST',
+                    url:'http://127.0.0.1:8000/api/ues/',
+                    data: "code_ue="+$code_ue+"&name="+$nom_ue,
+                }).then(function(response)
+                {
+                    $scope.data = response.data;
+                    $scope.error = response.error;
+                });
+            }
         }
     }])
     .controller('ueController', ['$scope', 'ue', function($scope, ue){
+        $scope.code_ue ='';
+        $scope.nom_ue = '';
+
         $scope.loadList = function()
         {
             $scope.data = [];
@@ -39,4 +67,27 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
                 $scope.other_ues = $scope.data['other_ues'];
             }); 
         }   
+
+        $scope.delete = function()
+        {
+
+        }
+
+        $scope.update = function()
+        {
+
+        }
+
+        $scope.add = function()
+        {
+
+            $scope.data = [];
+            $scope.error = [];
+            ue.add($scope.code_ue,$scope.nom_ue);
+            $scope.$watch('error', function(newVal) {
+                $scope.error = newVal;
+                console.log($scope.error);
+            }); 
+            
+        }
 }]);
