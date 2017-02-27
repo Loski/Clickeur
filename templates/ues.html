@@ -3,7 +3,7 @@
       <div class="flat"><a ui-sref="ues/create">Créer une UE</a></div>
       <div class=" flat my_ues ue_row" ng-repeat="ue in my_ues">
         <a ui-sref-active="active" ui-sref="ues/sessions({ id_ue: {{ue.id}} })">[{{ue.code_ue}}] {{ue.name}}</a>
-        <span class="trash">TIME TO DELETE</span>
+        <i class="fa fa-trash-o fa-2x delete" aria-hidden="true"></i>
       </div>
       <div class="flat ue_row" ng-show="!my_ues.length">Aucune UEs créées</div>
       <div class="flat other_ues ue_row" ng-repeat="ue in other_ues"><a ui-sref="ues/sessions({ id_ue: {{ue.id}} })">[{{ue.code_ue}}] {{ue.name}}</a></div>

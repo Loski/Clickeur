@@ -13,17 +13,6 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/connexion.html',
             controller:'connexion'
         })
-        .state('question/create', {
-            url: 'question/create',
-            templateUrl: 'templates/ajouterQuestion.html',
-            controller: 'questionnairesController',
-            resolve: {
-                item: ['$route', 'questionRepository', function ($route, questionRepository) {
-                    return questionRepository.getNew();
-                }],
-                formType: function () { return Enums.FormType.CREATE; }
-            }
-        })
         .state('ues', {
             url:'/ues',
             templateUrl: 'templates/ues.html',
@@ -60,6 +49,17 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return Enums.FormType.EDIT; },
             },
         })
+        .state('question/create', {
+            url: 'question/create',
+            templateUrl: 'templates/ajouterQuestion.html',
+            controller: 'questionnairesController',
+            resolve: {
+                item: ['$route', 'questionRepository', function ($route, questionRepository) {
+                    return questionRepository.getNew();
+                }],
+                formType: function () { return Enums.FormType.CREATE; }
+            }
+        })
     // default route
   //  $urlRouterProvider.otherwise("/");
     //Interceptor of request and response
@@ -68,7 +68,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         var service = this;
         service.request = function(config) {
             config.params = config.params || {};
-            var access_token =$localStorage.token;
+            var access_token = $localStorage.token;
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             if (access_token) {
                 config.params.token = access_token;
