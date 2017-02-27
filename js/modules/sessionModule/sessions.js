@@ -12,6 +12,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
                 }).then(function(response)
                 {
+                    console.log(response);
                     $scope.data = response.data;
                 });
             },
@@ -37,16 +38,16 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.title ='';
         $scope.number = '';
         $scope.id_ue = $stateParams.id_ue;
-        console.log($stateParams);
         $scope.loadList = function()
         {
             $scope.data = [];
             session.get_session_list($scope,$stateParams.id_ue);
             $scope.$watch('data', function(newVal) {
                 $scope.data = newVal;
-
-                $scope.sessions = $scope.data['sessions'];
+                $scope.sessions = $scope.data['ue'];
                 $scope.id_ue = $stateParams.id_ue;
+                console.log($scope.data.ue);
+
             }); 
         }   
 
@@ -77,5 +78,4 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }); 
             
         }
-
 }]);
