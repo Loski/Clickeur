@@ -154,7 +154,7 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     width:100%;
 }
 
-.display-ues a:hover
+.display-ues div:hover
 {
     cursor:pointer;
     -o-box-shadow: 2px 2px 19px #000;

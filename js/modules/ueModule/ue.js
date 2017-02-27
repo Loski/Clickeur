@@ -1,7 +1,7 @@
 /** Module UE **/
 'use strict';
 
-var ue_module = angular.module('ueModule', ['ngStorage'])
+var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router'])
     .factory('ue', ['$http',function($http){
         return{
 
@@ -40,6 +40,7 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
             add: function($code_ue,$nom_ue,$scope)
             {
                 var that = this;
+                console.log('salut');
                 $http({
                     method: 'POST',
                     url:'http://127.0.0.1:8000/api/ues/',
@@ -47,21 +48,21 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
                 }).then(function(response)
                 {
                     $scope.data = response.data;
+                    console.log(response);
                 });
             }
         }
     }])
-    .controller('ueController', ['$scope', 'ue', function($scope, ue){
+    .controller('ueController', ['$scope','ue',  function($scope , ue){
         $scope.code_ue ='';
         $scope.nom_ue = '';
-
+        
         $scope.loadList = function()
         {
             $scope.data = [];
             ue.get_ue_list($scope);
             $scope.$watch('data', function(newVal) {
                 $scope.data = newVal;
-
                 $scope.my_ues = $scope.data['my_ues'];
                 $scope.other_ues = $scope.data['other_ues'];
             }); 
@@ -86,11 +87,11 @@ var ue_module = angular.module('ueModule', ['ngStorage'])
             $scope.$watch('data', function(newVal) {
                 $scope.data = newVal;
 
-                if($scope.data.error.errors!=null)
+            /*    if($scope.data.error.errors!=null)
                 {
                     $scope.errors=$scope.data.error.errors;
                     console.log($scope.data.error.errors);
-                }
+                }*/
             }); 
             
         }

@@ -1,4 +1,4 @@
-app.factory('abstractRepository', [function () {
+angular.module("abstractRepository", ['Restangular']).factory('abstractRepository', [function () {
 
     function abstractRepository(restangular, route) {
         this.restangular = restangular;

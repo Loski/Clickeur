@@ -36,16 +36,17 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
     .controller('sessionController', ['$scope', 'session','$stateParams', function($scope, session,$stateParams){
         $scope.title ='';
         $scope.number = '';
-
+        $scope.id_ue = $stateParams.id_ue;
+        console.log($stateParams);
         $scope.loadList = function()
         {
             $scope.data = [];
-            session.get_session_list($scope,$stateParams.id);
+            session.get_session_list($scope,$stateParams.id_ue);
             $scope.$watch('data', function(newVal) {
                 $scope.data = newVal;
 
                 $scope.sessions = $scope.data['sessions'];
-                $scope.id_ue = $stateParams.id;
+                $scope.id_ue = $stateParams.id_ue;
             }); 
         }   
 
@@ -64,7 +65,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
             $scope.data = [];
             $scope.errors = [];
-            session.add($scope.title,$scope.number,$stateParams.id,$scope);
+            session.add($scope.title,$scope.number,$stateParams.id_ue,$scope);
             $scope.$watch('data', function(newVal) {
                 $scope.data = newVal;
 

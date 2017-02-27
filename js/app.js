@@ -13,43 +13,39 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/connexion.html',
             controller:'connexion'
         })
-        .state('ue', {
-            url:'/ue',
-            templateUrl: 'templates/ue.html',
-            controller: 'ueController'
-        })
-        .state('ue/create', {
-            url:'/ue/create',
-            templateUrl: 'templates/ajouterUe.html',
-            controller: 'ueController'
-        })
         .state('question/create', {
             url: 'question/create',
             templateUrl: 'templates/ajouterQuestion.html',
             controller: 'questionnairesController',
-      /*      resolve: {
+            resolve: {
                 item: ['$route', 'questionRepository', function ($route, questionRepository) {
                     return questionRepository.getNew();
                 }],
-            formType: function () { return Enums.FormType.CREATE; }*/
-        },
-        .state('ueView', {
-            url:'/ue/{id}',
-            templateUrl: 'templates/sessions.html',
-            controller: 'sessionController'
+                formType: function () { return Enums.FormType.CREATE; }
+            }
         })
-        .state('addUe', {
-            url:'/addUe',
+        .state('ues', {
+            url:'/ues',
+            templateUrl: 'templates/ues.html',
+            controller: 'ueController'
+        })
+        .state('ues/create', {
+            url:'/ues/create',
             templateUrl: 'templates/ajouterUe.html',
             controller: 'ueController'
         })
-        .state('addSession', {
-            url:'/ue/{id}/session',
+        .state('ues/sessions', {
+            url:'/ues/{id_ue}/sessions',
+            templateUrl: 'templates/sessions.html',
+            controller: 'sessionController'
+        })
+        .state('ues/sessions/create', {
+            url:'/ues/{id_ue}/sessions/create',
             templateUrl: 'templates/ajouterSession.html',
             controller: 'sessionController'
         })
-        .state('addquestionnaires', {
-            url: '/questionnaires/{id}',
+        .state('ues/sessions/question/create', {
+            url: '/ues/{id_ue}/sessions/{id_session}/question/create',
             templateUrl: 'templates/questionnaires.html',
             controller: 'questionnairesController'
         })
@@ -64,9 +60,8 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return Enums.FormType.EDIT; },
             },
         })
-    
     // default route
-    $urlRouterProvider.otherwise("/");
+  //  $urlRouterProvider.otherwise("/");
     //Interceptor of request and response
     $httpProvider.interceptors.push('APIInterceptor');
 }).service('APIInterceptor', function($rootScope, $localStorage) {
@@ -101,19 +96,29 @@ function run($rootScope, $location, $localStorage, $http) {
           //  $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
         // redirect to login page if not logged in
-        if ($location.path() !== '/login' && !$localStorage.currentUser) {
+        if ($location.path() !== '/login' && !$localStorage.token) {
             $location.path('/login');
         }
     });
+
+    $rootScope.$on('$stateNotFound',
+function(event, unfoundState, fromState, fromParams){
+    console.log(unfoundState.to); // "lazy.state"
+    console.log(unfoundState.toParams); // {a:1, b:2}
+    console.log(unfoundState.options); // {inherit:false} + default options
+})
 }
 
 app.run(run);
 
 
-app.controller('navController',  ['$scope', 'userAuth', function($scope, userAuth){
+app.controller('navController',  ['$scope', 'userAuth','$state', function($scope, userAuth){
     $scope.logout = function(){
         console.log("michou");
         userAuth.logout();
     }
+
     $scope.walid = "walid";
+
+
 }]);

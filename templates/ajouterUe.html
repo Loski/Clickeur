@@ -1,13 +1,13 @@
-<form ng-controller="ueController" class="form-horizontal" ng-submit="add()" name="ajouterUe" > 
+<form ng-controller="ueController" class="form-horizontal flat" ng-submit="add()" name="ajouterUe" > 
         <fieldset>
            <!-- Form Name -->
            <legend>Ajouter une UE</legend>
            <!-- Text input-->
            <div class="form-group">
-             <input id="code_ue" name="code_ue" placeholder="CODE UE" ng-model="code_ue" class="form-control form-control-lg" required="" type="text">
+             <input id="code_ue" name="code_ue" placeholder="Code de l'UE" ng-model="code_ue" class="form-control form-control-lg" required="" type="text">
            </div>
            <div class="form-group">
-             <input ng-model="nom_ue" placeholder="NOM UE" class="form-control form-control-lg" required="" type="text">
+             <input ng-model="nom_ue" placeholder="Nom de l'UE" class="form-control form-control-lg" required="" type="text">
            </div>
            <button class="btn btn-primary btn-lg">Enregistrer</button>
            <div class="error" ng-repeat="error in errors">{{error}}
