@@ -2,7 +2,7 @@
       <legend>Sessions</legend>
        <div class="flat"><a ui-sref="ues/sessions/create({ id_ue: {{id_ue}} })">Créer une session</a></div>
       <div class=" flat session_row" ng-repeat="session in sessions" data-id="{{session.id}}">
-        <a>{{session.title}}</a>
+        <a>[{{session.number}}] {{session.title}}</a>
         <span class="trash">TIME TO DELETE</span>
       </div>
       <div class=" flat session_row" ng-show="!sessions.length">Aucune sessions créées</div>
