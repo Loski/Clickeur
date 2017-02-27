@@ -26,14 +26,14 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router'])
                 });
             },
 
-            delete: function($id){
+            delete: function($id,$scope){
                 var that = this;
                 $http({
                     method: 'DELETE',
                     url:'http://127.0.0.1:8000/api/ues/'+$id,
                 }).then(function(response)
                 {
-                    
+                    $scope.data = response.data;
                 });
             },
 
@@ -70,7 +70,11 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router'])
 
         $scope.delete = function()
         {
+            $scope.data = [];
+            ue.delete($scope);
+            $scope.$watch('data', function(newVal) {
 
+            }); 
         }
 
         $scope.update = function()
