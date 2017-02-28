@@ -4,6 +4,9 @@ var questionnaire = angular.module('questionnaire', ['ngStorage', 'userAuthModul
 	.config(function(RestangularProvider){
 		  RestangularProvider.setBaseUrl('http://127.0.0.1:8000/api/');
 	})
+    .controller('questionnairesController', ['$scope', function($scope){
+        
+    }])
 	.controller('questionnairesFormController', ['$scope', function($scope){
 		
 	}]);

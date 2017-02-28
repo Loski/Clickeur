@@ -33,7 +33,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/ajouterSession.html',
             controller: 'sessionController'
         })
-        .state('ues/sessions/question/', {
+        .state('ues/sessions.question/', {
             url: '/ues/{id_ue}/sessions/{id_session}/question/',
             templateUrl: 'templates/questionListe.html',
             controller: 'questionnairesFormController',
