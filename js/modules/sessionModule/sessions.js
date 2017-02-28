@@ -17,7 +17,15 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 });
             },
 
-            delete: function($id){
+            delete: function($id,$scope){
+                var that = this;
+                $http({
+                    method: 'DELETE',
+                    url:'http://127.0.0.1:8000/api/sessions/'+$id,
+                }).then(function(response)
+                {
+                    $scope.data = response.data;
+                });
             },
 
             add: function($title,$number,$id,$scope)
@@ -51,9 +59,13 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }); 
         }   
 
-        $scope.delete = function()
+        $scope.delete = function($index,$id_session)
         {
+            $scope.data.ue.sessions.splice($index,1);
+            session.delete($id_session,$scope);
+            $scope.$watch('data', function(newVal) {
 
+            }); 
         }
 
         $scope.update = function()
@@ -66,6 +78,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
             $scope.data = [];
             $scope.errors = [];
+            console.log($scope.number);
             session.add($scope.title,$scope.number,$stateParams.id_ue,$scope);
             $scope.$watch('data', function(newVal) {
                 $scope.data = newVal;
