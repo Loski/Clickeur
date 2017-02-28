@@ -11,7 +11,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
                 }).then(function(response)
                 {
-                    console.log(response);
                     $scope.data = response.data;
                 });
             },
@@ -53,7 +52,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 $scope.data = newVal;
                 $scope.sessions = $scope.data['ue'];
                 $scope.id_ue = $stateParams.id_ue;
-                console.log($scope.data.ue);
 
             }); 
         }   

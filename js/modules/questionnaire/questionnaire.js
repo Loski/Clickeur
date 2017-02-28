@@ -1,36 +1,29 @@
 'use strict';
 
-var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModule', 'restangular'])
+var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModule', 'restangular', 'http'])
 	.config(function(RestangularProvider){
         RestangularProvider.setBaseUrl('http://127.0.0.1:8000/api/');
-        RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-            var extractedData;
-            if (operation === "getList") {
-                extractedData = data.result;
-            } else {
-                extractedData = data;
-            }
-            return extractedData;
-        });
+        
 	})
-    .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository' , function($scope, $stateParams, $questionRepository){
+    .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http' , function($scope, $stateParams, $questionRepository, $http){
         $scope.questions = $questionRepository.getList($stateParams.id_session);
         $scope.id_session = $stateParams.id_session;
         $scope.id_ue = $stateParams.id_ue;
+        console.log($scope.questions);
 
+
+    }])
+	.controller('questionnairesFormController', ['$scope', function($scope){
+    	$scope.response = [{id: 'response1'}, {id: 'choice2'}];
         $scope.addNewResponse = function() {
             var newItemNo = $scope.choices.length+1;
-            $scope.choices.push({'id':'choice'+newItemNo});
+            $scope.response.push({'id':'choice'+newItemNo});
         };
 
         $scope.removeResponse = function() {
             var lastItem = $scope.choices.length-1;
             $scope.choices.splice(lastItem);
         };
-
-    }])
-	.controller('questionnairesFormController', ['$scope', function($scope){
-		console.log($scope);
 	}]);
 
 questionnaire.factory('questionRepository', ['Restangular', function (restangular) {
@@ -42,7 +35,14 @@ questionnaire.factory('questionRepository', ['Restangular', function (restangula
             };
         },
         getList:function(id_session) {
-            return restangular.one("sessions", id_session).getList("questions");
+                var that = this;
+                $http({
+                    method: 'GET',
+                    url:'http://127.0.0.1:8000/api/sessions/'+$id+"/questions/"
+                }).then(function(response)
+                {
+                    $scope.data = response.data;
+                });
         },
         get:function(id_session, id_question) {
             return restangular.one("sessions", id_session).customGET("questions", id_question);
