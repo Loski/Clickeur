@@ -12,8 +12,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $questionRepository.getList($scope,$stateParams.id_session);
         $scope.id_session = $stateParams.id_session;
         $scope.id_ue = $stateParams.id_ue;
-<<<<<<< HEAD
-=======
         $scope.$watch('data', function(newVal) {
             $scope.data = newVal;
             if(!angular.isUndefined($scope.data.session))
@@ -26,7 +24,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 $scope.propositions = $scope.dataRep.question.propositions;
         });
 
->>>>>>> origin/master
     }])
 	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', function($scope, $stateParams, questionRepository){
 
@@ -77,7 +74,7 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
                     });
 
                 });
-        },
+         },
         get:function(id_session, id_question) {
             return restangular.one("sessions", id_session).customGET("questions", id_question);
         },
