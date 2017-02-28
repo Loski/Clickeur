@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule']);
+var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -29,18 +29,16 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             controller: 'sessionController'
         })
         .state('ues/sessions/create', {
-            url:'/ues/{id_ue}/sessions/{id_session}/create',
+            url:'/ues/{id_ue}/sessions/create',
             templateUrl: 'templates/ajouterSession.html',
             controller: 'sessionController'
         })
-        .state('ues/sessions.question/', {
-            url: '/ues/{id_ue}/sessions/{id_session}/question/',
-            templateUrl: 'templates/questionListe.html',
-            controller: 'questionnairesFormController',
-            resolve: {
-                item: ['$stateParams', 'questionRepository', function ($stateParams, questionRepository) {
-                    return questionRepository.getList($stateParams.id_session);
-                }]
+        .state('ues/sessions.questions/', {
+            url: '/{id_session}/question/',
+            views: {
+              'questions': { 
+                templateUrl: 'templates/questionsListe.html',
+                controller: 'questionnairesController', },
             }
         })
         .state('ues/sessions/question/create', {
@@ -48,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/questionnaires.html',
             controller: 'questionnairesController'
         })
-        .state('ue/:ueID/session/:sessionID/question/:idQuestionnaire/edit', {
+        /*.state('ue/:ueID/session/:sessionID/question/:idQuestionnaire/edit', {
             url: '/questionnaires',
             templateUrl: 'templates/ajouterQuestion.html',
             controller: 'questionnairesController',
@@ -61,15 +59,13 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         })
         .state('question/create', {
             url: 'question/create',
-            templateUrl: 'templates/ajouterQuestion.html',
-            controller: 'questionnairesController',
-            resolve: {
-                item: ['$route', 'questionRepository', function ($route, questionRepository) {
-                    return questionRepository.getNew();
-                }],
-                formType: function () { return Enums.FormType.CREATE; }
-            }
-        })
+            views: {
+              'questions@': { 
+                templateUrl: 'templates/ajouterQuestion.html',
+                controller: 'questionnairesController', },
+            },
+            
+        })*/
     // default route
   //  $urlRouterProvider.otherwise("/");
     //Interceptor of request and response
