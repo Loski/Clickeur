@@ -41,10 +41,14 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 controller: 'questionnairesController', },
             }
         })
-        .state('ues/sessions/question/create', {
-            url: '/ues/{id_ue}/sessions/{id_session}/question/create',
-            templateUrl: 'templates/questionnaires.html',
-            controller: 'questionnairesController'
+        .state('ues/sessions.questions/create', {
+            url: '/questions/create',
+            views:{
+                'affichage':{
+                    templateUrl: 'templates/ajouterQuestion.html',
+                    controller: 'questionnairesController'
+                }
+            }
         })
         /*.state('ue/:ueID/session/:sessionID/question/:idQuestionnaire/edit', {
             url: '/questionnaires',
@@ -120,7 +124,6 @@ app.run(run);
 
 app.controller('navController',  ['$scope', 'userAuth','$state', function($scope, userAuth){
     $scope.logout = function(){
-        console.log("michou");
         userAuth.logout();
     }
 

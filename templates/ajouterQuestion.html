@@ -1,32 +1,30 @@
-<div class="container top_elem" >
-	<form class="flat">
-		<fieldset>
-			<legend>Ajouter une nouvelle question</legend>
-			<div class="form-group row ">
-				<label for="question" class="col-2 col-form-label">Question</label>
-				<div class="col-10">
-					<input type="text" autocapitalize="sentences" required class="form-control" placeholder="Question" name="question" id="question">
-				</div>
+<form class="flat">
+	<fieldset>
+		<legend>Ajouter une nouvelle question</legend>
+		<div class="form-group row ">
+			<label for="question" class="col-2 col-form-label">Question</label>
+			<div class="col-10">
+				<input type="text" autocapitalize="sentences" required class="form-control" placeholder="Question" name="question" id="question">
 			</div>
-			<div class="reponseList">
-				<div class="form-group row reponse">
-					<label for="reponse" class="col-2 col-form-label">Réponse 1</label>
-					<div class="col-6">
-						<textarea  name="reponse_1_question_1" class="form-control" required></textarea>
-					</div>
-					<div class="col-3 offset-1">
-						<label class="col-form-label reponse_valide">
-				  			<input  class="form-check" type="checkbox" id="cbox1_reponse_1_question_1" value="checkbox1">
-				  			Réponse correcte.
-				  		</label>
-				  	<i class="fa fa-trash-o fa-2x delete" aria-hidden="true"></i>
-					</div>
-				</div>
-			</div>
-				<button type="button" class="btn btn-primary new_Rep">Nouvelle réponse</button>
-		</fieldset>
-		<div class="centerize">
-				<button type="submit" class="btn btn-primary">Enregistrer</button>
 		</div>
-	</form>
-</div>
+		<div class="reponseList">
+			<div class="form-group row reponse">
+				<label for="reponse" class="col-2 col-form-label">Réponse 1</label>
+				<div class="col-6">
+					<textarea  name="reponse_1_question_1" class="form-control" required></textarea>
+				</div>
+				<div class="col-3 offset-1">
+					<label class="col-form-label reponse_valide">
+			  			<input  class="form-check" type="checkbox" id="cbox1_reponse_1_question_1" value="checkbox1">
+			  			Réponse correcte.
+			  		</label>
+			  	<i class="fa fa-trash-o fa-2x delete" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+			<button type="button" class="btn btn-primary new_Rep">Nouvelle réponse</button>
+	</fieldset>
+	<div class="centerize">
+			<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</div>
+</form>
