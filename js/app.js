@@ -29,9 +29,19 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             controller: 'sessionController'
         })
         .state('ues/sessions/create', {
-            url:'/ues/{id_ue}/sessions/create',
+            url:'/ues/{id_ue}/sessions/{id_session}/create',
             templateUrl: 'templates/ajouterSession.html',
             controller: 'sessionController'
+        })
+        .state('ues/sessions/question/', {
+            url: '/ues/{id_ue}/sessions/{id_session}/question/',
+            templateUrl: 'templates/questionListe.html',
+            controller: 'questionnairesFormController',
+            resolve: {
+                item: ['$stateParams', 'questionRepository', function ($stateParams, questionRepository) {
+                    return questionRepository.getList($stateParams.id_session);
+                }]
+            }
         })
         .state('ues/sessions/question/create', {
             url: '/ues/{id_ue}/sessions/{id_session}/question/create',
