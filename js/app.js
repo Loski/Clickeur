@@ -42,11 +42,11 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             }
         })
         .state('ues/sessions.questions/create', {
-            url: '/questions/create',
+            url: '/{id_session}/questions/create',
             views:{
                 'affichage':{
                     templateUrl: 'templates/ajouterQuestion.html',
-                    controller: 'questionnairesController'
+                    controller: 'questionnairesFormController'
                 }
             }
         })
@@ -126,8 +126,4 @@ app.controller('navController',  ['$scope', 'userAuth','$state', function($scope
     $scope.logout = function(){
         userAuth.logout();
     }
-
-    $scope.walid = "walid";
-
-
 }]);

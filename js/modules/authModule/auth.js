@@ -60,7 +60,6 @@ var informationUser = angular.module('userAuthModule', ['ngStorage'])
             },
             logout : function(){
               //  $http.get('http://127.0.0.1:8000/api/auth', {token: $localStoragetoken});
-              console.log("JE VAIS TE NIQUER");
                 $localStorage = {};
                 console.log($localStorage.token + "delete");
             },

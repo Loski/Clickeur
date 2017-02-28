@@ -9,20 +9,25 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.questions = $questionRepository.getList($stateParams.id_session);
         $scope.id_session = $stateParams.id_session;
         $scope.id_ue = $stateParams.id_ue;
-        console.log($scope.questions);
-
-
     }])
-	.controller('questionnairesFormController', ['$scope', function($scope){
-    	$scope.response = [{id: 'response1'}, {id: 'choice2'}];
+	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', function($scope, $stateParams, questionRepository){
+
+    	$scope.responses = [{id: 'response1'}, {id: 'response2'}];
+        $scope.question = "";
+        $scope.id_session = $stateParams.id_session;
+        $scope.title ="";
         $scope.addNewResponse = function() {
-            var newItemNo = $scope.choices.length+1;
-            $scope.response.push({'id':'choice'+newItemNo});
+            var newItemNo = $scope.responses.length+1;
+            $scope.responses.push({'id':'choice'+newItemNo});
         };
 
         $scope.removeResponse = function() {
-            var lastItem = $scope.choices.length-1;
-            $scope.choices.splice(lastItem);
+            var lastItem = $scope.responses.length-1;
+            $scope.responses.splice(lastItem);
+        };
+
+        $scope.envoyer = function(){
+            questionRepository.create($scope.id_session, $scope.title);
         };
 	}]);
 
@@ -35,14 +40,14 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
             };
         },
         getList:function(id_session) {
-                var that = this;
-                $http({
-                    method: 'GET',
-                    url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                }).then(function(response)
-                {
-                    return response.data;
-                });
+            var that = this;
+            $http({
+                method: 'GET',
+                url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
+            }).then(function(response)
+            {
+                return response.data;
+            });
         },
         get:function(id_session, id_question) {
             return restangular.one("sessions", id_session).customGET("questions", id_question);
@@ -50,8 +55,16 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
         update : function(updatedResource) {
             return updatedResource.put();
         },
-        create: function (newResource) {
-            return restangular.all(this.route).post(newResource);
+        create: function (id_session, $title) {
+            var that = this;
+            $http({
+                method: 'POST',
+                url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
+                data: "title="+$title+"&number=5"+"&opened=0",
+            }).then(function(response)
+            {
+                return response.data;
+            });
         }
     }
 }]);
