@@ -4,13 +4,12 @@
 	       <div class="flat"><a ui-sref="ues/sessions/create({ id_ue: {{id_ue}} })">Créer une session</a></div>
 	      <div class=" flat session_row" ng-repeat="session in data.ue.sessions| orderBy:'+number'" data-id="{{session.id}}">
 	        <a>[{{session.number}}] {{session.title}}</a>
-	        <a ui-sref="ues/sessions.questions/({ id_ue: {{id_ue}}, id_session: {{session.id}} })">BOOM</a>
-	        <i class="fa fa-trash-o fa-2x delete" aria-hidden="true" ng-click="delete(session)"></i>
+	        <i class="fa fa-trash-o fa-2x pull-right delete" aria-hidden="true" ng-click="delete(session)"></i>
+	        <a ui-sref="ues/sessions.questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })"><i class="fa fa-2x fa-cog pull-right" aria-hidden="true"></i></a>
 	      </div>
 	      <div class=" flat session_row" ng-show="!data.ue.sessions.length">Aucune sessions créées</div>
 	</div>
 </span>
 <span class="col-sm-4 top_elem" ui-view="questions"></span>
-<span class="col-sm-5 top_elem" ui-view="affichage"></span>
-
+<span class="col-sm-5 top_elem" ui-view="affichage1"></span>
 

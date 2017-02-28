@@ -33,21 +33,26 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/ajouterSession.html',
             controller: 'sessionController'
         })
-        .state('ues/sessions.questions/', {
-            url: '/{id_session}/question/',
+        .state('ues/sessions.questions', {
+            url: '/{id_session}/question',
             views: {
-              'questions': { 
+              'questions': {
                 templateUrl: 'templates/questionsListe.html',
-                controller: 'questionnairesController', },
-            }
+                controller: 'questionnairesController'
+                },
+                'affichage1':{
+                    template: '<span ui-view="affichage"></span>',
+                    controller: 'questionnairesController',
+                }
+        }
         })
-        .state('ues/sessions.questions/create', {
-            url: '/{id_session}/questions/create',
+        .state('ues/sessions.questions.create', {
+            url: '/create',
             views:{
                 'affichage':{
                     templateUrl: 'templates/ajouterQuestion.html',
                     controller: 'questionnairesFormController'
-                }
+                },
             }
         })
         /*.state('ue/:ueID/session/:sessionID/question/:idQuestionnaire/edit', {
