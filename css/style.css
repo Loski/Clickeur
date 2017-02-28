@@ -195,7 +195,7 @@ a:link
 }
 
 
-.information, .question{
+.information, .questionTitle{
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -212,7 +212,7 @@ a:link
     align-self: flex-start;
 }
 
-.information span, .question span{
+.information span, .questionTitle span{
     margin: auto;
 }
 .information .libelle{

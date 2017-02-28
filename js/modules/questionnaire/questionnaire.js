@@ -6,11 +6,23 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         
 	})
     .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http' , function($scope, $stateParams, $questionRepository, $http){
-        $scope.questions = $questionRepository.getList($stateParams.id_session);
+        
+        $scope.data = [];
+        $scope.dataRep = [];
+        $questionRepository.getList($scope,$stateParams.id_session);
         $scope.id_session = $stateParams.id_session;
         $scope.id_ue = $stateParams.id_ue;
-        console.log($scope.questions);
+        $scope.$watch('data', function(newVal) {
+            $scope.data = newVal;
+            if(!angular.isUndefined($scope.data.session))
+                $scope.questions = $scope.data.session.questions;
+        }); 
 
+        $scope.$watch('dataRep', function(newVal) {
+            $scope.dataRep = newVal;
+            if(!angular.isUndefined($scope.dataRep.question))
+                $scope.propositions = $scope.dataRep.question.propositions;
+        });
 
     }])
 	.controller('questionnairesFormController', ['$scope', function($scope){
@@ -34,14 +46,25 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
                 name:'Réponse 1', val:''
             };
         },
-        getList:function(id_session) {
+        getList:function($scope,id_session) {
                 var that = this;
                 $http({
                     method: 'GET',
                     url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                 }).then(function(response)
                 {
-                    return response.data;
+                    $scope.data = response.data;
+
+                    console.log($scope.data);
+
+                    $http({
+                        method: 'GET',
+                        url:'http://127.0.0.1:8000/api/questions/'+response.data.session.questions[0].id+"/propositions/"
+                    }).then(function(responseRep)
+                    {
+                        $scope.dataRep = responseRep.data;
+                    });
+
                 });
         },
         get:function(id_session, id_question) {
