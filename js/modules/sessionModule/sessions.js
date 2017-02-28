@@ -22,7 +22,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     url:'http://127.0.0.1:8000/api/sessions/'+$id,
                 }).then(function(response)
                 {
-                    $scope.data = response.data;
+                    //$scope.data = response.data;
                 });
             },
 
@@ -56,13 +56,15 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }); 
         }   
 
-        $scope.delete = function($index,$id_session)
+        $scope.delete = function(session)
         {
-            $scope.data.ue.sessions.splice($index,1);
-            session.delete($id_session,$scope);
-            $scope.$watch('data', function(newVal) {
+            var index = $scope.getPostIndex(session);
+            $scope.data.ue.sessions.splice(index,1);
+            session.delete(session.id,$scope);
+        }
 
-            }); 
+        $scope.getPostIndex = function (post) {
+            return  $scope.data.ue.sessions.indexOf(post); //this will return the index from the array
         }
 
         $scope.update = function()

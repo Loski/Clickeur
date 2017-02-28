@@ -5,7 +5,7 @@
 	      <div class=" flat session_row" ng-repeat="session in data.ue.sessions| orderBy:'+number'" data-id="{{session.id}}">
 	        <a>[{{session.number}}] {{session.title}}</a>
 	        <a ui-sref="ues/sessions.questions/({ id_ue: {{id_ue}}, id_session: {{session.id}} })">BOOM</a>
-	        <i class="fa fa-trash-o fa-2x delete" aria-hidden="true" ng-click="delete($index,session.id)"></i>
+	        <i class="fa fa-trash-o fa-2x delete" aria-hidden="true" ng-click="delete(session)"></i>
 	      </div>
 	      <div class=" flat session_row" ng-show="!data.ue.sessions.length">Aucune sessions créées</div>
 	</div>
