@@ -4,7 +4,6 @@
 var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
     .factory('session', ['$http',function($http){
         return{
-
             get_session_list: function($scope,$id){
                 var that = this;
                 $http({

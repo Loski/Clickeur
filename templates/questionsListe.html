@@ -1,4 +1,4 @@
 <ul>
-	<li ng-repeat="question in questions"></li>
-	<li>Ajouter une question</li>
+	<li class="flat" ng-repeat="question in questions"></li>
+	<li class="flat"><a ui-sref="ues/sessions.questions/({ id_ue: {{id_ue}}, id_session: {{session.id}} })"">Ajouter une question</a></li>
 </ul>

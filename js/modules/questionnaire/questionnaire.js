@@ -6,13 +6,13 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 	})
     .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository' , function($scope, $stateParams, $questionRepository){
         $scope.questions = $questionRepository.getList($stateParams.id_session);
-        console.log($scope.questions);
     }])
 	.controller('questionnairesFormController', ['$scope', function($scope){
 		console.log($scope);
 	}]);
 
 questionnaire.factory('questionRepository', ['Restangular', function (restangular) {
+    console.log(restangular);
     return {
         getNew:function(){
         	return {
@@ -20,7 +20,7 @@ questionnaire.factory('questionRepository', ['Restangular', function (restangula
             };
         },
         getList:function(id_session) {
-            return restangular.all("sessions").customGETLIST("questions");
+            return restangular.one("sessions", id_session).getList("questions");
         },
         get:function(id_session, id_question) {
             return restangular.one("sessions", id_session).customGET("questions", id_question);
