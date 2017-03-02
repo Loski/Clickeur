@@ -62,9 +62,6 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
                 }).then(function(response)
                 {
                     $scope.data = response.data;
-
-                    console.log($scope.data);
-
                     $http({
                         method: 'GET',
                         url:'http://127.0.0.1:8000/api/questions/'+response.data.session.questions[0].id+"/propositions/"

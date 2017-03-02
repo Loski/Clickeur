@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ngResource', 'ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire']);
+var app = angular.module('clicker', ['ui.router', 'ngStorage', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -105,13 +105,18 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         }
     });
 
-function run($rootScope, $location, $localStorage, $http) {
+function run($rootScope, $location, $localStorage, $http, userAuth) {
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        if ($localStorage.token) {
-          //  $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
-        }
         // redirect to login page if not logged in
-        if ($location.path() !== '/login' && !$localStorage.token) {
+        if ($location.path() !== '/login' && !$localStorage.token || !userAuth.isIdentified()) {
+            $location.path('/login');
+        }
+    });
+
+    $rootScope.$on('$stateChangeStart',
+        function (event, next, current) {
+        // redirect to login page if not logged in
+        if ($location.path() !== '/login' && !$localStorage.token || !userAuth.isIdentified()) {
             $location.path('/login');
         }
     });
@@ -127,8 +132,10 @@ function(event, unfoundState, fromState, fromParams){
 app.run(run);
 
 
-app.controller('navController',  ['$scope', 'userAuth','$state', function($scope, userAuth){
+app.controller('navController',  ['$scope', 'userAuth','$localStorage', function($scope, userAuth, $localStorage){
     $scope.logout = function(){
         userAuth.logout();
     }
+
+    console.log(userAuth.parseJwt($localStorage.token));
 }]);
