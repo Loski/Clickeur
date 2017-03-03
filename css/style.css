@@ -8,7 +8,7 @@ html, body {
 body{
     font-family: "Roboto", "Verdana", "Times New Roman", Times, "Nimbus Roman No9 L", serif;
     font-size: 0.9em;
-    background-color: #e9edf0;;
+    background-color: #E4F1FE;;
     color: black;
 }
 
@@ -25,21 +25,29 @@ nav ul li:last{
 .flat.container{
     margin-bottom: 3rem;
 }
-.flat h1{
+.flat>h1{
 	text-align: center;
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 1.7em;
 }
-
+.title{
+    background-color: #96281B;
+}
+.display-block > div{
+    margin:5px;
+}
 a{
-
 	color: #16528e;
 }
-.clickable.odd{
-	background-color: #16528e;
+.clickable.even{
+	background-color: #446CB3;
+}
+.clickable.even a{
 	color: white;
 }
-.clickable.odd a{
-	color: white;
-}
+
 .bd-pageheader {
     margin-bottom: 3rem;
     text-align: left;
@@ -110,46 +118,9 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
 #questionnaire .bootstrap-select{
     width:100%;
 }
-=======
-.box_title
-{
-    text-align: center;
-    font-weight:bold;
-}
-
-.list_header div
-{
-    font-weight:bold;
-}
-
-.questionnaire_Row div, .list_header div
-{
-    width:30%;
-    text-align: center;
-    display:inline-block;
-}
 
 
-.bootstrap-select.show>.dropdown-menu>.dropdown-menu {
-    display: block;
-}
 
-.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{
-    display:none;
-}
-
-.bootstrap-select > .dropdown-menu > .dropdown-menu li a{
-    display: block;
-    width: 100%;
-    padding: 3px 1.5rem;
-    clear: both;
-    font-weight: 400;
-    color: #292b2c;
-    text-align: inherit;
-    white-space: nowrap;
-    background: 0 0;
-    border: 0;
-}
 .centerize { 
     text-align: center;
 }
@@ -168,8 +139,7 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     justify-content: center;
 }
 .display-ues a{
-    font-weight: 600;
-    display: inline-flex;
+     display: inline-flex;
     font-size: 1.2em;
     width:100%;
 }
@@ -197,60 +167,6 @@ a:link
     background-color: #CC6666;
     padding: 15px;
 }
-
-
-.container-question div > div{
-  padding: 10px;
-}
-
-.container-reponse{
-    display: flex;
-    align-items: normal;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.container-reponse div{
-    display: inline-flex;
-}
-
-
-.information, .questionTitle{
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-around;
-}
-.information{
-    padding: 30px;
-}
-.information .data{
-    align-self: flex-end;
-}
-
-.information .code-ue{
-    align-self: flex-start;
-}
-
-.information span, .questionTitle span{
-    margin: auto;
-}
-.information .libelle{
-    font-weight: 800;
-    font-size: 1.2em;
-}
-
-.qcm>.flat{
-    margin-bottom: 25px;
-}
-
-.question span{
-    font-size: 1.1em;
-}
-.container-question{
-    margin-bottom: 15px;
-}
-
 
 
 * {
