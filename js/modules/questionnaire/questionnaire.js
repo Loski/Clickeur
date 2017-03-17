@@ -5,11 +5,11 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         RestangularProvider.setBaseUrl('http://127.0.0.1:8000/api/');
         
 	})
-    .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http' , function($scope, $stateParams, $questionRepository, $http){
+    .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http' , function($scope, $stateParams, questionRepository, $http){
         
         $scope.data = [];
         $scope.dataRep = [];
-        $questionRepository.getList($scope,$stateParams.id_session);
+        questionRepository.getList($scope,$stateParams.id_session);
         $scope.id_session = $stateParams.id_session;
         $scope.id_ue = $stateParams.id_ue;
         $scope.$watch('data', function(newVal) {
@@ -23,6 +23,10 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             if(!angular.isUndefined($scope.dataRep.question))
                 $scope.propositions = $scope.dataRep.question.propositions;
         });
+
+        $scope.lancer = function(id){
+            questionRepository.switchState(id);
+        }
 
     }])
 	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', function($scope, $stateParams, questionRepository){
@@ -47,7 +51,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 	}]);
 
 questionnaire.factory('questionRepository', ['Restangular', '$http', function (restangular, $http) {
-    console.log(restangular);
     return {
         getNew:function(){
         	return {
@@ -84,6 +87,15 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
                 method: 'POST',
                 url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
                 data: "title="+$title+"&number=5"+"&opened=0",
+            }).then(function(response)
+            {
+                return response.data;
+            });
+        },
+        switchState: function(id){
+            $http({
+                method: 'POST',
+                url:'http://127.0.0.1:8000/api/questions/'+id
             }).then(function(response)
             {
                 return response.data;

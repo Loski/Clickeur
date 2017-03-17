@@ -16,12 +16,34 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         .state('ues', {
             url:'/ues',
             templateUrl: 'templates/ues.html',
-            controller: 'ueController'
+            controller: 'ueController',
+            resolve: {
+                ues_list : function(ueService){
+                    return ueService.get_ue_list();
+                }
+            }
         })
         .state('ues/create', {
             url:'/ues/create',
             templateUrl: 'templates/ajouterUe.html',
-            controller: 'ueController'
+            controller: 'ueControllerForm',
+            resolve: {
+                item: ['ueService', function (ueService) {
+                    return ueService.getNew();
+                }],
+                formType: function () { return "CREATE"; }
+            },
+        })
+        .state('ues/edit/', {
+            url:'/ues/edit/{id}',
+            templateUrl: 'templates/ajouterUe.html',
+            controller: 'ueControllerForm',
+            resolve: {
+                item: ['ueService', '$stateParams', function (ueService, $stateParams) {
+                    return ueService.get($stateParams.id).data;
+                }],
+                formType: function () { return "CREATE"; }
+            },
         })
         .state('ues/sessions', {
             url:'/ues/{id_ue}/sessions',
@@ -49,7 +71,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         .state('ues/sessions.questions.create', {
             url: '/create',
             views:{
-                'affichage':{
+                "@ ":{
                     templateUrl: 'templates/ajouterQuestion.html',
                     controller: 'questionnairesFormController'
                 },
@@ -85,7 +107,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             config.params = config.params || {};
             var access_token = $localStorage.token;
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-            if (access_token) {
+            if (access_token !== undefined) {
                 config.params.token = access_token;
             }else{
                config.params.token = "";
@@ -96,6 +118,8 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         if (response.status === 401) {
             $rootScope.$broadcast('unauthorized');
             //TO DO AJOUTER LISTENER
+        }else if(response.status == 405){
+            //console.log(response);
         }
             return response;
         };
@@ -108,7 +132,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 function run($rootScope, $location, $localStorage, $http, userAuth) {
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // redirect to login page if not logged in
-        if ($location.path() !== '/login' && !$localStorage.token || !userAuth.isIdentified()) {
+        if ($location.path() !== '/login' && (!$localStorage.token || !userAuth.isIdentified())) {
             $location.path('/login');
         }
     });
@@ -116,8 +140,9 @@ function run($rootScope, $location, $localStorage, $http, userAuth) {
     $rootScope.$on('$stateChangeStart',
         function (event, next, current) {
         // redirect to login page if not logged in
-        if ($location.path() !== '/login' && !$localStorage.token || !userAuth.isIdentified()) {
+        if ($location.path() !== '/login' && (!$localStorage.token || !userAuth.isIdentified())) {
             $location.path('/login');
+            console.log("changement needed");
         }
     });
 
@@ -136,6 +161,6 @@ app.controller('navController',  ['$scope', 'userAuth','$localStorage', function
     $scope.logout = function(){
         userAuth.logout();
     }
-
-    console.log(userAuth.parseJwt($localStorage.token));
+    $scope.auth = userAuth.isIdentified();
+    console.log("is Authentified =" + $scope.auth);
 }]);

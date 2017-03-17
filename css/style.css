@@ -8,11 +8,24 @@ html, body {
 body{
     font-family: "Roboto", "Verdana", "Times New Roman", Times, "Nimbus Roman No9 L", serif;
     font-size: 0.9em;
-    background-color: #E4F1FE;;
+    background-color: #e8eaf6;
     color: black;
 }
-
-
+* {
+  margin: 0;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -70px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+footer, .page-wrap:after {
+  height: 70px; 
+}
 nav ul li:last{
     align-self: right;
 }
@@ -33,21 +46,52 @@ nav ul li:last{
     font-size: 1.7em;
 }
 .title{
-    background-color: #96281B;
+    background-color: #795548;
 }
-.display-block > div{
+.display-block .flat{
     margin:5px;
 }
+
+
 a{
 	color: #16528e;
 }
-.clickable.even{
-	background-color: #446CB3;
-}
-.clickable.even a{
-	color: white;
+
+.clickable{
+    cursor: pointer;
 }
 
+.clickable a, .clickable i.fa, .clickable span, .title{
+    color: #6d4c41;
+}
+.clickable:hover
+{
+    background-color: rgba(158,158,158,0.2);
+    transition: 1.4s;
+}
+
+.bottom-bar{
+    margin:0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding-left: 0px;
+}
+.bottom-bar li{
+    margin: auto;
+}
+
+.bottom-bar li{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.bottom-bar li span, .bottom-bar li i{
+    margin:auto;
+}
+.bottom-bar li{
+    cursor: pointer;
+}
 .bd-pageheader {
     margin-bottom: 3rem;
     text-align: left;
@@ -102,10 +146,6 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     margin-left: 5%;
 }
 
-#questionnaire legend{
-    margin: 35px 0 35px 0;
-    text-align: center; 
-}
 
 #questionnaire button[type="submit"]{
     margin: auto;
@@ -120,37 +160,12 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
 }
 
 
-
 .centerize { 
     text-align: center;
 }
 
-.display-ues a{
-    min-height: 50px;
-    min-width: 50px;
-    padding: 12px;
-}
-.display-ues div{
-    margin:5px;
-}
-.display-ues{
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-}
-.display-ues a{
-     display: inline-flex;
-    font-size: 1.2em;
-    width:100%;
-}
 
-.clickable:hover
-{
-    opacity: 0.5;
-    background-color: #d5d4cc;
 
-    transition: 2s;
-}
 
 a:link 
 { 
@@ -168,22 +183,3 @@ a:link
     padding: 15px;
 }
 
-
-* {
-  margin: 0;
-}
-html, body {
-  height: 100%;
-}
-.page-wrap {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -70px; 
-}
-.page-wrap:after {
-  content: "";
-  display: block;
-}
-footer, .page-wrap:after {
-  height: 70px; 
-}
