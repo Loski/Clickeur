@@ -57,7 +57,6 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
         $scope.code_ue ='';
         $scope.nom_ue = '';
         $scope.ues_list = ues_list.data;
-        console.log(ues_list);
         $scope.loadList = function()
         {
             $scope.data = [];
@@ -80,12 +79,15 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
     }])
      .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', function($scope , ueService, item, formType){
 
-        $scope.$title = (formType === "CREATE") ? "Ajouter un UE" : "Edition de l'UE";
+        $scope.title = (formType === "CREATE") ? "Ajouter un UE" : "Edition de l'UE";
         $scope.code_ue = item.code_ue;
         $scope.nom_ue = item.nom_ue;
+        $scope.formType = formType;
 
-        $scope.submit = function(formType){
-            if(formType === "CREATE"){
+        $scope.submit = function(){
+            console.log($scope.formType);
+
+            if($scope.formType === "CREATE"){
                 $scope.add();
             }else{
                 $scope.update();
