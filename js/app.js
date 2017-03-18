@@ -35,7 +35,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             },
         })
         .state('ues/edit/', {
-            url:'/ues/edit/{id}',
+            url:'/ues/edit/{id_ue}',
             templateUrl: 'templates/ajouterUe.html',
             controller: 'ueControllerForm',
             resolve: {
@@ -45,17 +45,25 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return "CREATE"; }
             },
         })
-        .state('ues/sessions', {
-            url:'/ues/{id_ue}/sessions',
-            templateUrl: 'templates/sessions.html',
-            controller: 'sessionController'
+        .state('ues.sessions', {
+            url:'/{id_ue}/sessions',
+            views:{
+                "@": {
+                    templateUrl: 'templates/sessions.html',
+                    controller: 'sessionController',
+                }
+            }
         })
-        .state('ues/sessions/create', {
-            url:'/ues/{id_ue}/sessions/create',
-            templateUrl: 'templates/ajouterSession.html',
-            controller: 'sessionController'
+        .state('ues.sessions.create', {
+            url:'/create',
+            views: {
+                "questions":{
+                    templateUrl: 'templates/ajouterSession.html',
+                    controller: 'sessionsFormController'
+                }
+            }
         })
-        .state('ues/sessions.questions', {
+        .state('ues.sessions.questions', {
             url: '/{id_session}/question',
             views: {
               'questions': {
@@ -68,7 +76,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
         }
         })
-        .state('ues/sessions.questions.create', {
+        .state('ues.sessions.questions.create', {
             url: '/create',
             views:{
                 "@ ":{

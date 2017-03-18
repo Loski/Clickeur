@@ -23,25 +23,22 @@
 <body>
     <div class="container-fluid page-wrap">
         <header ng-controller="navController" ng-show="auth" class="row">
-            <nav class="navbar navbar-toggleable-md navbar-light bg-faded col-12 flat">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                          <a class="nav-link" ui-sref="index"><img src="includes/img/logo.jpg" class="img-responsive"> <span class="sr-only">(current)</span></a>
+            <nav class="navbar navbar-light bg-faded col-12 flat">
+                <div>
+                    <ul>
+                        <li>
+                          <a ui-sref="index"><img src="includes/img/logo.jpg" class="img-responsive"> <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ui-sref="ues">Mes UEs</a>
+                        <li>
+                            <a ui-sref="ues">Mes UEs</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ui-sref="question/create">Mes Questionnaires</a>
+                        <li>
+                            <a ui-sref="question/create">Mes Questionnaires</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ui-sref="question/create">Ajouter un questionnaire</a>
+                        <li>
+                            <a ui-sref="question/create">Ajouter un questionnaire</a>
                         </li>
-                        <li class="nav-item">
+                        <li>
                             <button class="btn btn-primary" ng-click="logout()">Se déconnecter</button>
                         </li>
                     </ul>

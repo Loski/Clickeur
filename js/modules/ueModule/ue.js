@@ -2,19 +2,8 @@
 'use strict';
 
 var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResource'])
-    .factory('ueService', ['$http',function($http){
+    .factory('ueService', ['$http', function($http){
         return{
-
-           /* succesGettingUe : function(response){
-                console.log(response);
-                return response;
-            },
-
-            errorGettingUe : function(response){
-                console.log("ERROR : "+response);
-                return [];
-            },*/
-
             get_ue_list: function(){
                 var that = this;
                 return $http({
@@ -23,15 +12,19 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
                 });
             },
 
-            delete: function($id,$scope){
+            delete: function($id){
+                console.log('im in');
                 var that = this;
                 $http({
                     method: 'DELETE',
                     url:'http://127.0.0.1:8000/api/ues/'+$id,
-                }).then(function(response)
-                {
-                    $scope.data = response.data;
-                });
+                }).then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                  }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                  });
             },
 
             add: function($code_ue,$nom_ue,$scope)
@@ -42,12 +35,13 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
                     method: 'POST',
                     url:'http://127.0.0.1:8000/api/ues/',
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
-                }).then(function successCallback(response){
-                    $scope.data = response.data;
-                    console.log(response);
-                }, function errorCallback(response) {
-                    console.log("michou");
-                });
+                }).then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                  }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                  });
                 
             },
 
@@ -75,10 +69,10 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
             }); 
         }   
 
-        $scope.delete = function()
+        $scope.delete = function(id)
         {
-            $scope.data = [];
-            ueService.delete($scope);
+            console.log("im out");
+            ueService.delete(id);
             $scope.$watch('data', function(newVal) {
 
             }); 

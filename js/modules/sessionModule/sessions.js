@@ -40,10 +40,15 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }
         }
     }])
-    .controller('sessionController', ['$scope', 'session','$stateParams', function($scope, session,$stateParams){
+    .controller('sessionController', ['$scope', 'session','$stateParams', 'ues_list', function($scope, session,$stateParams, ues_list){
         $scope.title ='';
         $scope.number = '';
+        $scope.ues_list = ues_list.data;
+        var id = $stateParams.id_ue;
+        $scope.myue = ($scope.ues_list.my_ues[id] != undefined) ? $scope.ues_list.my_ues[id] : $scope.ues_list.other_ues[id];  
         $scope.id_ue = $stateParams.id_ue;
+
+
         $scope.loadList = function()
         {
             $scope.data = [];
@@ -62,16 +67,11 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             $scope.data.ue.sessions.splice(index,1);
             session.delete(session.id,$scope);
         }
-
         $scope.getPostIndex = function (post) {
             return  $scope.data.ue.sessions.indexOf(post); //this will return the index from the array
         }
 
-        $scope.update = function()
-        {
-
-        }
-
+}]).controller('sessionsFormController', ['$scope', 'session','$stateParams', function($scope, session,$stateParams, ues_list){
         $scope.add = function()
         {
 
@@ -87,7 +87,13 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     $scope.errors=$scope.data.error.errors;
                     console.log($scope.data.error.errors);
                 }
-            }); 
-            
+            });  
         }
-}]);
+
+        $scope.update = function()
+        {
+
+        }
+}])
+
+;

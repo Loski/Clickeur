@@ -2,7 +2,10 @@
     <div class="flat title">
         <h1>Questions</h1>
     </div>
-    <div class="flat ue_row" ng-show="!questions.length">Aucune question</div>
+    <a ui-sref=".create">
+        <div class="flat">Ajouter une question</div>
+    </a>
+    <div class="flat" ng-show="!questions.length">Aucune question</div>
     <div class="question flat clickable" ng-repeat="question in questions | orderBy:'+number'" ng-class-odd="'odd'" ng-class-even="'even'">
         <div class="questionTitle" >
             <span>{{question.number}} - {{question.title}}</span>
@@ -30,7 +33,5 @@
             <div ng-class="rep.verdict==1 ? ' flat bonne-reponse' : 'flat mauvaise-reponse'">{{rep.title}}</div>
         </div>
     </div>
-    <a ui-sref=".create">
-        <div class="flat">Ajouter une question</div>
-    </a>
+
 </div>
