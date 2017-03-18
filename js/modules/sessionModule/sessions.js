@@ -61,11 +61,11 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }); 
         }   
 
-        $scope.delete = function(session)
+        $scope.delete = function(sessionParam)
         {
-            var index = $scope.getPostIndex(session);
+            var index = $scope.getPostIndex(sessionParam);
             $scope.data.ue.sessions.splice(index,1);
-            session.delete(session.id,$scope);
+            session.delete(sessionParam.id,$scope);
         }
         $scope.getPostIndex = function (post) {
             return  $scope.data.ue.sessions.indexOf(post); //this will return the index from the array
