@@ -32,6 +32,9 @@ nav ul li{
 footer, .page-wrap:after {
   height: 70px; 
 }
+main{
+    margin: 0px 0 50px 0;
+}
 nav ul li:last{
     align-self: right;
 }
@@ -41,9 +44,7 @@ nav ul li:last{
     padding: 12px;
     transition: 1s;
 }
-.flat.container{
-    margin-bottom: 3rem;
-}
+
 .flat>h1{
 	text-align: center;
     color: white;
@@ -90,7 +91,7 @@ div.clickable.name{
     padding: 5px 10px 0 10px;
 }
 
-.bottom-bar li{
+.bottom-bar li, .bottom-bar li a{
     display: flex;
     flex-flow: column nowrap;
 }

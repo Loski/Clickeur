@@ -34,20 +34,11 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
 
             add: function($code_ue,$nom_ue,$scope)
             {
-                var that = this;
-                console.log('salut');
-                $http({
+                return $http({
                     method: 'POST',
                     url:'http://127.0.0.1:8000/api/ues/',
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
-                }).then(function successCallback(response) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                  }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                  });
-                
+                });
             },
 
             getNew: function(){
@@ -58,19 +49,11 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
             },
             update: function($code_ue,$nom_ue, $id)
             {
-                var that = this;
-                console.log('salut');
-                $http({
+                return $http({
                     method: 'PUT',
                     url:'http://127.0.0.1:8000/api/ues/'+$id,
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
-                }).then(function successCallback(response) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                  }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                  });
+                });
             }
         }
     }])
@@ -78,6 +61,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
         $scope.code_ue ='';
         $scope.nom_ue = '';
         $scope.ues_list = ues_list.data;
+        console.log(ues_list);
         $scope.loadList = function()
         {
             $scope.data = [];
@@ -96,7 +80,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
             }); 
         }
     }])
-     .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', function($scope , ueService, item, formType, $stateParams){
+     .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', '$state', function($scope , ueService, item, formType, $stateParams, $state){
 
         $scope.title = (formType === "CREATE") ? "Ajouter un UE" : "Edition de l'UE";
         $scope.code_ue = item.data.ue.code_ue || '';
@@ -113,24 +97,25 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
 
         $scope.update = function()
         {
-            ueService.update($scope.code_ue,$scope.nom_ue,$stateParams.id_ue);
+            ueService.update($scope.code_ue,$scope.nom_ue,$stateParams.id_ue).then(function successCallback(success){
+                $state.go('ues');
+            },
+            function errorsCallback(error){
+                $scope.ajouterUe.code_ue.$setValidity("size", false);
+               $scope.error = error.data.error.message;
+            });;
         }
 
         $scope.add = function()
         {
-
-            $scope.data = [];
-            $scope.errors = [];
-            ueService.add($scope.code_ue,$scope.nom_ue,$scope);
-            $scope.$watch('data', function(newVal) {
-                $scope.data = newVal;
-
-            /*    if($scope.data.error.errors!=null)
-                {
-                    $scope.errors=$scope.data.error.errors;
-                    console.log($scope.data.error.errors);
-                }*/
-            }); 
+            ueService.add($scope.code_ue,$scope.nom_ue,$scope).then(function successCallback(success){
+                $state.go('ues');
+            },
+            function errorsCallback(error){
+                console.log(error.data);
+                $scope.ajouterUe.code_ue.$setValidity("size", false);
+               $scope.error = error.data.error.message;
+            });;
         }
     }
 ]);

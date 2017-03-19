@@ -122,7 +122,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             }
             return config;
         };
-        service.responseError = function(response) {
+       /* service.responseError = function(response) {
         if (response.status === 401) {
             $rootScope.$broadcast('unauthorized');
             //TO DO AJOUTER LISTENER
@@ -134,7 +134,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         service.response = function(response){
             //TODO REFRESH TOKEN
             return response;
-        }
+        }*/
     });
 
 function run($rootScope, $location, $localStorage, $http, userAuth) {
