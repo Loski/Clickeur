@@ -62,7 +62,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
         $scope.nom_ue = '';
         $scope.ues_list = ues_list.data;
         console.log(ues_list);
-        $scope.loadList = function()
+        /*$scope.loadList = function()
         {
             $scope.data = [];
             ueService.get_ue_list($scope);
@@ -71,13 +71,29 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
                 $scope.my_ues = $scope.data['my_ues'];
                 $scope.other_ues = $scope.data['other_ues'];
             }); 
-        }   
+        }*/  
 
-        $scope.delete = function(id)
+        $scope.delete = function(ueParam)
         {
-            ueService.delete(id);
-            $scope.$watch('data', function(newVal) {
-            }); 
+
+            var indexOf_ue = $scope.ues_list.my_ues.indexOf(ueParam);
+
+            console.log(indexOf_ue);
+
+            if(indexOf_ue==-1)
+            {
+                indexOf_ue = $scope.ues_list.other_ues.indexOf(ueParam);
+                $scope.ues_list.other_ues.splice(indexOf_ue,1);
+            }
+            else
+            {
+                $scope.ues_list.my_ues.splice(indexOf_ue,1);
+            }
+
+
+            ueService.delete(ueParam.id);
+            /*$scope.$watch('data', function(newVal) {
+            }); */
         }
     }])
      .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', '$state', function($scope , ueService, item, formType, $stateParams, $state){
