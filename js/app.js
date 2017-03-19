@@ -34,15 +34,15 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return "CREATE"; }
             },
         })
-        .state('ues/edit/', {
+        .state('ues/edit', {
             url:'/ues/edit/{id_ue}',
             templateUrl: 'templates/ajouterUe.html',
             controller: 'ueControllerForm',
             resolve: {
                 item: ['ueService', '$stateParams', function (ueService, $stateParams) {
-                    return ueService.get($stateParams.id).data;
+                    return ueService.get($stateParams.id_ue);
                 }],
-                formType: function () { return "CREATE"; }
+                formType: function () { return "EDIT"; }
             },
         })
         .state('ues.sessions', {
@@ -79,7 +79,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         .state('ues.sessions.questions.create', {
             url: '/create',
             views:{
-                "@ ":{
+                "@":{
                     templateUrl: 'templates/ajouterQuestion.html',
                     controller: 'questionnairesFormController'
                 },

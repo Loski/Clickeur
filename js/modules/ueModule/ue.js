@@ -11,7 +11,12 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
                     url:'http://127.0.0.1:8000/api/ues/'
                 });
             },
-
+            get: function(id){
+                return $http({
+                    method: 'GET',
+                    url:'http://127.0.0.1:8000/api/ues/'+id,
+                });
+            },
             delete: function($id){
                 console.log('im in');
                 var that = this;
@@ -46,10 +51,26 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
             },
 
             getNew: function(){
-                return{
-                    code_ue:"",
-                    name:""
-                };
+                var item = {};
+                item.data = {};
+                item.data.ue = {};
+                return item;
+            },
+            update: function($code_ue,$nom_ue, $id)
+            {
+                var that = this;
+                console.log('salut');
+                $http({
+                    method: 'PUT',
+                    url:'http://127.0.0.1:8000/api/ues/'+$id,
+                    data: "code_ue="+$code_ue+"&name="+$nom_ue,
+                }).then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                  }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                  });
             }
         }
     }])
@@ -70,23 +91,19 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
 
         $scope.delete = function(id)
         {
-            console.log("im out");
             ueService.delete(id);
             $scope.$watch('data', function(newVal) {
-
             }); 
         }
     }])
-     .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', function($scope , ueService, item, formType){
+     .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', function($scope , ueService, item, formType, $stateParams){
 
         $scope.title = (formType === "CREATE") ? "Ajouter un UE" : "Edition de l'UE";
-        $scope.code_ue = item.code_ue;
-        $scope.nom_ue = item.nom_ue;
+        $scope.code_ue = item.data.ue.code_ue || '';
+        $scope.nom_ue = item.data.ue.name || '';
         $scope.formType = formType;
 
         $scope.submit = function(){
-            console.log($scope.formType);
-
             if($scope.formType === "CREATE"){
                 $scope.add();
             }else{
@@ -96,7 +113,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
 
         $scope.update = function()
         {
-
+            ueService.update($scope.code_ue,$scope.nom_ue,$stateParams.id_ue);
         }
 
         $scope.add = function()

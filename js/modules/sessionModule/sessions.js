@@ -48,7 +48,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.myue = ($scope.ues_list.my_ues[id] != undefined) ? $scope.ues_list.my_ues[id] : $scope.ues_list.other_ues[id];  
         $scope.id_ue = $stateParams.id_ue;
 
-
         $scope.loadList = function()
         {
             $scope.data = [];
