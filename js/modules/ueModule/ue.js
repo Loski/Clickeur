@@ -129,7 +129,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
             },
             function errorsCallback(error){
                 console.log(error.data);
-                $scope.ajouterUe.code_ue.$setValidity("size", false);
+                $scope.authentification.code_ue.$setValidity("size", false);
                $scope.error = error.data.error.message;
             });;
         }

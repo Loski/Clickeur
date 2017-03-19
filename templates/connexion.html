@@ -6,12 +6,13 @@
              <!-- Form Name -->
              <legend>Connexion</legend>
              <!-- Text input-->
-             <div class="form-group">
-               <input id="username" name="username" placeholder="Identifiant" ng-model="username" class="form-control form-control-lg" required="" type="text">
+             <div class="form-group" ng-class="{'has-danger':authentification.username.$invalid && authentification.username.$dirty}">
+               <input id="username" name="username" placeholder="Identifiant" ng-class="{ 'form-control-danger':authentification.username.$invalid}" ng-model="username" class="form-control form-control-lg" required="" type="text">
              </div>
-             <div class="form-group">
-               <input ng-model="password" placeholder="Mot de passe" class="form-control form-control-lg" required="" type="password">
-             </div>
+             <div class="form-group" ng-class="{'has-danger':authentification.password.$invalid && authentification.password.$dirty}">
+               <input ng-model="password" name="password" placeholder="Mot de passe" ng-class="{ 'form-control-danger':authentification.password.$invalid}" class="form-control form-control-lg" required="" type="password">
+                <div class="form-control-feedback" ng-show="authentification.username.$invalid">{{error}}</div>
+            </div>
              <button class="btn btn-primary btn-lg">Se connecter</button>
           </fieldset>
        </form>

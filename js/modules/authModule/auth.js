@@ -5,12 +5,11 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
     .factory('connexionModule', ['$localStorage', '$http', 'userAuth', function($localStorage, $http, userAuth){
         return{
             login : function(usernameUser, passwordUser){
-                var that = this;
-                $http({
+                return $http({
                 	method: 'POST',
                 	url:'http://127.0.0.1:8000/api/auth',
-        			data: "username="+usernameUser+"&password="+passwordUser,
- 		   		}).then(that.successLogin.bind(that), that.errorLogin);
+        			data: "username="+usernameUser+"&password="+passwordUser
+ 		   		});
             },
             logout : function(){
               //  $http.get('http://127.0.0.1:8000/api/auth', {token: $localStoragetoken});
@@ -27,11 +26,22 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
             },
         }
     }])
-    .controller('connexion', ['$scope', 'connexionModule', function($scope, connexionModule){
+    .controller('connexion', ['$scope', 'connexionModule', 'userAuth', '$state', function($scope, connexionModule, userAuth, $state){
     $scope.password ='';
     $scope.username = '';
+
+
     $scope.login = function(){
-        connexionModule.login($scope.username, $scope.password);
+        connexionModule.login($scope.username, $scope.password).then(
+            function successLogin(response){
+                userAuth.saveToken(response.data.token);
+                $state.go("ues");
+            },
+            function errorLogin(error){
+                $scope.authentification.username.$setValidity("size", false);
+                $scope.authentification.password.$setValidity("size", false);
+                $scope.error = "Mot de passe incorrect";
+            });
     }
 }]);
 
