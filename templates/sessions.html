@@ -13,13 +13,15 @@
 		      <h1>Sessions</h1>
 		      </div>
 		      	<a ui-sref="ues.sessions.create({ id_ue: {{id_ue}} })"><div class="flat clickable">Ajouter une session</div></a>
-		      <div class="flat session_row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in data.ue.sessions| orderBy:'+number'" data-id="{{session.id}}">
+		      <div class="flat session_row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in sessions.sessions| orderBy:'+number'" data-id="{{session.id}}">
 		       <div class="clickable name"><a ui-sref="ues.sessions.questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })"><div>[{{session.number}}] {{session.title}}</div></a></div>
 			<hr/>
             <ul class="bottom-bar">
                 <li class="clickable">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    <span>Modifier</span>
+                	<a ui-sref="ues.sessions.edit({ id_session: {{session.id}} })">
+                    	<i class="fa fa-cog" aria-hidden="true"></i>
+                    	<span>Modifier</span>
+                	</a>
                 </li>
                 <li class="clickable" ng-click="delete(session)">
                     <i class="fa fa-trash-o  delete" aria-hidden="true"></i>

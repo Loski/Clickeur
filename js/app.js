@@ -54,13 +54,34 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             }
         })
+        .state('ues.sessions.edit', {
+            url:'/{id_session}/edit',
+            views: {
+                "questions":{
+                    templateUrl: 'templates/ajouterSession.html',
+                    controller: 'sessionFormController',
+                }
+            },
+            resolve: {
+                item: ['sessionService', '$stateParams', function (sessionService, $stateParams) {
+                    return sessionService.get($stateParams.id_session);
+                }],
+                formType: function () { return "EDIT"; }
+            },
+        })
         .state('ues.sessions.create', {
             url:'/create',
             views: {
                 "questions":{
                     templateUrl: 'templates/ajouterSession.html',
-                    controller: 'sessionsFormController'
+                    controller: 'sessionFormController'
                 }
+            },
+            resolve: {
+                item: ['sessionService', function (sessionService) {
+                    return sessionService.getNew();
+                }],
+                formType: function () { return "CREATE"; }
             }
         })
         .state('ues.sessions.questions', {
