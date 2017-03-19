@@ -19,7 +19,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             controller: 'ueController',
             resolve: {
                 ues_list : function(ueService){
-                    return ueService.get_ue_list();
+                    return ueService.query();
                 }
             }
         })
@@ -52,6 +52,11 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                     templateUrl: 'templates/sessions.html',
                     controller: 'sessionController',
                 }
+            },
+            resolve:{
+                sessionsList : ['sessionService', '$stateParams', function (sessionService, $stateParams) {
+                    return sessionService.query($stateParams.id_ue);
+                }],
             }
         })
         .state('ues.sessions.edit', {
@@ -63,9 +68,6 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             },
             resolve: {
-                item: ['sessionService', '$stateParams', function (sessionService, $stateParams) {
-                    return sessionService.get($stateParams.id_session);
-                }],
                 formType: function () { return "EDIT"; }
             },
         })
@@ -78,9 +80,6 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             },
             resolve: {
-                item: ['sessionService', function (sessionService) {
-                    return sessionService.getNew();
-                }],
                 formType: function () { return "CREATE"; }
             }
         })

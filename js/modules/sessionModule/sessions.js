@@ -4,14 +4,10 @@
 var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
     .factory('sessionService', ['$http',function($http){
         return{
-            get_session_list: function($scope,$id){
-                var that = this;
-                $http({
+            query: function($id){
+                return $http({
                     method: 'GET',
                     url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
-                }).then(function(response)
-                {
-                    $scope.data = response.data;
                 });
             },
             get: function(id){
@@ -56,25 +52,15 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }
         }
     }])
-    .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', function($scope, sessionService,$stateParams, ues_list){
+    .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList', function($scope, sessionService, $stateParams, ues_list, sessionsList){
         $scope.title ='';
         $scope.number = '';
         $scope.ues_list = ues_list.data;
         var id = $stateParams.id_ue;
         $scope.myue = ($scope.ues_list.my_ues[id] != undefined) ? $scope.ues_list.my_ues[id] : $scope.ues_list.other_ues[id];  
         $scope.id_ue = $stateParams.id_ue;
-
-        $scope.loadList = function()
-        {
-            $scope.data = [];
-            sessionService.get_session_list($scope,$stateParams.id_ue);
-            $scope.$watch('data', function(newVal) {
-                $scope.data = newVal;
-                $scope.sessions = $scope.data['ue'];
-                $scope.id_ue = $stateParams.id_ue;
-
-            }); 
-        }   
+        console.log(sessionsList);
+        $scope.sessions = sessionsList.data['ue'];
 
         $scope.delete = function(sessionParam)
         {
@@ -88,12 +74,15 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
     }])
 
-    .controller('sessionFormController', ['$scope','sessionService', 'item', 'formType', '$stateParams', '$state', function($scope , sessionService, item, formType, $stateParams, $state){
+    .controller('sessionFormController', ['$scope','sessionService', 'formType', '$stateParams', '$state', 'sessionsList', function($scope , sessionService, formType, $stateParams, $state, sessionsList){
         
         $scope.title = (formType === "CREATE") ? "Ajouter une session" : "Edition de la session";
-        $scope.session_title = item.data.session.title || '';
-        $scope.session_number = item.data.session.number || '';
         $scope.formType = formType;
+        $scope.sessions = sessionsList.data.sessions;
+        console.log($scope.sessions);
+
+        $scope.session_title = "michel2";
+        $scope.session_number = 5 || '';
 
         $scope.submit = function(){
             console.log("FDP");

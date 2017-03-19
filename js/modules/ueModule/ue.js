@@ -4,7 +4,7 @@
 var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResource'])
     .factory('ueService', ['$http', function($http){
         return{
-            get_ue_list: function(){
+            query: function(){
                 var that = this;
                 return $http({
                     method: 'GET',
