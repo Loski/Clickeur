@@ -112,7 +112,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         }
 
         $scope.submit = function(){
-            console.log("FDP");
             if($scope.formType === "CREATE"){
                 $scope.add();
             }else{

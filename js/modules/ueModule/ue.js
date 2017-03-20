@@ -19,17 +19,11 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 });
             },
             delete: function($id){
-                $http({
+                return $http({
                     method: 'DELETE',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id,
                     url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+$id
-                }).then(function successCallback(response) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                  }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                  });
+                });
             },
 
             add: function($code_ue,$nom_ue,$scope)
@@ -67,18 +61,21 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
         $scope.delete = function(ueParam)
         {
 
-            var indexOf_ue = $scope.ues_list.my_ues.indexOf(ueParam);
-            if(indexOf_ue==-1)
-            {
-                indexOf_ue = $scope.ues_list.other_ues.indexOf(ueParam);
-                $scope.ues_list.other_ues.splice(indexOf_ue,1);
-            }
-            else
-            {
-                $scope.ues_list.my_ues.splice(indexOf_ue,1);
-            }
-            
-            ueService.delete(ueParam.id);
+            ueService.delete(ueParam.id).then(function successCallback(success){
+                var indexOf_ue = $scope.ues_list.my_ues.indexOf(ueParam);
+                if(indexOf_ue==-1)
+                {
+                    indexOf_ue = $scope.ues_list.other_ues.indexOf(ueParam);
+                    $scope.ues_list.other_ues.splice(indexOf_ue,1);
+                }
+                else
+                {
+                    $scope.ues_list.my_ues.splice(indexOf_ue,1);
+                }
+            },
+            function errorsCallback(error){
+            });;
+
         }
     }])
      .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', '$state', function($scope , ueService, item, formType, $stateParams, $state){
