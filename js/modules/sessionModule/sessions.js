@@ -24,7 +24,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 return $http({
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
-                     url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+$id+"/sessions/"
+                     url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+$id+"/sessions/",
                     data: "title="+$title+"&number="+$number,
                 });
             },
