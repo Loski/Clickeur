@@ -87,12 +87,10 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
         if($scope.formType!== "CREATE")
         {
-            var id_session = $scope.findIndex($stateParams.id_session);
+            $scope.indexOfSession = $scope.findIndex($stateParams.id_session);
 
-            console.log(id_session);
-
-            $scope.session_title = $scope.sessions.sessions[id_session].title || "";
-            $scope.session_number = $scope.sessions.sessions[id_session].number || '';
+            $scope.session_title = $scope.sessions.sessions[$scope.indexOfSession].title || "";
+            $scope.session_number = parseInt($scope.sessions.sessions[$scope.indexOfSession].number) || '';
         }
 
         $scope.submit = function(){
@@ -121,7 +119,8 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
         $scope.update = function()
         {
-            sessionService.update($scope.session_title,$scope.session_number,$stateParams.id_ue).then(function successCallback(success){
+            sessionService.update($scope.session_title,$scope.session_number,$stateParams.id_session).then(function successCallback(success){
+                $scope.sessions.sessions[$scope.indexOfSession] = success.data.session;
                 $state.go('ues.sessions');
             },
             function errorsCallback(error){
