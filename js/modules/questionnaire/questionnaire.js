@@ -48,13 +48,14 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
     }])
 	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', function($scope, $stateParams, questionRepository){
 
-    	$scope.responses = [{id: 'response1'}, {id: 'response2'}];
+    	$scope.responses = [{id: 'response1', verdict: "false"}, {id: 'response2', verdict: "false"}];
+        console.log($scope.responses);
         $scope.question = "";
         $scope.id_session = $stateParams.id_session;
         $scope.title ="";
         $scope.addNewResponse = function() {
             var newItemNo = $scope.responses.length+1;
-            $scope.responses.push({'id':'choice'+newItemNo});
+            $scope.responses.push({'id':'response'+newItemNo});
         };
 
         $scope.removeResponse = function() {
@@ -67,9 +68,8 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             question.title = $scope.title;
             question.propositions  = [];
             for(var i = 0; i < $scope.responses.length; i++){
-                question.propositions.push({'title' : $scope.responses[i].name, 'verdict': true});
+                question.propositions.push({'title' : $scope.responses[i].name, 'verdict': $scope.responses[i].verdict});
             }
-            console.log(JSON.parse(question));
             questionRepository.create($scope.id_session, question);
         };
 
@@ -105,12 +105,14 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
         },
         create: function (id_session, question) {
             var that = this;
+            question = JSON.stringify(question);
             console.log(question);
             $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
                 url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
                 data:question,
+                contentType: "application/json",
             }).then(function(response)
             {
                 return response.data;
