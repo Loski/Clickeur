@@ -67,7 +67,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             var question = "";
             question+= '{"title":"' + $scope.title+ '", "propositions":{';
             for(var i = 0; i < $scope.responses.length; i++){
-                question += '"'+i+'":{"title" : "' + $scope.responses[i].name+ '", "verdict": "' + $scope.responses[i].verdict +'"},';
+                question += '"'+i+'":{"title" : "' + $scope.responses[i].name+ '", "verdict": ' + $scope.responses[i].verdict +'},';
             }
             question = question.substring(0, question.length - 1);
             question += '}}';
@@ -104,7 +104,9 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
             return;
         },
         create: function (id_session, question) {
+
             var that = this;
+            console.log(id_session);
             console.log(question);
             $http({
                 method: 'POST',
@@ -113,7 +115,9 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
                 data:question
             }).then(function(response)
             {
-                return response.data;
+                //return response.data;
+            }, function(error){
+                console.log(error);
             });
         },
         delete: function($id){
@@ -135,5 +139,6 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
         }
     }
 }]);
+
 
 
