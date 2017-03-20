@@ -43,6 +43,14 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+$id,
                     data: "title="+$title+"&number="+$number,
                 });
+            }, 
+            findMyUe: function(ueList, id){
+                var myUe = ueList.my_ues.find(this.findById, 0, id);
+                return (myUe != undefined) ? myUe : ueList.other_ues.find(this.findById, 0, id);
+            },
+            findById: function(listeUe, index, id){
+                console.log(id);
+                return listeUe.id == id;
             }
         }
     }])
@@ -50,11 +58,10 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.title ='';
         $scope.number = '';
         $scope.ues_list = ues_list.data;
-        var id = $stateParams.id_ue;
-        $scope.myue = ($scope.ues_list.my_ues[id] != undefined) ? $scope.ues_list.my_ues[id] : $scope.ues_list.other_ues[id];  
         $scope.id_ue = $stateParams.id_ue;
-        console.log(sessionsList);
+        $scope.myue = sessionService.findMyUe($scope.ues_list, $scope.id_ue);
         $scope.sessions = sessionsList.data['ue'].sessions;
+        console.log($scope.myue);
 
         $scope.delete = function(sessionParam)
         {

@@ -28,7 +28,16 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             $scope.responses.splice(lastItem);
         };
 
+
+
         $scope.envoyer = function(){
+            var question = {};
+            question.title = $scope.title;
+            for(var i = 0, i < $scope.response.length; i++){
+                question.propositions[i].title = $scope.response[i].name;
+                question.propositions[i].verdict = true;
+            }
+            console.log(question);
             questionRepository.create($scope.id_session, $scope.title);
         };
 	}]);
@@ -78,3 +87,5 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
         }
     }
 }]);
+
+

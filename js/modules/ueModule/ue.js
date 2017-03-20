@@ -63,25 +63,11 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
         $scope.code_ue ='';
         $scope.nom_ue = '';
         $scope.ues_list = ues_list.data;
-        console.log(ues_list);
-        /*$scope.loadList = function()
-        {
-            $scope.data = [];
-            ueService.get_ue_list($scope);
-            $scope.$watch('data', function(newVal) {
-                $scope.data = newVal;
-                $scope.my_ues = $scope.data['my_ues'];
-                $scope.other_ues = $scope.data['other_ues'];
-            }); 
-        }*/  
 
         $scope.delete = function(ueParam)
         {
 
             var indexOf_ue = $scope.ues_list.my_ues.indexOf(ueParam);
-
-            console.log(indexOf_ue);
-
             if(indexOf_ue==-1)
             {
                 indexOf_ue = $scope.ues_list.other_ues.indexOf(ueParam);
