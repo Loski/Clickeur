@@ -37,7 +37,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 return $http({
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/ues/',
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+$id,
+                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/',
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
                 });
             },

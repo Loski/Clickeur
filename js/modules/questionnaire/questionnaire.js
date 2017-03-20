@@ -28,17 +28,15 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             $scope.responses.splice(lastItem);
         };
 
-
-
         $scope.envoyer = function(){
             var question = {};
             question.title = $scope.title;
-            for(var i = 0; i < $scope.response.length; i++){
-                question.propositions[i].title = $scope.response[i].name;
-                question.propositions[i].verdict = true;
+            question.propositions  = [];
+            for(var i = 0; i < $scope.responses.length; i++){
+                question.propositions.push({'title' : $scope.responses[i].name, 'verdict': true});
             }
-            console.log(question);
-            questionRepository.create($scope.id_session, $scope.title);
+            console.log(JSON.parse(question));
+            questionRepository.create($scope.id_session, question);
         };
 	}]);
 
@@ -63,13 +61,14 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
         update : function(updatedResource) {
             return;
         },
-        create: function (id_session, $title) {
+        create: function (id_session, question) {
             var that = this;
+            console.log(question);
             $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
                 url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
-                data: "title="+$title+"&number=5"+"&opened=0",
+                data:question,
             }).then(function(response)
             {
                 return response.data;
