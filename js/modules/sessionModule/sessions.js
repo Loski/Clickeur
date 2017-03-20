@@ -10,14 +10,10 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
                 });
             },
-            delete: function($id,$scope){
-                var that = this;
-                $http({
+            delete: function($id){
+                return $http({
                     method: 'DELETE',
                     url:'http://127.0.0.1:8000/api/sessions/'+$id,
-                }).then(function(response)
-                {
-                    //$scope.data = response.data;
                 });
             },
 
@@ -58,12 +54,14 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
         $scope.delete = function(sessionParam)
         {
-            var index = $scope.getPostIndex(sessionParam);
-           $scope.sessions.splice(index,1);
-            sessionService.delete(sessionParam.id,$scope);
-        }
-        $scope.getPostIndex = function (post) {
-            return  $scope.sessions.indexOf(post); //this will return the index from the array
+            var index = $scope.sessions.indexOf(sessionParam);
+
+            sessionService.delete(sessionParam.id).then(function successCallback(success){ 
+                $scope.sessions.splice(index,1);
+            },
+            function errorsCallback(error){
+                console.log(error.data);
+            });;
         }
 
     }])
@@ -89,8 +87,16 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         {
             $scope.indexOfSession = $scope.findIndex($stateParams.id_session);
 
-            $scope.session_title = $scope.sessions[$scope.indexOfSession].title || "";
-            $scope.session_number = parseInt($scope.sessions[$scope.indexOfSession].number) || '';
+            if($scope.indexOfSession!=-1)
+            {
+                $scope.session_title = $scope.sessions[$scope.indexOfSession].title;
+                $scope.session_number = parseInt($scope.sessions[$scope.indexOfSession].number);
+            }
+
+            else
+            {
+                $state.go('ues.sessions');
+            }
         }
 
         $scope.submit = function(){
