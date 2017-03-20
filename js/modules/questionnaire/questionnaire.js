@@ -37,7 +37,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             var index = $scope.questions.indexOf(question);
             questionRepository.delete(question.id).then(
                 function successCallback(success){
-                    $scope.sessions.splice(index,1);
+                    $scope.questions.splice(index,1);
                 },
                 function errorsCallback(error){
                     console.log(error.data);
@@ -76,7 +76,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 
 	}]);
 
-questionnaire.factory('questionRepository', ['$http', function ($http) {
+questionnaire.factory('questionRepository', ['$http','$state', function ($http,$state) {
     return {
         getNew:function(){
         	return {
@@ -115,6 +115,7 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
                 data:question
             }).then(function(response)
             {
+                $state.go('ues.sessions.questions');
                 //return response.data;
             }, function(error){
                 console.log(error);
