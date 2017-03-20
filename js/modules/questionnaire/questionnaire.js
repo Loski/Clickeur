@@ -33,7 +33,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.envoyer = function(){
             var question = {};
             question.title = $scope.title;
-            for(var i = 0, i < $scope.response.length; i++){
+            for(var i = 0; i < $scope.response.length; i++){
                 question.propositions[i].title = $scope.response[i].name;
                 question.propositions[i].verdict = true;
             }
