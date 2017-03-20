@@ -94,7 +94,12 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                     template: '<span ui-view="affichage"></span>',
                     controller: 'questionnairesController',
                 }
-        }
+            },
+            resolve:{
+                questionsList : ['questionRepository', '$stateParams', function (questionRepository, $stateParams) {
+                    return questionRepository.getList($stateParams.id_session);
+                }]
+            }
         })
         .state('ues.sessions.questions.create', {
             url: '/create',
