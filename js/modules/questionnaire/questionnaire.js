@@ -45,7 +45,7 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions'+id_session+"/questions"
+                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions"
                 });
          },
         get:function(id_session, id_question) {
@@ -59,7 +59,7 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
             $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
-                url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions'+id_session+"/questions",
+                url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
                 data: "title="+$title+"&number=5"+"&opened=0",
             }).then(function(response)
             {
