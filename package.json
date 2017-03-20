@@ -5,9 +5,7 @@
         "angular":  "1.6.2",
         "ngstorage": "*",
         "angular-ui-router": "*",
-        "angular-cookies":"*",
-        "angular-resource":"*",
-        "angular-jwt":"*"
+        "angular-animate":"*"
     },
     "analytics": false,
     "scripts": {

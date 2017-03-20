@@ -47,34 +47,36 @@ nav ul li:last{
 
 .flat>h1{
 	text-align: center;
-    color: white;
+    color: white!important;
     text-transform: uppercase;
     margin: 0;
     font-size: 1.7em;
 }
 .title{
-    background-color: #795548;
+    background-color: #1a237e;
 }
 .display-block .flat{
     margin:5px;
 }
 
 
-a{
-	color: #16528e;
-}
 
 .clickable{
     cursor: pointer;
 }
 
-.clickable a, .clickable i.fa, .clickable span, .title{
-    color: #6d4c41;
+.clickable, .title, a{
+    color: #3f51b5;
 }
-li.clickable:hover, div.clickable.name:hover
+li.clickable:hover
 {
-    background-color: rgba(158,158,158,0.2);
-    transition: 1.25s;
+    background-color: #3f51b5;
+    transition: 1.05s;
+}
+
+li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a {
+    color: white;
+    transition: .75s;
 }
 div.clickable.name{
     padding: 10px 0 10px 0px;
@@ -193,3 +195,78 @@ a:link
     padding: 15px;
 }
 
+
+.animation.ng-enter,
+.animation.ng-leave,
+.animation.ng-move {
+  position:relative;
+}
+
+.animation.ng-enter {
+  -webkit-animation: 0.5s repeat-animation-enter;
+  animation: 0.5s repeat-animation-enter;
+}
+
+.animation.ng-leave {
+  -webkit-animation: 0.5s repeat-animation-leave;
+  animation: 0.5s repeat-animation-leave;
+}
+
+.animation.ng-move {
+  -webkit-animation: 0.5s repeat-animation-move;
+  animation: 0.5s repeat-animation-move;
+}
+
+@keyframes repeat-animation-enter {
+  from {
+    left:-10px;
+    opacity:0;
+  }
+  to {
+    left:0;
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes repeat-animation-enter {
+  from {
+    left:-10px;
+    opacity:0;
+  }
+  to {
+    left:0;
+    opacity:1;
+  }
+}
+
+@keyframes repeat-animation-leave {
+  from {
+    left:0;
+    opacity:1;
+  }
+  to {
+    left:-10px;
+    opacity:0;
+  }
+}
+
+@-webkit-keyframes repeat-animation-leave {
+  from {
+    left:0;
+    opacity:1;
+  }
+  to {
+    left:-10px;
+    opacity:0;
+  }
+}
+
+@keyframes repeat-animation-move {
+  from { opacity:0.5; }
+  to { opacity:1; }
+}
+
+@-webkit-keyframes repeat-animation-move {
+  from { opacity:0.5; }
+  to { opacity:1; }
+}

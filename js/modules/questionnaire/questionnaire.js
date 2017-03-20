@@ -1,10 +1,6 @@
 'use strict';
 
-var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModule', 'restangular'])
-	.config(function(RestangularProvider){
-        RestangularProvider.setBaseUrl('http://127.0.0.1:8000/api/');
-        
-	})
+var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModule'])
     .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http' , function($scope, $stateParams, questionRepository, $http){
         
         $scope.data = [];
@@ -50,7 +46,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 	}]);
 
-questionnaire.factory('questionRepository', ['Restangular', '$http', function (restangular, $http) {
+questionnaire.factory('questionRepository', ['$http', function ($http) {
     return {
         getNew:function(){
         	return {
@@ -76,10 +72,10 @@ questionnaire.factory('questionRepository', ['Restangular', '$http', function (r
                 });
          },
         get:function(id_session, id_question) {
-            return restangular.one("sessions", id_session).customGET("questions", id_question);
+            return ;
         },
         update : function(updatedResource) {
-            return updatedResource.put();
+            return;
         },
         create: function (id_session, $title) {
             var that = this;

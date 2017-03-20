@@ -1,11 +1,10 @@
 /** Module UE **/
 'use strict';
 
-var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResource'])
+var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate'])
     .factory('ueService', ['$http', function($http){
         return{
             query: function(){
-                var that = this;
                 return $http({
                     method: 'GET',
                     url:'http://127.0.0.1:8000/api/ues/'
@@ -18,8 +17,6 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
                 });
             },
             delete: function($id){
-                console.log('im in');
-                var that = this;
                 $http({
                     method: 'DELETE',
                     url:'http://127.0.0.1:8000/api/ues/'+$id,
@@ -89,11 +86,8 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
             {
                 $scope.ues_list.my_ues.splice(indexOf_ue,1);
             }
-
-
+            
             ueService.delete(ueParam.id);
-            /*$scope.$watch('data', function(newVal) {
-            }); */
         }
     }])
      .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', '$state', function($scope , ueService, item, formType, $stateParams, $state){
@@ -128,8 +122,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngResourc
                 $state.go('ues');
             },
             function errorsCallback(error){
-                console.log(error.data);
-                $scope.authentification.code_ue.$setValidity("size", false);
+                $scope.ajouterUe.code_ue.$setValidity("size", false);
                $scope.error = error.data.error.message;
             });;
         }
