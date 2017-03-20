@@ -54,16 +54,16 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.myue = ($scope.ues_list.my_ues[id] != undefined) ? $scope.ues_list.my_ues[id] : $scope.ues_list.other_ues[id];  
         $scope.id_ue = $stateParams.id_ue;
         console.log(sessionsList);
-        $scope.sessions = sessionsList.data['ue'];
+        $scope.sessions = sessionsList.data['ue'].sessions;
 
         $scope.delete = function(sessionParam)
         {
             var index = $scope.getPostIndex(sessionParam);
-           $scope.sessions.sessions.splice(index,1);
+           $scope.sessions.splice(index,1);
             sessionService.delete(sessionParam.id,$scope);
         }
         $scope.getPostIndex = function (post) {
-            return  $scope.sessions.sessions.indexOf(post); //this will return the index from the array
+            return  $scope.sessions.indexOf(post); //this will return the index from the array
         }
 
     }])
@@ -72,9 +72,9 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         
         $scope.findIndex = function(id)
         {
-            for(var i=0;i<$scope.sessions.sessions.length;i++)
+            for(var i=0;i<$scope.sessions.length;i++)
             {
-                if($scope.sessions.sessions[i].id==id)
+                if($scope.sessions[i].id==id)
                     return i;
             }
 
@@ -89,8 +89,8 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         {
             $scope.indexOfSession = $scope.findIndex($stateParams.id_session);
 
-            $scope.session_title = $scope.sessions.sessions[$scope.indexOfSession].title || "";
-            $scope.session_number = parseInt($scope.sessions.sessions[$scope.indexOfSession].number) || '';
+            $scope.session_title = $scope.sessions[$scope.indexOfSession].title || "";
+            $scope.session_number = parseInt($scope.sessions[$scope.indexOfSession].number) || '';
         }
 
         $scope.submit = function(){
@@ -106,7 +106,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.add = function()
         {
             sessionService.add($scope.session_title,$scope.session_number,$stateParams.id_ue).then(function successCallback(success){
-                $scope.sessions.sessions.push(success.data.session);
+                $scope.sessions.push(success.data.session);
                 //console.log($scope.sessions.sessions);
                 $state.go('ues.sessions');
             },
@@ -120,7 +120,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.update = function()
         {
             sessionService.update($scope.session_title,$scope.session_number,$stateParams.id_session).then(function successCallback(success){
-                $scope.sessions.sessions[$scope.indexOfSession] = success.data.session;
+                $scope.sessions[$scope.indexOfSession] = success.data.session;
                 $state.go('ues.sessions');
             },
             function errorsCallback(error){
