@@ -28,7 +28,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     data: "title="+$title+"&number="+$number,
                 });
             },
-
             getNew: function(){
                 var item = {};
                 item.data = {};
@@ -49,7 +48,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 return (myUe != undefined) ? myUe : ueList.other_ues.find(this.findById, 0, id);
             },
             findById: function(listeUe, index, id){
-                console.log(id);
                 return listeUe.id == id;
             }
         }

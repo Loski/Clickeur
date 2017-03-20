@@ -7,7 +7,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.id_ue = $stateParams.id_ue;
         $scope.questions = questionsList.data.session.questions;
         $scope.propositions = {};
-
+        console.log($scope.questions);
         $scope.lancer = function(id){
 
             questionRepository.switchState(id);
@@ -43,19 +43,17 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                     console.log(error.data);
                 });;
         }
-
     }])
 	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', function($scope, $stateParams, questionRepository){
 
     	$scope.responses = [{id: 'response1', verdict: "false"}, {id: 'response2', verdict: "false"}];
-        console.log($scope.responses);
         $scope.question = "";
         $scope.id_session = $stateParams.id_session;
         $scope.title ="";
 
         $scope.addNewResponse = function() {
             var newItemNo = $scope.responses.length+1;
-            $scope.responses.push({'id':'response'+newItemNo});
+            $scope.responses.push({'id':'response'+newItemNo, 'verdict': false});
         };
 
         $scope.removeResponse = function() {
@@ -104,10 +102,6 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return;
         },
         create: function (id_session, question) {
-
-            var that = this;
-            console.log(id_session);
-            console.log(question);
             $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
@@ -130,8 +124,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
         },
         switchState: function(id){
             $http({
-                method: 'POST',
-                //url:'http://127.0.0.1:8000/api/questions/'+id
+                method: 'PUT',
                 url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/questions/'+id
             }).then(function(response)
             {
