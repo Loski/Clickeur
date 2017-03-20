@@ -54,7 +54,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }
         }
     }])
-    .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList', function($scope, sessionService, $stateParams, ues_list, sessionsList){
+    .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList','$state', function($scope, sessionService, $stateParams, ues_list, sessionsList,$state){
         $scope.title ='';
         $scope.number = '';
         $scope.ues_list = ues_list.data;
