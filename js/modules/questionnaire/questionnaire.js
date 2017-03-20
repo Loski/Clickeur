@@ -17,18 +17,32 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         {
             if (typeof $scope.propositions[id] == 'undefined')
             {
-                questionRepository.getPropositions(id).then(function successCallback(success){
-                    $scope.propositions[id]=success.data.question.propositions;
-                    $scope.propositions[id].booleanVal=true;
-                },
-                function errorsCallback(error){
-                    console.log(error.data);
-                });;
+                questionRepository.getPropositions(id).then(
+                    function successCallback(success){
+                        $scope.propositions[id]=success.data.question.propositions;
+                        $scope.propositions[id].booleanVal=true;
+                    },
+                    function errorsCallback(error){
+                        console.log(error.data);
+                    });;
             }
             else
             {
                 $scope.propositions[id].booleanVal=!$scope.propositions[id].booleanVal;
             }            
+        }
+
+        $scope.delete = function(question)
+        {
+            var index = $scope.questions.indexOf(question);
+
+            questionRepository.delete(question.id).then(
+                function successCallback(success){
+                    $scope.sessions.splice(index,1);
+                },
+                function errorsCallback(error){
+                    console.log(error.data);
+                });;
         }
 
     }])
@@ -100,6 +114,13 @@ questionnaire.factory('questionRepository', ['$http', function ($http) {
             }).then(function(response)
             {
                 return response.data;
+            });
+        },
+        delete: function($id){
+            return $http({
+            method: 'DELETE',
+            //url:'http://127.0.0.1:8000/api/sessions/'+$id,
+            url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/questions/'+$id
             });
         },
         switchState: function(id){
