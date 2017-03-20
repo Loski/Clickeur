@@ -58,6 +58,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
             sessionService.delete(sessionParam.id).then(function successCallback(success){ 
                 $scope.sessions.splice(index,1);
+                $state.go('ues.sessions');
             },
             function errorsCallback(error){
                 console.log(error.data);
