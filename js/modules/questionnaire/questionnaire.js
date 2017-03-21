@@ -50,6 +50,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.question = "";
         $scope.id_session = $stateParams.id_session;
         $scope.title ="";
+        console.log($scope.questions);
 
         $scope.addNewResponse = function() {
             var newItemNo = $scope.responses.length+1;
@@ -75,6 +76,8 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 	}]);
 
 questionnaire.factory('questionRepository', ['$http','$state', function ($http,$state) {
+
+
     return {
         getNew:function(){
         	return {
@@ -109,7 +112,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                 data:question
             }).then(function(response)
             {
-                $state.go('ues.sessions.questions');
+                $state.go('ues.sessions.questions', true);
                 //return response.data;
             }, function(error){
                 console.log(error);

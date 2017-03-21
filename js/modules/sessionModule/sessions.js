@@ -59,6 +59,8 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.id_ue = $stateParams.id_ue;
         $scope.myue = sessionService.findMyUe($scope.ues_list, $scope.id_ue);
         $scope.sessions = sessionsList.data['ue'].sessions;
+        
+
         console.log($scope.myue);
 
         $scope.delete = function(sessionParam)
