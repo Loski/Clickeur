@@ -176,7 +176,9 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
     text-align: center;
 }
 
-
+#ajouterQuestion{
+  margin: auto;
+}
 
 
 a:link 
