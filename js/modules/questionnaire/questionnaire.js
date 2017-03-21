@@ -15,6 +15,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 
         $scope.getPropositions = function(id)
         {
+            console.log(id);
             if (typeof $scope.propositions[id] == 'undefined')
             {
                 questionRepository.getPropositions(id).then(

@@ -52,7 +52,7 @@ nav ul li:last{
     margin: 0;
     font-size: 1.7em;
 }
-.title{
+.title, .btn .btn-primary{
     background-color: #1a237e;
 }
 .display-block .flat{
@@ -272,3 +272,4 @@ a:link
   from { opacity:0.5; }
   to { opacity:1; }
 }
+
