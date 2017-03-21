@@ -130,10 +130,11 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
         $scope.add = function()
         {
-            sessionService.add($scope.session_title,$scope.session_number,$stateParams.id_ue).then(function successCallback(success){
+            var id_ue = $stateParams.id_ue;
+            sessionService.add($scope.session_title,$scope.session_number, id_ue).then(function successCallback(success){
                 $scope.sessions.push(success.data.session);
-                //console.log($scope.sessions.sessions);
-                $state.go('ues.sessions');
+                var id_session = success.data.session.id;
+                $state.go('ues.sessions.questions', {id_ue:id_ue, id_session: id_session});
             },
             function errorsCallback(error){
                 console.log(error.data);
@@ -148,7 +149,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                var session = success.data.session;
                $scope.sessions[$scope.indexOfSession].title = session.title;
                 $scope.sessions[$scope.indexOfSession].number = session.number;
-
                 $state.go('ues.sessions');
             },
             function errorsCallback(error){

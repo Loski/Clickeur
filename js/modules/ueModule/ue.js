@@ -106,7 +106,8 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
         $scope.add = function()
         {
             ueService.add($scope.code_ue,$scope.nom_ue,$scope).then(function successCallback(success){
-                $state.go('ues');
+                var id_ue = success.data.ue.id;
+                $state.go('ues.sessions', {id_ue:id_ue});
             },
             function errorsCallback(error){
                 $scope.ajouterUe.code_ue.$setValidity("size", false);
