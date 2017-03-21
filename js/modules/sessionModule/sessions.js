@@ -44,12 +44,20 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 });
             }, 
             findMyUe: function(ueList, id){
-                var myUe = ueList.my_ues.find(this.findById, 0, id);
-                return (myUe != undefined) ? myUe : ueList.other_ues.find(this.findById, 0, id);
+                var myUe = this.findIndex(ueList.my_ues, id);
+                return (myUe != -1) ? ueList.my_ues[myUe] : ueList.other_ues[this.findIndex(ueList.other_ues, id)];
             },
-            findById: function(listeUe, index, id){
-                return listeUe.id == id;
+            findIndex: function(listeUe,id)
+            {
+                for(var i=0;i<listeUe.length;i++)
+                {
+                    if(listeUe[i].id==id)
+                        return i;
+                }
+
+                return -1;
             }
+
         }
     }])
     .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList','$state', function($scope, sessionService, $stateParams, ues_list, sessionsList,$state){
@@ -60,7 +68,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.myue = sessionService.findMyUe($scope.ues_list, $scope.id_ue);
         $scope.sessions = sessionsList.data['ue'].sessions;
         
-
+        console.log($scope.ues_list);
         console.log($scope.myue);
 
         $scope.delete = function(sessionParam)
