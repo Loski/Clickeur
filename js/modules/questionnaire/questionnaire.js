@@ -8,14 +8,14 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.questions = questionsList.data.session.questions;
         $scope.propositions = {};
         console.log($scope.questions);
-        $scope.lancer = function(id){
-
-            questionRepository.switchState(id);
+        $scope.booleanLancer = false;
+        $scope.lancer = function(question){
+            question.opened = !question.opened;
+            questionRepository.switchState(question.id);
         }
 
         $scope.getPropositions = function(id)
         {
-            console.log(id);
             if (typeof $scope.propositions[id] == 'undefined')
             {
                 questionRepository.getPropositions(id).then(

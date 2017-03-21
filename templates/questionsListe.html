@@ -6,7 +6,7 @@
         <div class="flat">Ajouter une question</div>
     </a>
     <div class="flat" ng-show="!questions.length">Aucune question</div>
-    <div class="question flat clickable animate" ng-repeat="question in questions | orderBy:'+number'" ng-class-odd="'odd'" ng-class-even="'even'">
+    <div class="question flat clickable" ng-repeat="question in questions | orderBy:'+number'" ng-class-odd="'odd'" ng-class-even="'even'">
         <div class="questionTitle" >
             <div class="clickable name" ng-click="getPropositions(question.id)">
                 <span>{{question.number}} - {{question.title}}</span>
@@ -16,11 +16,11 @@
                 <div ng-class="rep.verdict==1 ? ' flat bonne-reponse' : 'flat mauvaise-reponse'">{{rep.title}}</div>
             </div>
             <ul class="bottom-bar">
-                <li class="clickable" ng-click="lancer(question.id)">
+                <li ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-play " aria-hidden="true"></i>
                     <span>Lancer</span>
                 </li>
-                <li class="clickable">
+                <li ng-show="question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-pause" aria-hidden="true"></i>
                     <span>Terminer</span>
                 </li>

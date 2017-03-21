@@ -197,79 +197,73 @@ a:link
     padding: 15px;
 }
 
-
-.animation.ng-enter,
-.animation.ng-leave,
-.animation.ng-move {
-  position:relative;
+.ng-move{
+  animation: inherit;
 }
+.ng-hide-add         { animation:0.5s lightSpeedOut ease; }
 
-.animation.ng-enter {
-  -webkit-animation: 0.5s repeat-animation-enter;
-  animation: 0.5s repeat-animation-enter;
-}
+/* when showing the picture */
+.ng-hide-remove      { animation:0.5s flipInX ease; }
 
-.animation.ng-leave {
-  -webkit-animation: 0.5s repeat-animation-leave;
-  animation: 0.5s repeat-animation-leave;
-}
-
-.animation.ng-move {
-  -webkit-animation: 0.5s repeat-animation-move;
-  animation: 0.5s repeat-animation-move;
-}
-
-@keyframes repeat-animation-enter {
-  from {
-    left:-10px;
-    opacity:0;
+/* ANIMATIONS (FROM ANIMATE.CSS) ======================== */
+/* flip in */
+@keyframes flipInX {
+  0% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transition-timing-function: ease-in;
+    opacity: 0;
   }
-  to {
-    left:0;
-    opacity:1;
-  }
-}
 
-@-webkit-keyframes repeat-animation-enter {
-  from {
-    left:-10px;
-    opacity:0;
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
   }
-  to {
-    left:0;
-    opacity:1;
-  }
-}
 
-@keyframes repeat-animation-leave {
-  from {
-    left:0;
-    opacity:1;
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
   }
-  to {
-    left:-10px;
-    opacity:0;
+
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  100% {
+    transform: perspective(400px);
+    transform: perspective(400px);
+    transform: perspective(400px);
   }
 }
 
-@-webkit-keyframes repeat-animation-leave {
-  from {
-    left:0;
-    opacity:1;
+/* light speed out */
+@keyframes lightSpeedOut {
+  0% {
+    opacity: 1;
   }
-  to {
-    left:-10px;
-    opacity:0;
+
+  100% {
+    transform: translate3d(100%, 0, 0) skewX(30deg);
+    transform: translate3d(100%, 0, 0) skewX(30deg);
+    opacity: 0;
   }
 }
 
-@keyframes repeat-animation-move {
-  from { opacity:0.5; }
-  to { opacity:1; }
-}
+@keyframes lightSpeedOut {
+  0% {
+    opacity: 1;
+  }
 
-@-webkit-keyframes repeat-animation-move {
-  from { opacity:0.5; }
-  to { opacity:1; }
+  100% {
+    transform: translate3d(100%, 0, 0) skewX(30deg);
+    transform: translate3d(100%, 0, 0) skewX(30deg);
+    transform: translate3d(100%, 0, 0) skewX(30deg);
+    opacity: 0;
+  }
 }
-

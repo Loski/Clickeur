@@ -137,11 +137,15 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.update = function()
         {
             sessionService.update($scope.session_title,$scope.session_number,$stateParams.id_session).then(function successCallback(success){
-                $scope.sessions[$scope.indexOfSession] = success.data.session;
+               var session = success.data.session;
+               $scope.sessions[$scope.indexOfSession].title = session.title;
+                $scope.sessions[$scope.indexOfSession].number = session.number;
+
                 $state.go('ues.sessions');
             },
             function errorsCallback(error){
-            });;
+                console.log(error);
+            });
         }
  }
 ]);
