@@ -29,8 +29,10 @@
                     <span>Modifier</span>
                 </li>
                 <li class="clickable">
-                    <i class="fa fa-area-chart " aria-hidden="true"></i>
-                    <span>Statistique</span>
+                    <a ui-sref=".stat({ id_question: {{question.id}} })">
+                        <i class="fa fa-area-chart" aria-hidden="true"></i>
+                        <span>Statistique</span>
+                    </a>
                 </li>
                 <li class="clickable" ng-click="delete(question)">
                     <i class="fa fa-trash-o  delete" aria-hidden="true"></i>

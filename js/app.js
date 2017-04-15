@@ -1,5 +1,4 @@
 'use strict';
-var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -108,28 +107,44 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                     templateUrl: 'templates/ajouterQuestion.html',
                     controller: 'questionnairesFormController'
                 },
-            }
-        })
-        /*.state('ue/:ueID/session/:sessionID/question/:idQuestionnaire/edit', {
-            url: '/questionnaires',
-            templateUrl: 'templates/ajouterQuestion.html',
-            controller: 'questionnairesController',
+
+            },
             resolve: {
-                item: ['$stateParams', 'questionRepository', function ($stateParams, questionRepository) {
-                return questionRepository.get($stateParams.idQuestionnaire);
-            }],
-                formType: function () { return Enums.FormType.EDIT; },
+                    propositions: ['questionRepository', function (questionRepository) {
+                        return questionRepository.getNew();
+                    }],
+                    formType: function () { return "CREATE"; }
             },
         })
-        .state('question/create', {
-            url: 'question/create',
-            views: {
-              'questions@': { 
-                templateUrl: 'templates/ajouterQuestion.html',
-                controller: 'questionnairesController', },
+        .state('ues.sessions.questions.edit', {
+            url: '/{id_question}/edit',
+            views:{
+                "@":{
+                    templateUrl: 'templates/ajouterQuestion.html',
+                    controller: 'questionnairesFormController'
+                }
             },
-            
-        })*/
+            resolve: {
+                propositions: ['questionRepository', '$stateParams', function (questionRepository, $stateParams) {
+                    return questionRepository.getPropositions($stateParams.id_question);
+                }],
+                formType: function () { return "EDIT"; }
+            },
+
+        })
+        .state('ues.sessions.questions.stat', {
+            url: '/{id_question}/stat',
+            views:{
+                "@":{
+                    templateUrl: 'templates/stats.html',
+                    controller: 'statsController'
+                },
+            },
+            resolve: {
+                questionWithStatistique: ['statistiqueRepository', '$stateParams', function (statistiqueRepository, $stateParams) {
+                    return statistiqueRepository.getQuestionWithStatistique($stateParams.id_question);
+                }],
+        })
     // default route
   //  $urlRouterProvider.otherwise("/");
     //Interceptor of request and response

@@ -8,21 +8,21 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/ues/'
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues'
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/ues'
                 });
             },
             get: function(id){
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/ues/'+id,
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+id
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/ues/'+id
                 });
             },
             delete: function($id){
                 return $http({
                     method: 'DELETE',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id,
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+$id
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/ues/'+$id
                 });
             },
 
@@ -30,7 +30,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
             {
                 return $http({
                     method: 'POST',
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues',
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/ues',
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
                 });
             },
@@ -46,7 +46,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id,
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/ues/'+$id,
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/ues/'+$id,
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
                 });
             }

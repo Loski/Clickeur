@@ -7,7 +7,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.id_ue = $stateParams.id_ue;
         $scope.questions = questionsList.data.session.questions;
         $scope.propositions = {};
-        console.log($scope.questions);
         $scope.booleanLancer = false;
         $scope.lancer = function(question){
             question.opened = !question.opened;
@@ -45,8 +44,9 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 });;
         }
     }])
-	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', function($scope, $stateParams, questionRepository){
-
+	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', 'formType', function($scope, $stateParams, questionRepository, formType, propositions){
+        $scope.title = (formType === "CREATE") ? "Ajouter une question" : "Edition de la question";
+        $scope.formType = formType;
     	$scope.responses = [{id: 'response1', verdict: "false"}, {id: 'response2', verdict: "false"}];
         $scope.question = "";
         $scope.id_session = $stateParams.id_session;
@@ -82,21 +82,21 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
     return {
         getNew:function(){
         	return {
-                name:'Réponse 1', val:''
+                name:'Réponse 1', val:'', id:1
             };
         },
         getList:function(id_session) {
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions"
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions"
                 });
          },
         getPropositions:function(question_id) {
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/questions/'+question_id+'/propositions'
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id+'/propositions'
                 });
          },
         get:function(id_session, id_question) {
@@ -109,7 +109,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
-                url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
+                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
                 data:question
             }).then(function(response)
             {
@@ -123,13 +123,13 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
             method: 'DELETE',
             //url:'http://127.0.0.1:8000/api/sessions/'+$id,
-            url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/questions/'+$id
+            url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+$id
             });
         },
         switchState: function(id){
             $http({
                 method: 'PUT',
-                url:'http://ec2-54-85-60-73.compute-1.amazonaws.com/api/questions/'+id
+                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+id
             }).then(function(response)
             {
                 return response.data;
