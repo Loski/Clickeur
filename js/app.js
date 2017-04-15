@@ -1,4 +1,5 @@
 'use strict';
+var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -144,6 +145,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 questionWithStatistique: ['statistiqueRepository', '$stateParams', function (statistiqueRepository, $stateParams) {
                     return statistiqueRepository.getQuestionWithStatistique($stateParams.id_question);
                 }],
+            },
         })
     // default route
   //  $urlRouterProvider.otherwise("/");
