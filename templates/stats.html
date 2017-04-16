@@ -4,9 +4,18 @@
 			<div class="flat title">
 		      <h1>Statistique</h1>
 		    </div>
+		    <div class="flat">
+		    	{{question.title}}
+		    </div>
 	       <div class="flat animation">
-	       		Insère ton canvas ici
+	       	<div ng-repeat="rep in propositions | orderBy:'+number'">
+	       		<div ng-class="rep.verdict==1 ? ' flat bonne-reponse' : 'flat mauvaise-reponse'">{{rep.title}}</div>
+	       	</div>
+	       	<div>
+        		<nvd3 options='rep_compare' data='data_to_show' ></nvd3>
+    		</div>
 	       </div>
+
 		</div>
 	</div>
 </div>
