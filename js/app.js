@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'nvd3', connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
+var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'nvd3', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
