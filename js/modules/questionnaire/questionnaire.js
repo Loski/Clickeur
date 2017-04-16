@@ -12,7 +12,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             question.opened = !question.opened;
             questionRepository.switchState(question.id);
         }
-
         $scope.getPropositions = function(id)
         {
             if (typeof $scope.propositions[id] == 'undefined')
@@ -31,7 +30,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 $scope.propositions[id].booleanVal=!$scope.propositions[id].booleanVal;
             }            
         }
-
         $scope.delete = function(question)
         {
             var index = $scope.questions.indexOf(question);
@@ -44,30 +42,32 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 });;
         }
     }])
-	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', 'formType', function($scope, $stateParams, questionRepository, formType, propositions){
+	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', 'formType', 'question', function($scope, $stateParams, questionRepository, formType, question){
         $scope.title = (formType === "CREATE") ? "Ajouter une question" : "Edition de la question";
         $scope.formType = formType;
-    	$scope.responses = [{id: 'response1', verdict: "false"}, {id: 'response2', verdict: "false"}];
-        $scope.question = "";
+    //	$scope.propositions = [{id: 'response1', verdict: "false"}, {id: 'response2', verdict: "false"}];
+        $scope.question = question.question;
+        console.log($scope.question);
+        console.log(question);
         $scope.id_session = $stateParams.id_session;
-        $scope.title ="";
-        console.log($scope.questions);
 
         $scope.addNewResponse = function() {
-            var newItemNo = $scope.responses.length+1;
-            $scope.responses.push({'id':'response'+newItemNo, 'verdict': false});
+            var newItemNo = $scope.question.propositions.length+1;
+            $scope.question.propositions.push({'id':'response'+newItemNo, 'verdict': false});
         };
 
         $scope.removeResponse = function() {
-            var lastItem = $scope.responses.length-1;
-            $scope.responses.splice(lastItem);
+            var lastItem = $scope.question.propositions.length-1;
+            $scope.question.propositions.splice(lastItem);
         };
-
-        $scope.envoyer = function(){
+        $scope.envoyer =function(){
+            ajouter();
+        }
+        $scope.ajouter = function(){
             var question = "";
-            question+= '{"title":"' + $scope.title+ '", "propositions":{';
-            for(var i = 0; i < $scope.responses.length; i++){
-                question += '"'+i+'":{"title" : "' + $scope.responses[i].name+ '", "verdict": ' + $scope.responses[i].verdict +'},';
+            question+= '{"title":"' + $scope.question+ '", "propositions":{';
+            for(var i = 0; i < $scope.propositions.length; i++){
+                question += '"'+i+'":{"title" : "' + $scope.propositions[i].title+ '", "verdict": ' + $scope.propositions[i].verdict +'},';
             }
             question = question.substring(0, question.length - 1);
             question += '}}';
@@ -82,7 +82,24 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
     return {
         getNew:function(){
         	return {
-                name:'Réponse 1', val:'', id:1
+                question:{
+                    id: 0,
+                    title: 'no title',
+                    propositions:[
+                        {
+                            "id": "-1",
+                            "verdict": 1,
+                            "number": 0,
+                            "title": "no title",
+                        },
+                        {
+                            "id": "-2",
+                            "verdict": 0,
+                            "number": 1,
+                            "title": "no title",
+                        },
+                    ]
+                }
             };
         },
         getList:function(id_session) {

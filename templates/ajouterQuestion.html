@@ -1,22 +1,23 @@
-<div class="row top_elem">
-	<form class="flat col-lg-7" id="ajouterQuestion">
+<div class="container top_elem">
+	<div class="row">
+	<form class="flat col-lg-12" id="ajouterQuestion">
 		<fieldset>
-			<legend>Ajouter une nouvelle question</legend>
+			<legend>{{title}}</legend>
 			<div class="form-group row ">
 				<label for="question" class="col-2 col-form-label">Question</label>
 				<div class="col-6">
-					<input type="text" ng-model="title" autocapitalize="sentences" required class="form-control" placeholder="Question" name="question" id="question">
+					<input type="text" ng-model="question.title" autocapitalize="sentences" required class="form-control" placeholder="Question" name="question" id="question">
 				</div>
 			</div>
-			<div ng-repeat="response in responses" class="reponseList">
+			<div ng-repeat="proposition in question.propositions" class="reponseList">
 				<div class="form-group row reponse">
-					<label for="{{response.id}}" class="col-2 col-form-label">Réponse</label>
+					<label for="{{proposition.id}}" class="col-2 col-form-label">Réponse</label>
 					<div class="col-6">
-						<textarea  ng-model="response.name" name="{{response.id}}" id="{{response.id}}" class="form-control" required></textarea>
+						<textarea  ng-model="proposition.title" name="{{proposition.id}}" id="{{proposition.id}}" class="form-control" required></textarea>
 					</div>
 					<div class="col-3">
 						<label class="col-form-label reponse_valide">
-				  			<input type="checkbox" ng-model="response.verdict" ng-true-value="true" ng-false-value="false">
+				  			<input type="checkbox" ng-model="proposition.verdict" ng-true-value=1 ng-false-value=0>
 				  			Réponse correcte.
 				  		</label>
 					</div>
@@ -31,4 +32,5 @@
 		</div>
 		</fieldset>
 	</form>
+	</div>
 </div>

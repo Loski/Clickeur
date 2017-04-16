@@ -11,10 +11,21 @@
 	       	<div ng-repeat="rep in propositions | orderBy:'+number'">
 	       		<div ng-class="rep.verdict==1 ? ' flat bonne-reponse' : 'flat mauvaise-reponse'">{{rep.title}}</div>
 	       	</div>
-	       	<div>
-        		<nvd3 options='rep_compare' data='data_to_show' ></nvd3>
-    		</div>
 	       </div>
+	       <ul id="chart">
+	       	<li class="col-lg-6 col-sm-12">
+		       	<div class="flat title">TITLE</div>
+		       	<div class="flat">
+		       		<nvd3 options='rep_compare' data='values_per_proposition'></nvd3>
+		       	</div>
+	       	</li>
+	       	<li class="col-lg-6 col-sm-12">
+		       	<div class=" flat title">TITLE</div>
+		       	<div class="flat">
+		       		<nvd3 options='rep_compare' data='data_to_show'></nvd3>
+		       	</div>
+	       	</li>
+	       </ul>
 
 		</div>
 	</div>

@@ -111,7 +111,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
             },
             resolve: {
-                    propositions: ['questionRepository', function (questionRepository) {
+                    question: ['questionRepository', function (questionRepository) {
                         return questionRepository.getNew();
                     }],
                     formType: function () { return "CREATE"; }
@@ -126,8 +126,12 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             },
             resolve: {
-                propositions: ['questionRepository', '$stateParams', function (questionRepository, $stateParams) {
-                    return questionRepository.getPropositions($stateParams.id_question);
+                question: ['questionRepository', '$stateParams', function (questionRepository, $stateParams) {
+                    return questionRepository.getPropositions($stateParams.id_question).then(function(response){
+                        return response.data;
+                    }, function(error){
+                        console.log("Impossible de réceptionner la question");
+                    });
                 }],
                 formType: function () { return "EDIT"; }
             },
