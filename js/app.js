@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
+var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'nvd3', connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
@@ -133,8 +133,8 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             },
 
         })
-        .state('ues.sessions.questions.stat', {
-            url: '/{id_question}/stat',
+        .state('ues.sessions.questions.statistique', {
+            url: '/{id_question}/statistique',
             views:{
                 "@":{
                     templateUrl: 'templates/stats.html',

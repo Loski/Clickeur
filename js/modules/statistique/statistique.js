@@ -4,7 +4,6 @@
 var statistique = angular.module('StatistiqueModule', ['ui.router'])
     .factory('statistiqueRepository', ['$http', function ($http) {
         console.log("j'entre");
-
         return {
             getQuestionWithStatistique: function(id_question) {
                  return $http({
@@ -15,7 +14,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router'])
         }
     }])
     .controller('statsController', [ '$scope', 'questionWithStatistique' , function($scope, questionWithStatistique){
-        console.log("je rentre");
+        console.log(questionWithStatistique);
     }]);
 
 
