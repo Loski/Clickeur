@@ -36,8 +36,34 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     }
                 },
                 color: function(d){return d.color},
-                labelType:"percent"
+                labelType:"percent",
+                tooltip: {
+         contentGenerator: function (e) {
+              var series = e.series[0];
+              if (series.value === null) return;
+
+              var rows = 
+                "<tr>" +
+                  "<td class='key'> Nombre de réponses : " + series.value + "</td>" +
+                "</tr>";
+
+              var header = 
+                "<thead>" + 
+                  "<tr>" +
+                    "<td class='legend-color-guide'><div style='background-color: " + series.color + ";'></div></td>" +
+                    "<td class='key'><strong>" + series.key + "</strong></td>" +
+                  "</tr>" + 
+                "</thead>";
+
+              return "<table>" +
+                  header +
+                  "<tbody>" + 
+                    rows + 
+                  "</tbody>" +
+                "</table>";
+            } 
             }
+        }
         };
 
 
