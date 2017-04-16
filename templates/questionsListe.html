@@ -13,7 +13,7 @@
             </div>
             <hr/>
             <div class="container-reponse" ng-show="propositions[question.id].booleanVal" ng-repeat="rep in propositions[question.id] | orderBy:'+number'">
-                <div ng-class="rep.verdict==1 ? ' flat bonne-reponse' : 'flat mauvaise-reponse'">{{rep.title}}</div>
+                <div class="flat-reponse"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span>{{rep.title}}</div>
             </div>
             <ul class="bottom-bar">
                 <li ng-show="!question.opened" class="clickable" ng-click="lancer(question)">

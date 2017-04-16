@@ -7,26 +7,45 @@
 		    <div class="flat">
 		    	{{question.title}}
 		    </div>
-	       <div class="flat animation">
+	       <div class="animation">
 	       	<div ng-repeat="rep in propositions | orderBy:'+number'">
-	       		<div ng-class="rep.verdict==1 ? ' flat bonne-reponse' : 'flat mauvaise-reponse'">{{rep.title}}</div>
+	       		<div class="flat"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span>{{rep.title}}</div>
 	       	</div>
+	       	<ul class="bottom-bar flat">
+                <li ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
+                    <i class="fa fa-play " aria-hidden="true"></i>
+                    <span>Ouvrir</span>
+                </li>
+                <li ng-show="question.opened" class="clickable" ng-click="lancer(question)">
+                    <i class="fa fa-pause" aria-hidden="true"></i>
+                    <span>Fermer</span>
+                </li>
+                <li class="clickable">
+                    <a ui-sref="ues.sessions.questions.edit({ id_question: {{question.id}} })">
+                        <i class="fa  fa-cog" aria-hidden="true"></i>
+                        <span>Modifier</span>
+                    </a>
+                </li>
+                <li class="clickable" ng-click="delete(question)">
+                    <i class="fa fa-trash-o  delete" aria-hidden="true"></i>
+                    <span>Supprimer</span>
+                </li>
+            </ul>
 	       </div>
 	       <ul id="chart">
+	       	 <li class="col-lg-6 col-sm-12">
+		       	<div class=" flat title">TITLE</div>
+		       	<div class="flat">
+		       		<nvd3 options='rep_compare' data='data_to_show'></nvd3>
+		       	</div>
+	       	</li>
 	       	<li class="col-lg-6 col-sm-12">
 		       	<div class="flat title">TITLE</div>
 		       	<div class="flat">
 		       		<nvd3 options='rep_compare' data='values_per_proposition'></nvd3>
 		       	</div>
 	       	</li>
-	       	<li class="col-lg-6 col-sm-12">
-		       	<div class=" flat title">TITLE</div>
-		       	<div class="flat">
-		       		<nvd3 options='rep_compare' data='data_to_show'></nvd3>
-		       	</div>
-	       	</li>
 	       </ul>
-
 		</div>
 	</div>
 </div>
