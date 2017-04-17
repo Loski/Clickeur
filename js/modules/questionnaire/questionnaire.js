@@ -43,31 +43,67 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         }
     }])
 	.controller('questionnairesFormController', ['$scope', '$stateParams', 'questionRepository', 'formType', 'question', function($scope, $stateParams, questionRepository, formType, question){
-        $scope.title = (formType === "CREATE") ? "Ajouter une question" : "Edition de la question";
+        if(formType === "CREATE"){
+            $scope.title = "Ajouter une question";
+        }else{
+            $scope.title =  "Edition de la question";
+            $scope.id_question = $stateParams.id_question;
+        }
         $scope.formType = formType;
-    //	$scope.propositions = [{id: 'response1', verdict: "false"}, {id: 'response2', verdict: "false"}];
         $scope.question = question.question;
-        console.log($scope.question);
-        console.log(question);
         $scope.id_session = $stateParams.id_session;
-
+        $scope.deleted_response = [];
+        console.log(question);
         $scope.addNewResponse = function() {
+            var indice = $scope.deleted_response.length-1
+            if(indice >= 0){
+                $scope.question.propositions.push($scope.deleted_response[indice]);
+                $scope.deleted_response.splice(indice, 1);
+                return;
+            }
             var newItemNo = $scope.question.propositions.length+1;
-            $scope.question.propositions.push({'id':'response'+newItemNo, 'verdict': false});
+            $scope.question.propositions.push({'id': Math.floor((Math.random() * 10000) + 1), 'verdict': false});
         };
 
-        $scope.removeResponse = function() {
-            var lastItem = $scope.question.propositions.length-1;
-            $scope.question.propositions.splice(lastItem); 
+        $scope.removeResponse = function(id) {
+            var indice = (function(id){ 
+                if(id == undefined)
+                    return;
+                for(var i = 0 ; i < $scope.question.propositions.length; i++){
+                    if(parseInt($scope.question.propositions[i].id) == parseInt(id)){
+                        return i;
+                    }
+                }
+            })(id);
+            $scope.deleted_response.push($scope.question.propositions[indice]);
+            $scope.question.propositions.splice(indice, 1);
         };
         $scope.envoyer =function(){
-            ajouter();
-        }
+            if($scope.formType =="CREATE")
+                $scope.ajouter();
+            else
+                $scope.update();
+        };
+
+        $scope.update = function(){
+            questionRepository.updateTitle($scope.id_question, $scope.question.title);
+            var questionToInsert = [];
+            var questionToUpdate = [];
+            for(var i = 0; i < $scope.question.propositions.length; i++){
+                //update
+                if($scope.question.propositions[i].created_at == undefined){
+                    questionToUpdate.push($scope.question.propositions[i]); 
+                }else{
+                    questionToInsert.push($scope.question.propositions[i]); 
+                }
+            }
+            
+        };
         $scope.ajouter = function(){
             var question = "";
-            question+= '{"title":"' + $scope.question+ '", "propositions":{';
-            for(var i = 0; i < $scope.propositions.length; i++){
-                question += '"'+i+'":{"title" : "' + $scope.propositions[i].title+ '", "verdict": ' + $scope.propositions[i].verdict +'},';
+            question+= '{"title":"' + $scope.question.title+ '", "propositions":{';
+            for(var i = 0; i < $scope.question.propositions.length; i++){
+                question += '"'+i+'":{"title" : "' + $scope.question.propositions[i].title+ '", "verdict": ' + $scope.question.propositions[i].verdict +'},';
             }
             question = question.substring(0, question.length - 1);
             question += '}}';
@@ -90,13 +126,13 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                             "id": "-1",
                             "verdict": 1,
                             "number": 0,
-                            "title": "no title",
+                            "title": "no title1",
                         },
                         {
                             "id": "-2",
                             "verdict": 0,
                             "number": 1,
-                            "title": "no title",
+                            "title": "no title2",
                         },
                     ]
                 }
@@ -119,8 +155,29 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
         get:function(id_session, id_question) {
             return ;
         },
-        update : function(updatedResource) {
-            return;
+        updateTitle : function(question_id, title) {
+            return $http({
+                    method: 'PUT',
+                    //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id+'/propositions',
+                    data: "title ="+ title
+                });
+        },
+        updateProposition : function(proposition_id, title) {
+            return $http({
+                    method: 'PUT',
+                    //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/propositions/' + proposition_id,
+                    data: "title ="+ title
+                });
+        },
+        insertProposition : function(question_id, title) {
+            return $http({
+                    method: 'POST',
+                    //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/question/' + question_id,
+                    data: "title ="+ title
+                });
         },
         create: function (id_session, question) {
             $http({
