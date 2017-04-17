@@ -160,7 +160,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                     url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id,
-                    data: "title ="+ title
+                    data: "title="+ title
                 });
         },
         updateProposition : function(proposition_id, title) {
@@ -168,7 +168,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                     url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/propositions/' + proposition_id,
-                    data: "title ="+ title
+                    data: "title="+ title
                 });
         },
         insertProposition : function(question_id, title) {
@@ -176,7 +176,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                     url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/question/' + question_id,
-                    data: "title ="+ title
+                    data: "title="+ title
                 });
         },
         create: function (id_session, question) {
