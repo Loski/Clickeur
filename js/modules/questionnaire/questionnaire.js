@@ -215,7 +215,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                 return response.data;
             });
         },
-        getMyQuestionWithUeAndSessions: function{
+        getMyQuestionWithUeAndSessions: function(){
             $http({
                 method: 'DELETE',
             //url:'http://127.0.0.1:8000/api/sessions/'+$id,
