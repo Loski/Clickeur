@@ -159,7 +159,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id+'',
+                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id,
                     data: "title ="+ title
                 });
         },
@@ -203,7 +203,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
         switchState: function(id){
             $http({
                 method: 'PUT',
-                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+id
+                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/switch/'+id
             }).then(function(response)
             {
                 return response.data;

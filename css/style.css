@@ -79,7 +79,7 @@ nav ul li:last{
   margin-right: 2.5em;
   line-height: 2;
 }
-li.clickable:hover
+li.clickable:hover, .fa-chevron-right:hover
 {
     background-color: #3f51b5;
     transition: 1.05s;
@@ -215,7 +215,6 @@ a:link
   text-align: center;
   vertical-align: middle;
   border-radius: 50%; /* may require vendor prefixes */
-  background: yellow;
 }
 .bad{
     background-color: SeaGreen;
