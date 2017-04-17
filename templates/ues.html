@@ -10,7 +10,9 @@
 	      <div class="flat" ng-show="!ues_list.my_ues.length && !ues_list.other_ues.length">Aucune UEs créées</div>
 	      <div class=" flat animation" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="ue in ues_list.my_ues | orderBy:'+code_ue'">
 	        <div class="clickable name">
-	        	<a ui-sref-active="active" ui-sref="ues.sessions({ id_ue: {{ue.id}} })"><div>[{{ue.code_ue}}] {{ue.name}}</div></a>
+	        	<a ui-sref-active="active" ui-sref="ues.sessions({ id_ue: {{ue.id}} })">
+	        	<div>[{{ue.code_ue}}] {{ue.name}}<i class="pull-right fa fa-chevron-right" aria-hidden="true"></i></div>
+	        	</a>
 	        </div>
 	       	<hr/>
             <ul class="bottom-bar">
@@ -31,7 +33,7 @@
 	    </div>
 	      <div class="flat clickable" ng-animate="'animate'" ng-class-odd="'even'" ng-class-even="'odd'" ng-repeat="ue in ues_list.other_ues| orderBy:'+code_ue'">
 	      <div class="name clickable">
-	      	<a ui-sref="ues.sessions({ id_ue: {{ue.id}} })"><div>[{{ue.code_ue}}] {{ue.name}}</div></a>
+	      	<a ui-sref="ues.sessions({ id_ue: {{ue.id}} })"><div>[{{ue.code_ue}}] {{ue.name}}<i class="pull-right fa fa-chevron-right" aria-hidden="true"></i></div></a>
 	      </div>
 	      </div>
 		</div>

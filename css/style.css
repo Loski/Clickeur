@@ -75,6 +75,10 @@ nav ul li:last{
 .clickable, .title, a{
     color: #3f51b5;
 }
+.fa-chevron-right{
+  margin-right: 2.5em;
+  line-height: 2;
+}
 li.clickable:hover
 {
     background-color: #3f51b5;
@@ -87,6 +91,7 @@ li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a {
 }
 div.clickable.name{
     padding: 10px 0 10px 0px;
+    line-height: 2;
 }
 .bottom-bar{
     margin:0;

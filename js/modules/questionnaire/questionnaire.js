@@ -58,7 +58,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 
         $scope.removeResponse = function() {
             var lastItem = $scope.question.propositions.length-1;
-            $scope.question.propositions.splice(lastItem);
+            $scope.question.propositions.splice(lastItem); 
         };
         $scope.envoyer =function(){
             ajouter();
