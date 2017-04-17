@@ -13,7 +13,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             },
         }
     }])
-    .controller('statsController', [ '$scope', 'questionWithStatistique','statistiqueRepository','$timeout' , function($scope, questionWithStatistique,statistiqueRepository,$timeout){
+    .controller('statsController', [ '$scope', 'questionWithStatistique','statistiqueRepository','questionRepository','$timeout','$state' , function($scope, questionWithStatistique,statistiqueRepository,questionRepository,$timeout,$state){
         $scope.question = questionWithStatistique.data.question;
         $scope.propositions = $scope.question.propositions;
 
@@ -168,7 +168,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 $scope.updateStudents();
                 $scope.updateChart();
 
-                if($scope.question.opened==1)
+                if($scope.question.opened==1  && $state.is("ues.sessions.questions.statistique"))
                     $timeout(auto_update, 10000);
             },
             function errorsCallback(error){
@@ -178,6 +178,23 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
         if($scope.question.opened==1)
             $timeout(auto_update, 10000);  
+
+        $scope.lancer = function(question){
+            question.opened = !question.opened;
+            questionRepository.switchState(question.id);
+        }
+
+        $scope.delete = function(question)
+        {
+            var index = $scope.questions.indexOf(question);
+            questionRepository.delete(question.id).then(
+                function successCallback(success){
+                    $scope.questions.splice(index,1);
+                },
+                function errorsCallback(error){
+                    console.log(error.data);
+                });;
+        }
 
 }]);
 
