@@ -86,7 +86,13 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 
         $scope.update = function(){
-            questionRepository.updateTitle($scope.id_question, $scope.question.title);
+            questionRepository.updateTitle($scope.id_question, $scope.question.title).then(function successCallback(success){
+                $timeout(auto_update, 1000);
+                console.log("update");
+            },
+            function errorsCallback(error){
+                console.log(error);
+            });
             var questionToInsert = [];
             var questionToUpdate = [];
             for(var i = 0; i < $scope.question.propositions.length; i++){
@@ -126,13 +132,13 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                             "id": "-1",
                             "verdict": 1,
                             "number": 0,
-                            "title": "no title1",
+                            "title": "",
                         },
                         {
                             "id": "-2",
                             "verdict": 0,
                             "number": 1,
-                            "title": "no title2",
+                            "title": "no ",
                         },
                     ]
                 }
@@ -207,6 +213,13 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             }).then(function(response)
             {
                 return response.data;
+            });
+        },
+        getMyQuestionWithUeAndSessions: function{
+            $http({
+                method: 'DELETE',
+            //url:'http://127.0.0.1:8000/api/sessions/'+$id,
+                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+$id
             });
         }
     }

@@ -4,10 +4,15 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     
     // app routes
     $stateProvider
-        .state('index', {
+    .state('index', {
             url:'/',
-            templateUrl: 'templates/connexion.html',
-            controller:'connexion'
+            templateUrl: 'templates/index.html',
+            controller:'connexion',
+            resolve:{
+                ue_list :function(connexionUser){
+                    return ueService.queryOnlyQuestionOpen();
+                }
+            }
         })
         .state('login', {
             url:'/login',

@@ -216,14 +216,19 @@ a:link
   vertical-align: middle;
   border-radius: 50%; /* may require vendor prefixes */
 }
-.bad{
+.good{
     background-color: SeaGreen;
 }
 
-.good{
+.bad{
     background-color: #CC6666;
 }
-
+.sans-opinion{
+  background-color: grey;
+}
+.orange{
+  background-color: orange;
+}
 .circle.reponse{
   margin: 0 10px 0 10px;
 }
