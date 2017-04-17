@@ -68,27 +68,27 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
 
         $scope.values_per_proposition = [];
-        var $nb_reponse = [];
-        $nb_reponse[0] = 0;
-        $nb_reponse[1] = 0;
+        var nb_reponse = [];
+        nb_reponse[0] = 0;
+        nb_reponse[1] = 0;
         for(var index in $scope.propositions)
         {
-            var $proposition = $scope.propositions[index];
-            var $color = "red";
+            var proposition = $scope.propositions[index];
+            var color = "red";
 
-            if($proposition.verdict==1)
+            if(proposition.verdict==1)
             {
-                $color="green";
-                $nb_reponse[0]++;
+                color="green";
+                nb_reponse[0] += proposition.stat.responses_count;
             }
             else
-                $nb_reponse[1]++;
+                nb_reponse[1] += proposition.stat.responses_count;
 
             $scope.values_per_proposition.push(
                 {
-                    label: $proposition.title,
-                    value: $proposition.stat.responses_count,
-                    color : $color
+                    label: proposition.title,
+                    value: proposition.stat.responses_count,
+                    color : color
                 }
             );
         }
@@ -97,12 +97,12 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         $scope.values = [
             {
                 label: "Bonne réponse",
-                value: $nb_reponse[0],
+                value: nb_reponse[0],
                 color: "#11400d"
             },
             {
                 label: "Mauvaise réponse",
-                value: $nb_reponse[1],
+                value: nb_reponse[1],
                 color: "#420405"
             }
         ];
