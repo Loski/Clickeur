@@ -13,7 +13,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             },
         }
     }])
-    .controller('statsController', [ '$scope', 'questionWithStatistique' , function($scope, questionWithStatistique){
+    .controller('statsController', [ '$scope', 'questionWithStatistique','statistiqueRepository','$timeout' , function($scope, questionWithStatistique,statistiqueRepository,$timeout){
         $scope.question = questionWithStatistique.data.question;
         $scope.propositions = $scope.question.propositions;
 
@@ -26,7 +26,8 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 showLabels: true,
                 duration: 500,
                 labelThreshold: 0.01,
-                labelSunbeamLayout: true,
+                //labelSunbeamLayout: true,
+                noData:"Aucune statistique disponible",
                 legend: {
                     margin: {
                         top: 5,
@@ -36,7 +37,10 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     }
                 },
                 color: function(d){return d.color},
-                labelType:"percent",
+                labelType:function(d){
+                    var percent = (d.endAngle - d.startAngle) / (2 * Math.PI);
+                    return d3.format('.2%')(percent);
+                },
                 tooltip: {
          contentGenerator: function (e) {
               var series = e.series[0];
@@ -66,48 +70,114 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         }
         };
 
-
-        $scope.values_per_proposition = [];
-        var nb_reponse = [];
-        nb_reponse[0] = 0;
-        nb_reponse[1] = 0;
-        for(var index in $scope.propositions)
+        $scope.updateChart = function()
         {
-            var proposition = $scope.propositions[index];
-            var color = "red";
 
-            if(proposition.verdict==1)
+            $scope.values_per_proposition = [];
+            $scope.true_false_values = [];
+            var nb_reponse = [];
+            nb_reponse[0] = 0;
+            nb_reponse[1] = 0;
+
+            console.log("JEY");
+            for(var index in $scope.propositions)
             {
-                color="green";
-                nb_reponse[0] += proposition.stat.responses_count;
-            }
-            else
-                nb_reponse[1] += proposition.stat.responses_count;
+                var proposition = $scope.propositions[index];
+                var color = "red";
 
-            $scope.values_per_proposition.push(
+                if(proposition.verdict==1)
                 {
-                    label: proposition.title,
-                    value: proposition.stat.responses_count,
-                    color : color
+                    color="green";
+                    nb_reponse[0] += proposition.stat.responses_count;
                 }
-            );
+                else
+                    nb_reponse[1] += proposition.stat.responses_count;
+
+                $scope.values_per_proposition.push(
+                    {
+                        label: proposition.title,
+                        value: proposition.stat.responses_count,
+                        color : color
+                    }
+                );
+            }
+
+            $scope.true_false_values = [
+                {
+                    label: "Bonne réponse",
+                    value: nb_reponse[0],
+                    color: "#11400d"
+                },
+                {
+                    label: "Mauvaise réponse",
+                    value: nb_reponse[1],
+                    color: "#420405"
+                }
+            ];
+
+            if(nb_reponse[0]==0 && nb_reponse[1]==0)
+            {
+                $scope.true_false_values = [];
+                $scope.values_per_proposition = [];
+            }
         }
 
+        $scope.updateChart();
 
-        $scope.values = [
+        $scope.updateStudents = function()
+        {
+            /* Array of Students*/
+            $scope.sortType     = 'num_etu'; // set the default sort type
+            $scope.sortReverse  = false;  // set the default sort order
+            $scope.searchStudent   = '';     // set the default search/filter term
+
+            $scope.students = [];
+
+            for(var indexProp in $scope.propositions)
             {
-                label: "Bonne réponse",
-                value: nb_reponse[0],
-                color: "#11400d"
-            },
-            {
-                label: "Mauvaise réponse",
-                value: nb_reponse[1],
-                color: "#420405"
+                var stat = $scope.propositions[indexProp].stat;
+
+                for(var index in stat.users)
+                {
+                    var student = stat.users[index];
+
+                    $scope.students.push(
+                    {
+                        num_etu:student.username,
+                        firstName:student.firstName,
+                        lastName:student.lastName,
+                        proposition:parseInt(indexProp)+1,
+                        proposition_juste:$scope.propositions[indexProp].verdict
+                    }
+                    );
+                }
             }
-        ];
+        }
 
-        $scope.data_to_show = $scope.values;
+        $scope.updateStudents();
+
+        /* AUTO - UPDATE*/
+        var auto_update = function()
+        {
+           statistiqueRepository.getQuestionWithStatistique($scope.question.id).then(function successCallback(success){
+                
+                console.log("UPDATE");
+                $scope.question = success.data.question;
+                $scope.propositions = $scope.question.propositions;
+
+                $scope.updateStudents();
+                $scope.updateChart();
+
+                if($scope.question.opened==1)
+                    $timeout(auto_update, 10000);
+            },
+            function errorsCallback(error){
+                console.log(error);
+            });
+        }
+
+        if($scope.question.opened==1)
+            $timeout(auto_update, 10000);  
 
 }]);
 

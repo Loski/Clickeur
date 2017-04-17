@@ -34,18 +34,72 @@
 	       </div>
 	       <ul id="chart">
 	       	 <li class="col-lg-6 col-sm-12">
-		       	<div class=" flat title">TITLE</div>
+		       	<div class=" flat title">Statistiques globales</div>
 		       	<div class="flat">
-		       		<nvd3 options='rep_compare' data='data_to_show'></nvd3>
+		       		<nvd3 options='rep_compare' data='true_false_values'></nvd3>
 		       	</div>
 	       	</li>
 	       	<li class="col-lg-6 col-sm-12">
-		       	<div class="flat title">TITLE</div>
+		       	<div class="flat title">Statistiques par propositions</div>
 		       	<div class="flat">
 		       		<nvd3 options='rep_compare' data='values_per_proposition'></nvd3>
 		       	</div>
 	       	</li>
 	       </ul>
+	       <div>
+			 <form>
+			    <div class="form-group">
+			      <div class="input-group">
+			        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+			        <input type="text" class="form-control" placeholder="Rechercher un Etudiant" ng-model="searchStudent">
+
+			      </div>      
+			    </div>
+			  </form>
+  			</div>
+  			<table class="table table-bordered table-striped">
+		    <thead>
+		      <tr>
+		      	<th ng-click="sortType = 'num_etu' ; sortReverse = !sortReverse || sortType != 'num_etu' ">
+		      		Num_Etu 
+		      		<span ng-show="sortType == 'num_etu' && sortReverse" class="fa fa-caret-up"></span>
+		      		<span ng-show="sortType == 'num_etu' && !sortReverse" class="fa fa-caret-down"></span>
+		      	</th>
+		        <th ng-click="sortType = 'lastName' ; sortReverse = !sortReverse || sortType != 'lastName' ">
+		        	Nom 
+		        	<span ng-show="sortType == 'lastName' && sortReverse" class="fa fa-caret-up"></span>
+		        	<span ng-show="sortType == 'lastName' && !sortReverse" class="fa fa-caret-down"></span>
+		        </th>
+		        <th ng-click="sortType = 'firstName' ; sortReverse = !sortReverse || sortType != 'firstName' ">
+		        	Prénom 
+		        	<span ng-show="sortType == 'firstName' && sortReverse" class="fa fa-caret-up"></span>
+		        	<span ng-show="sortType == 'firstName' && !sortReverse" class="fa fa-caret-down"></span>
+		        </th>
+		        <th ng-click="sortType = 'proposition' ; sortReverse = !sortReverse || sortType != 'proposition' ">
+		        	Proposition répondue 
+		        	<span ng-show="sortType == 'proposition' && sortReverse" class="fa fa-caret-up"></span>
+		        	<span ng-show="sortType == 'proposition' && !sortReverse" class="fa fa-caret-down"></span>
+		        </th>
+		        <th ng-click="sortType = 'proposition_juste' ; sortReverse = !sortReverse || sortType != 'proposition_juste' ">
+		        	Réponse Juste ? 
+		        	<span ng-show="sortType == 'proposition_juste' && sortReverse" class="fa fa-caret-up"></span>
+		        	<span ng-show="sortType == 'proposition_juste' && !sortReverse" class="fa fa-caret-down"></span>
+		        </th>
+		      </tr>
+		    </thead>
+		    
+		    <tbody>
+		      <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent">
+		      	<td>{{ student.num_etu }}</td>
+		      	<td>{{ student.lastName }}</td>
+		        <td>{{ student.firstName }}</td>
+		        <td>{{ student.proposition }}</td>
+		        <td><span class="circle reponse" ng-class="student.proposition_juste==1 ? 'good' : 'bad'"></span></td>
+		      </tr>
+		    </tbody>
+		    
+		  </table>
 		</div>
 	</div>
 </div>
