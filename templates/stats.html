@@ -16,7 +16,7 @@
 		    </div>
 	       <div class="animation">
 	       	<div ng-repeat="rep in propositions | orderBy:'+number'">
-	       		<div class="flat"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span>{{rep.title}}</div>
+	       		<div class="flat"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : rep.number ==0 ? 'sans-opinion' : 'bad'"></span>{{rep.title}}</div>
 	       	</div>
 	       	<ul class="bottom-bar flat">
                 <li ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
@@ -103,7 +103,7 @@
 		      	<td>{{ student.lastName }}</td>
 		        <td>{{ student.firstName }}</td>
 		        <td>{{ student.proposition }}</td>
-		        <td><span class="circle reponse" ng-class="student.proposition_juste==1 ? 'good' : 'bad'"></span></td>
+		        <td><span class="circle reponse" ng-class="student.proposition_juste==1 ? 'good' : student.proposition ==0 ? 'sans-opinion' : 'bad'"></span></td>
 		      </tr>
 		    </tbody>
 		    

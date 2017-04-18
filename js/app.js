@@ -93,7 +93,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             }
         })
         .state('ues.sessions.questions', {
-            url: '/{id_session}/question',
+            url: '/{id_session}/questions',
             views: {
               'questions': {
                 templateUrl: 'templates/questionsListe.html',

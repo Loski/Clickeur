@@ -76,6 +76,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             $scope.values_per_proposition = [];
             $scope.true_false_values = [];
             var nb_reponse = [];
+            var sans_opinion = 0;
             nb_reponse[0] = 0;
             nb_reponse[1] = 0;
 
@@ -84,7 +85,12 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 var proposition = $scope.propositions[index];
                 var color = "red";
 
-                if(proposition.verdict==1)
+                if(proposition.number==0)
+                {
+                    color="gray";
+                    sans_opinion+=proposition.stat.responses_count;
+                }
+                else if(proposition.verdict==1)
                 {
                     color="green";
                     nb_reponse[0] += proposition.stat.responses_count;
@@ -111,6 +117,11 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     label: "Mauvaise réponse",
                     value: nb_reponse[1],
                     color: "#420405"
+                },
+                                {
+                    label: "Sans opinion",
+                    value: sans_opinion,
+                    color: "gray"
                 }
             ];
 
@@ -145,7 +156,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                         num_etu:student.username,
                         firstName:student.firstName,
                         lastName:student.lastName,
-                        proposition:parseInt(indexProp)+1,
+                        proposition:$scope.propositions[indexProp].number,
                         proposition_juste:$scope.propositions[indexProp].verdict
                     }
                     );
@@ -185,10 +196,11 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
         $scope.delete = function(question)
         {
-            var index = $scope.questions.indexOf(question);
+            //var index = $scope.questions.indexOf(question);
             questionRepository.delete(question.id).then(
                 function successCallback(success){
-                    $scope.questions.splice(index,1);
+                    //$scope.questions.splice(index,1);
+                    $state.go("ues.sessions.questions");
                 },
                 function errorsCallback(error){
                     console.log(error.data);

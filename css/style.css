@@ -177,7 +177,9 @@ button,input[type="checkbox"],label>input[type="checkbox"]{
   margin: auto;
   max-width: 100%;
 }
-
+form label{
+	cursor: pointer;
+}
 #connexion>div, #connexion>span{
 	flex: row nowrap;
 }
