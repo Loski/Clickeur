@@ -1,9 +1,13 @@
 <div class="container top_elem display-block" id="ue_list">
 	<div class="row">
+		<div class="col-sm-3">
+			<a ui-sref="ues.sessions.questions({ id_question: {{question.id}} })" >
+			<div class="back clickable flat"><i class="fa fa-chevron-left" aria-hidden="true"></i><span>Retour</span>
+			</div></a>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-sm-12">
-		<a ui-sref="ues.sessions.questions({ id_question: {{question.id}} })" >
-		<div class="back clickable flat"><i class="fa fa-chevron-left" aria-hidden="true"></i><span>Retour</span>
-		</div></a>
 			<div class="flat title">
 		      <h1>Statistique</h1>
 		    </div>
