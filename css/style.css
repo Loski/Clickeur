@@ -85,7 +85,7 @@ li.clickable:hover, .fa-chevron-right:hover
     transition: 1.05s;
 }
 
-li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a {
+li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a, .clickable .bottom-bar span:hover, .clickable .bottom-bar a:hover {
     color: white;
     transition: .75s;
 }

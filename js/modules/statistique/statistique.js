@@ -79,7 +79,6 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             nb_reponse[0] = 0;
             nb_reponse[1] = 0;
 
-            console.log("JEY");
             for(var index in $scope.propositions)
             {
                 var proposition = $scope.propositions[index];

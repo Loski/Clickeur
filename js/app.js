@@ -5,14 +5,17 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     // app routes
     $stateProvider
     .state('index', {
-            url:'/',
-            templateUrl: 'templates/index.html',
-            controller:'connexion',
-            resolve:{
-                ue_list :function(connexionUser){
-                    return ueService.queryOnlyQuestionOpen();
+            url:'/home',
+            views:{
+                "@": {
+                    templateUrl: 'templates/index.html',
+                    controller: 'questionNotClose',
                 }
-            }
+            },
+            resolve: {
+                ues: ['questionRepository', function (questionRepository) {
+                    return questionRepository.getMyQuestionWithUeAndSessions();
+                }]},
         })
         .state('login', {
             url:'/login',
@@ -157,6 +160,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }],
             },
         })
+
     // default route
   //  $urlRouterProvider.otherwise("/");
     //Interceptor of request and response
