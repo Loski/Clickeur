@@ -1,10 +1,13 @@
 <div class="container top_elem display-block" id="ue_list">
 	<div class="row">
 		<div class="col-sm-12">
+		<a ui-sref="ues.sessions.questions({ id_question: {{question.id}} })" >
+		<div class="back clickable flat"><i class="fa fa-chevron-left" aria-hidden="true"></i><span>Retour</span>
+		</div></a>
 			<div class="flat title">
 		      <h1>Statistique</h1>
 		    </div>
-		    <div class="flat">
+		    <div class="flat title_question">
 		    	{{question.title}}
 		    </div>
 	       <div class="animation">
@@ -34,13 +37,13 @@
 	       </div>
 	       <ul id="chart">
 	       	 <li class="col-lg-6 col-sm-12">
-		       	<div class=" flat title">Statistiques globales</div>
+		       	<div class=" flat title"><h2>Statistiques globales</h2></div>
 		       	<div class="flat">
 		       		<nvd3 options='rep_compare' data='true_false_values'></nvd3>
 		       	</div>
 	       	</li>
 	       	<li class="col-lg-6 col-sm-12">
-		       	<div class="flat title">Statistiques par propositions</div>
+		       	<div class="flat title"><h2>Statistiques par propositions</h2></div>
 		       	<div class="flat">
 		       		<nvd3 options='rep_compare' data='values_per_proposition'></nvd3>
 		       	</div>
@@ -59,11 +62,11 @@
 			    </div>
 			  </form>
   			</div>
-  			<table class="table table-bordered table-striped">
+  			<table id="statTab" class="table table-bordered table-striped">
 		    <thead>
 		      <tr>
 		      	<th ng-click="sortType = 'num_etu' ; sortReverse = !sortReverse || sortType != 'num_etu' ">
-		      		Num_Etu 
+		      		Numéro étudiant
 		      		<span ng-show="sortType == 'num_etu' && sortReverse" class="fa fa-caret-up"></span>
 		      		<span ng-show="sortType == 'num_etu' && !sortReverse" class="fa fa-caret-down"></span>
 		      	</th>
