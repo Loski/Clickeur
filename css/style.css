@@ -101,10 +101,20 @@ nav ul li:last{
   margin-right: 2.5em;
   line-height: 2;
   width: 30px;
-  height: auto;
+  height: 30px;
   text-align:center;
   border-radius: 50%;
   padding-left: 2px;
+  padding-top: 1px;
+}
+
+.flat_link_left{
+  margin-right: 2.5em;
+  line-height: 2;
+  width: 30px;
+  height: 30px;
+  text-align:center;
+  border-radius: 50%;
   padding-top: 1px;
 }
 li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-chevron-left
@@ -113,7 +123,7 @@ li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-che
     transition: 1.05s;
 }
 
-.clickable:hover .fa-chevron-right, .clickable:hover .fa-chevron-left,li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a, .clickable .bottom-bar span:hover, .clickable .bottom-bar a:hover {
+.clickable:hover .flat_link_left, .clickable:hover .flat_link, .clickable:hover .fa-chevron-left,li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a, .clickable .bottom-bar span:hover, .clickable .bottom-bar a:hover {
     color: white;
     transition: .75s;
     transform:rotate(360deg);

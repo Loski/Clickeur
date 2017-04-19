@@ -5,13 +5,17 @@
 				<div>
 					<div ng-repeat="session in ue.sessions">
 						<div class="flat">
-						<div>[{{ue.code_ue}}] {{ue.name}} - {{session.title}}</div>
-							<div class="question clickable" ng-repeat="question in session.questions">
+						<div>
+						<a ui-sref="ues({id_ue: ue.id})" title="{{ue.name}}">[{{ue.code_ue}}] {{ue.name}}</a> - <a title="{{session.title}}" ui-sref="ues.sessions({id_ue: ue.id, id_session:session.id})">{{session.title}}</a>
+						</div>
+							<div class="question" ng-repeat="question in session.questions">
 								<div class="questionTitle" >
 						            <div class="clickable name" ng-click="getPropositions(question.id)">
 						                <span>{{question.number}} - {{question.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></span>
 						            </div>
 						            <hr/>
+						    </div>
+						    <div class="clickable">
 						            <div class="container-reponse" ng-show="propositions[question.id].booleanVal" ng-repeat="rep in propositions[question.id] | orderBy:'+number'">
 						                <div class="flat-reponse"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span>{{rep.title}}</div>
 						            </div>

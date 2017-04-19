@@ -5,7 +5,7 @@
 	      <h1>Mes UEs</h1>
 	    </div>
 	      <a ui-sref="ues/create">
-	      	<div class="flat even">Ajouter une UE<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div>
+	      	<div class="flat even clickable">Ajouter une UE<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div>
 	      </a>
 	      <div class="flat" ng-show="!ues_list.my_ues.length && !ues_list.other_ues.length">Aucune UEs créées</div>
 	      <div class=" flat animation" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="ue in ues_list.my_ues | orderBy:'+code_ue'">
