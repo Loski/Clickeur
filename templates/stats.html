@@ -39,12 +39,16 @@
                 </li>
             </ul>
 	       </div>
-	       		<span>
-					<i class="fa fa-chevron-left" ng-click="precedent()" aria-hidden="true"></i>
-				</span>
-				<span>
-					<i class="fa fa-chevron-right" aria-hidden="true" ng-click="suivant()"></i>
-				</span>
+	       <div class="centerize">
+		       <div id="tour" class="flat  col-sm-6 ">
+		       		<span>
+						<i class="fa fa-chevron-left" ng-click="precedent()" aria-hidden="true"></i>
+					</span>
+		       		<span class="tour">Tour {{tour}}</span>
+					<span>
+						<i class="fa fa-chevron-right" aria-hidden="true" ng-click="suivant()"></i>
+					</span>
+		       </div>
 	       </div>
 	       <ul id="chart">
 	       	 <li class="col-lg-6 col-sm-12">
