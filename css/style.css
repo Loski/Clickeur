@@ -26,6 +26,11 @@ body{
 nav ul{
     display: inline-flex!important;
 }
+#tour{
+    display: inline-flex!important;
+        flex-flow: row nowrap;
+    justify-content: space-between;
+}
 nav ul li{
     list-style: none;
 }
@@ -43,6 +48,7 @@ nav ul li:last{
     box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.21);
     padding: 12px;
     transition: 1s;
+    line-height: 2;
 }
 .flat.title_question{
 	text-align: center;
@@ -225,6 +231,9 @@ form label{
   margin: auto;
 }
 
+#tour .fa{
+  margin: 0;
+}
 
 a:link 
 { 
