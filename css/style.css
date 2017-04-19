@@ -54,6 +54,7 @@ nav ul li:last{
 	text-align: center;
 	font-weight: 900;
 }
+
 .flat-reponse{
     background-color: #fff;
     padding: 12px 12px 12px 0;
@@ -96,13 +97,15 @@ nav ul li:last{
 .clickable, .title, a{
     color: #3f51b5;
 }
-.fa-chevron-right, .fa-chevron-left{
+.flat_link{
   margin-right: 2.5em;
   line-height: 2;
   width: 30px;
   height: auto;
   text-align:center;
   border-radius: 50%;
+  padding-left: 2px;
+  padding-top: 1px;
 }
 li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-chevron-left
 {

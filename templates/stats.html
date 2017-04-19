@@ -1,7 +1,7 @@
 <div class="container top_elem display-block" id="ue_list">
 	<div class="row">
 		<div class="col-sm-3">
-			<a ui-sref="ues.sessions.questions({ id_question: {{question.id}} })" >
+			<a title="Retour à la liste de questions" ui-sref="ues.sessions.questions({ id_question: {{question.id}} })" >
 			<div class="back clickable flat"><i class="fa fa-chevron-left" aria-hidden="true"></i><span>Retour</span>
 			</div></a>
 		</div>
@@ -19,21 +19,21 @@
 	       		<div class="flat"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : rep.number ==0 ? 'sans-opinion' : 'bad'"></span>{{rep.title}}</div>
 	       	</div>
 	       	<ul class="bottom-bar flat">
-                <li ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
+                <li title="Lancer la question" ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-play " aria-hidden="true"></i>
                     <span>Ouvrir</span>
                 </li>
-                <li ng-show="question.opened" class="clickable" ng-click="lancer(question)">
+                <li title="Fermer la question" ng-show="question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-pause" aria-hidden="true"></i>
                     <span>Fermer</span>
                 </li>
-                <li class="clickable">
+                <li title="Modifier la question" class="clickable">
                     <a ui-sref="ues.sessions.questions.edit({ id_question: {{question.id}} })">
                         <i class="fa  fa-cog" aria-hidden="true"></i>
                         <span>Modifier</span>
                     </a>
                 </li>
-                <li class="clickable" ng-click="delete(question)">
+                <li title="Supprimer la question" class="clickable" ng-click="delete(question)">
                     <i class="fa fa-trash-o  delete" aria-hidden="true"></i>
                     <span>Supprimer</span>
                 </li>
@@ -41,11 +41,11 @@
 	       </div>
 	       <div class="centerize">
 		       <div id="tour" class="flat  col-sm-6 ">
-		       		<span>
+		       		<span title="Question précédente">
 						<i class="fa fa-chevron-left" ng-click="precedent()" aria-hidden="true"></i>
 					</span>
 		       		<span class="tour">Tour {{tour}}</span>
-					<span>
+					<span title="Question suivantes">
 						<i class="fa fa-chevron-right" aria-hidden="true" ng-click="suivant()"></i>
 					</span>
 		       </div>

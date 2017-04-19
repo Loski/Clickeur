@@ -2,41 +2,41 @@
     <div class="flat title">
         <h1>Questions</h1>
     </div>
-    <a ui-sref=".create">
+    <a ui-sref=".create" title="Ajouter une question">
         <div class="flat">Ajouter une question</div>
     </a>
     <div class="flat" ng-show="!questions.length">Aucune question</div>
     <div class="question flat clickable" ng-repeat="question in questions | orderBy:'+number'" ng-class-odd="'odd'" ng-class-even="'even'">
         <div class="questionTitle" >
             <div class="clickable name" ng-click="getPropositions(question.id)">
-                <span>{{question.number}} - {{question.title}}<i class="pull-right fa fa-chevron-right" aria-hidden="true"></i></span>
+                <span>{{question.number}} - {{question.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></span>
             </div>
             <hr/>
             <div class="container-reponse" ng-show="propositions[question.id].booleanVal" ng-repeat="rep in propositions[question.id] | orderBy:'+number'">
                 <div class="flat-reponse"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span>{{rep.title}}</div>
             </div>
             <ul class="bottom-bar">
-                <li ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
+                <li title="Lancer la question" ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-play " aria-hidden="true"></i>
                     <span>Ouvrir</span>
                 </li>
-                <li ng-show="question.opened" class="clickable" ng-click="lancer(question)">
+                <li title="Fermer la question" ng-show="question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-pause" aria-hidden="true"></i>
                     <span>Fermer</span>
                 </li>
-                <li class="clickable">
+                <li class="clickable" title="Modifier la question">
                     <a ui-sref=".edit({ id_question: {{question.id}} })">
                         <i class="fa  fa-cog" aria-hidden="true"></i>
                         <span>Modifier</span>
                     </a>
                 </li>
-                <li class="clickable">
+                <li class="clickable" title="Statistique de la question">
                     <a ui-sref=".statistique({ id_question: {{question.id}} })">
                         <i class="fa fa-area-chart" aria-hidden="true"></i>
                         <span>Statistique</span>
                     </a>
                 </li>
-                <li class="clickable" ng-click="delete(question)">
+                <li title="Supprimer la question" class="clickable" ng-click="delete(question)">
                     <i class="fa fa-trash-o  delete" aria-hidden="true"></i>
                     <span>Supprimer</span>
                 </li>
