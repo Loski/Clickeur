@@ -4,10 +4,20 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     
     // app routes
     $stateProvider
-    .state('index', {
+        .state('app', {
+            url:"",
+            abstract:true,
+            views:{
+                "header": {
+                    templateUrl: 'templates/header.html',
+                    controller: 'navController',
+                }
+            },
+        })
+        .state('app.index', {
             url:'/home',
             views:{
-                "@": {
+                "main@": {
                     templateUrl: 'templates/index.html',
                     controller: 'questionNotClose',
                 }
@@ -17,25 +27,38 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                     return questionRepository.getMyQuestionWithUeAndSessions();
                 }]},
         })
-        .state('login', {
+        .state('app.login', {
             url:'/login',
-            templateUrl: 'templates/connexion.html',
-            controller:'connexion'
+
+            views:{
+                "main@": {
+                    templateUrl: 'templates/connexion.html',
+                    controller:'connexion',
+                }
+            },
         })
-        .state('ues', {
+        .state('app.ues', {
             url:'/ues',
-            templateUrl: 'templates/ues.html',
-            controller: 'ueController',
+            views:{
+                "main@": {
+                    templateUrl: 'templates/ues.html',
+                    controller: 'ueController',
+                }
+            },
             resolve: {
                 ues_list : function(ueService){
                     return ueService.query();
                 }
             }
         })
-        .state('ues/create', {
+        .state('app.ues.create', {
             url:'/ues/create',
-            templateUrl: 'templates/ajouterUe.html',
-            controller: 'ueControllerForm',
+            views:{
+                "main@": {
+                    templateUrl: 'templates/ajouterUe.html',
+                    controller: 'ueControllerForm',
+                }
+            },
             resolve: {
                 item: ['ueService', function (ueService) {
                     return ueService.getNew();
@@ -43,8 +66,8 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return "CREATE"; }
             },
         })
-        .state('ues/edit', {
-            url:'/ues/edit/{id_ue}',
+        .state('app.ues.edit', {
+            url:'/{id_ue}/edit',
             templateUrl: 'templates/ajouterUe.html',
             controller: 'ueControllerForm',
             resolve: {
@@ -53,11 +76,17 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }],
                 formType: function () { return "EDIT"; }
             },
+            views:{
+                "main@": {
+                    templateUrl: 'templates/ajouterUe.html',
+                    controller: 'ueControllerForm',
+                }
+            },
         })
-        .state('ues.sessions', {
+        .state('app.ues.sessions', {
             url:'/{id_ue}/sessions',
             views:{
-                "@": {
+                "main@": {
                     templateUrl: 'templates/sessions.html',
                     controller: 'sessionController',
                 }
@@ -68,7 +97,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }],
             }
         })
-        .state('ues.sessions.edit', {
+        .state('app.ues.sessions.edit', {
             url:'/{id_session}/edit',
             views: {
                 "questions":{
@@ -80,7 +109,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return "EDIT"; }
             },
         })
-        .state('ues.sessions.create', {
+        .state('app.ues.sessions.create', {
             url:'/create',
             views: {
                 "questions":{
@@ -92,7 +121,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 formType: function () { return "CREATE"; }
             }
         })
-        .state('ues.sessions.questions', {
+        .state('app.ues.sessions.questions', {
             url: '/{id_session}/questions',
             views: {
               'questions': {
@@ -110,10 +139,10 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 }]
             }
         })
-        .state('ues.sessions.questions.create', {
+        .state('app.ues.sessions.questions.create', {
             url: '/create',
             views:{
-                "@":{
+                "main@":{
                     templateUrl: 'templates/ajouterQuestion.html',
                     controller: 'questionnairesFormController'
                 },
@@ -126,10 +155,10 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                     formType: function () { return "CREATE"; }
             },
         })
-        .state('ues.sessions.questions.edit', {
+        .state('app.ues.sessions.questions.edit', {
             url: '/{id_question}/edit',
             views:{
-                "@":{
+                "main@":{
                     templateUrl: 'templates/ajouterQuestion.html',
                     controller: 'questionnairesFormController'
                 }
@@ -146,10 +175,10 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             },
 
         })
-        .state('ues.sessions.questions.statistique', {
+        .state('app.ues.sessions.questions.statistique', {
             url: '/{id_question}/statistique',
             views:{
-                "@":{
+                "main@":{
                     templateUrl: 'templates/stats.html',
                     controller: 'statsController'
                 },

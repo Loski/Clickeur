@@ -1,6 +1,6 @@
 <div class="row top_elem">
 	<div class="display-block offset-md-1 col-sm-2">
-		<a title="Retour à la liste d'ue" ui-sref="ues" >
+		<a title="Retour à la liste d'ue" ui-sref="app.ues" >
 			<div class="back animation clickable flat"><i class="fa flat_link_left  fa-chevron-left" aria-hidden="true"></i><span>Retour</span></div>
 		</a>
 	</div>
@@ -14,10 +14,10 @@
 			<div class="flat title">
 		      <h1>Sessions</h1>
 		      </div>
-		      	<a ui-sref="ues.sessions.create({ id_ue: {{id_ue}} })" title="Ajouter une session"><div class="flat clickable">Ajouter une session<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div></a>
+		      	<a ui-sref=".create({ id_ue: {{id_ue}} })" title="Ajouter une session"><div class="flat clickable">Ajouter une session<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div></a>
 		      <div class="flat animation session_row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in sessions| orderBy:'+number'">
 		       <div class="clickable name">
-		       	<a ui-sref="ues.sessions.questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })">
+		       	<a ui-sref=".questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })">
 		       		<div>[{{session.number}}] {{session.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i>
 		       		</div>
 		       	</a>
@@ -25,7 +25,7 @@
 			<hr/>
             <ul class="bottom-bar">
                 <li title="Modifier la session {{session.number}}" class="clickable">
-                	<a ui-sref="ues.sessions.edit({ id_session: {{session.id}} })">
+                	<a ui-sref=".edit({ id_session: {{session.id}} })">
                     	<i class="fa fa-cog" aria-hidden="true"></i>
                     	<span>Modifier</span>
                 	</a>

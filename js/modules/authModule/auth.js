@@ -37,7 +37,7 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
         connexionModule.login($scope.username, $scope.password).then(
             function successLogin(response){
                 userAuth.saveToken(response.data.token);
-                $state.go("index");
+                $state.go("app.index", {}, {reload:true});
             },
             function errorLogin(error){
                 $scope.authentification.username.$setValidity("size", false);

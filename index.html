@@ -24,25 +24,11 @@
 </head>
 <body>
     <div class="container-fluid page-wrap">
-        <header ng-controller="navController" ng-show="auth" class="row">
-            <nav class="navbar navbar-light bg-faded col-12 flat">
-                <div>
-                    <ul>
-                        <li>
-                          <a ui-sref="index"><img src="includes/img/logo.jpg" class="img-responsive"> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li>
-                            <a ui-sref="ues">Mes UEs</a>
-                        </li>
-                        <li>
-                            <button class="btn btn-primary" ng-click="logout()">Se déconnecter</button>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+        <header ui-view="header" ng-show="auth" class="row">
+            
         </header>
         <main>
-            <div ui-view>
+            <div ui-view="main">
             </div>
         </main>
     </div>
