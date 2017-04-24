@@ -17,57 +17,43 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         $scope.question = questionWithStatistique.data.question;
         $scope.propositions = $scope.question.propositions;
 
+        $scope.propositions.sort(function(a, b) {
+            return a.number - b.number;
+        });
+
         $scope.rep_compare = {
-           chart: {
-                type: 'pieChart',
-                height: 500,
+            chart: {
+                type: 'discreteBarChart',
+                height: 450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 50,
+                    left: 55
+                },
                 x: function(d){return d.label;},
                 y: function(d){return d.value;},
-                showLabels: true,
+                showValues: true,
+                valueFormat: function(d){
+                    return d3.format(',.0f')(d);
+                },
+                axisFormat: function(d){
+                    return d3.format(',.0f')(d);
+                },
                 duration: 500,
-                labelThreshold: 0.01,
-                //labelSunbeamLayout: true,
+                xAxis: {
+                    axisLabel: 'Proposition'
+                },
+                yAxis: {
+                    axisLabel: 'Nombre de réponses',
+                    axisLabelDistance: -10,
+                    tickFormat: function(d){
+                        return d3.format(',.0f')(d);
+                    },
+                },
                 noData:"Aucune statistique disponible",
-                legend: {
-                    margin: {
-                        top: 5,
-                        right: 35,
-                        bottom: 5,
-                        left: 0
-                    }
-                },
-                color: function(d){return d.color},
-                labelType:function(d){
-                    var percent = (d.endAngle - d.startAngle) / (2 * Math.PI);
-                    return d3.format('.2%')(percent);
-                },
-                tooltip: {
-         contentGenerator: function (e) {
-              var series = e.series[0];
-              if (series.value === null) return;
-
-              var rows = 
-                "<tr>" +
-                  "<td class='key'> Nombre de réponses : " + series.value + "</td>" +
-                "</tr>";
-
-              var header = 
-                "<thead>" + 
-                  "<tr>" +
-                    "<td class='legend-color-guide'><div style='background-color: " + series.color + ";'></div></td>" +
-                    "<td class='key'><strong>" + series.key + "</strong></td>" +
-                  "</tr>" + 
-                "</thead>";
-
-              return "<table>" +
-                  header +
-                  "<tbody>" + 
-                    rows + 
-                  "</tbody>" +
-                "</table>";
-            } 
+                color: function(d){return d.color}
             }
-        }
         };
 
         $scope.updateChart = function()
@@ -79,6 +65,8 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             var sans_opinion = 0;
             nb_reponse[0] = 0;
             nb_reponse[1] = 0;
+
+            var values = [];
 
             for(var index in $scope.propositions)
             {
@@ -98,16 +86,23 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 else
                     nb_reponse[1] += proposition.stat.responses_count;
 
-                $scope.values_per_proposition.push(
+                values.push(
                     {
-                        label: proposition.title,
+                        label: "n°"+proposition.number/*proposition.title*/,
                         value: proposition.stat.responses_count,
                         color : color
                     }
                 );
             }
 
-            $scope.true_false_values = [
+            $scope.values_per_proposition = [
+                {
+                    key:"key",
+                    values:values
+                }
+            ]
+
+           values = [
                 {
                     label: "Bonne réponse",
                     value: nb_reponse[0],
@@ -124,6 +119,13 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     color: "gray"
                 }
             ];
+
+            $scope.true_false_values = [
+                {
+                    key:"KEK",
+                    values:values
+                }
+            ]
 
             if(nb_reponse[0]==0 && nb_reponse[1]==0)
             {
