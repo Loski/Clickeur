@@ -52,7 +52,38 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     },
                 },
                 noData:"Aucune statistique disponible",
-                color: function(d){return d.color}
+                color: function(d){return d.color},
+                tooltip: {
+                    contentGenerator: function (e) {
+                      var series = e.series[0];
+                      if (series.value === null) return;
+
+                      var rows = 
+                        "<tr>" +
+                          "<td class='key'> Nombre de réponses : " + series.value + "</td>" +
+                        "</tr>";
+
+                    var title = e.data.title;
+
+                    if(angular.isUndefined(e.data.title))
+                        title=series.key;
+
+                      var header = 
+                        "<thead>" + 
+                          "<tr>" +
+                            "<td class='legend-color-guide'><div style='background-color: " + series.color + ";'></div></td>" +
+                            "<td class='key'><strong>" + title + "</strong></td>" +
+                          "</tr>" + 
+                        "</thead>";
+
+                      return "<table>" +
+                          header +
+                          "<tbody>" + 
+                            rows + 
+                          "</tbody>" +
+                        "</table>";
+                    } 
+                }
             }
         };
 
@@ -88,7 +119,8 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
                 values.push(
                     {
-                        label: "n°"+proposition.number/*proposition.title*/,
+                        label: "n°"+proposition.number,
+                        title:proposition.title,
                         value: proposition.stat.responses_count,
                         color : color
                     }
