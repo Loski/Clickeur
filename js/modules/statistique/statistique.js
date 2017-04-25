@@ -17,10 +17,6 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         $scope.question = questionWithStatistique.data.question;
         $scope.propositions = $scope.question.propositions;
 
-        $scope.propositions.sort(function(a, b) {
-            return a.number - b.number;
-        });
-
         $scope.rep_compare = {
             chart: {
                 type: 'discreteBarChart',
@@ -89,6 +85,10 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
         $scope.updateChart = function()
         {
+
+            $scope.propositions.sort(function(a, b) {
+                return a.number - b.number;
+            });
 
             $scope.values_per_proposition = [];
             $scope.true_false_values = [];
@@ -205,14 +205,14 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         {
            statistiqueRepository.getQuestionWithStatistique($scope.question.id).then(function successCallback(success){
                 
-                console.log("UPDATE");
+                console.log("UPDATE",$state);
                 $scope.question = success.data.question;
                 $scope.propositions = $scope.question.propositions;
 
                 $scope.updateStudents();
                 $scope.updateChart();
 
-                if($scope.question.opened==1  && $state.is("ues.sessions.questions.statistique"))
+                if($scope.question.opened==1  && $state.is("app.ues.sessions.questions.statistique"))
                     $timeout(auto_update, 10000);
             },
             function errorsCallback(error){
