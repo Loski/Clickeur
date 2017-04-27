@@ -1,22 +1,22 @@
 <div class="row top_elem">
-	<div class="display-block offset-md-1 col-sm-2">
+	<div class="display-block offset-md-1 col-md-2">
 		<a title="Retour à la liste d'ue" ui-sref="app.ues" >
 			<div class="back animation clickable flat"><i class="fa flat_link_left  fa-chevron-left" aria-hidden="true"></i><span>Retour</span></div>
 		</a>
 	</div>
-	<div class="title-session col-sm-3 display-block">
+	<div class="title-session col-md-3 display-block">
 		<div class="flat">[{{myue.code_ue}}] {{myue.name}}</div>
 	</div>
 </div>
 <div class="row">
-	<span class="offset-md-1 col-sm-5">
+	<span class="col-md-6 offset-lg-1 col-lg-5">
 		<div class="display-block">
 			<div class="flat title">
 		      <h1>Sessions</h1>
 		      </div>
 		      	<a ui-sref=".create({ id_ue: {{id_ue}} })" title="Ajouter une session"><div class="flat clickable">Ajouter une session<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div></a>
 		      <div class="flat animation session_row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in sessions| orderBy:'+number'">
-		       <div class="clickable name">
+		       <div class="clickable name" title="Allez vers {{session.title}}">
 		       	<a ui-sref=".questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })">
 		       		<div>[{{session.number}}] {{session.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i>
 		       		</div>
@@ -39,6 +39,6 @@
 		      <div class="flat session_row" ng-show="!sessions.length">Aucune sessions créées</div>
 		</div>
 	</span>
-	<span class="col-sm-5" ui-view="questions"></span>
+	<span class="col-md-6 col-lg-5" ui-view="questions"></span>
 </div>
 

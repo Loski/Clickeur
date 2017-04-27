@@ -1,13 +1,11 @@
-<nav class="navbar navbar-light bg-faded col-12 flat">
-    <div>
-        <ul>
-            <li>
-              <a ui-sref="app.index"><img src="includes/img/logo.jpg" class="img-responsive"> <span class="sr-only">(current)</span></a>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <a ui-sref="app.index"><img src="includes/img/logo.jpg" class="navbar-brand img-responsive"> <span class="sr-only">(current)</span></a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav  mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" ui-sref="app.ues">Mes UEs</a>
             </li>
-            <li>
-                <a ui-sref="app.ues">Mes UEs</a>
-            </li>
-            <li>
+            <li class="nav-item active">
                 <button class="btn btn-primary" ng-click="logout()">Se déconnecter</button>
             </li>
         </ul>

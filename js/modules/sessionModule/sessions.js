@@ -77,7 +77,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
             sessionService.delete(sessionParam.id).then(function successCallback(success){ 
                 $scope.sessions.splice(index,1);
-                $state.go('ues.sessions');
+                $state.go('app.ues.sessions');
             },
             function errorsCallback(error){
                 console.log(error.data);
@@ -115,7 +115,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
             else
             {
-                $state.go('ues.sessions');
+                $state.go('app.ues.sessions');
             }
         }
 
@@ -134,7 +134,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             sessionService.add($scope.session_title,$scope.session_number, id_ue).then(function successCallback(success){
                 $scope.sessions.push(success.data.session);
                 var id_session = success.data.session.id;
-                $state.go('ues.sessions.questions', {id_ue:id_ue, id_session: id_session});
+                $state.go('app.ues.sessions.questions', {id_ue:id_ue, id_session: id_session});
             },
             function errorsCallback(error){
                 console.log(error.data);
@@ -149,7 +149,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                var session = success.data.session;
                $scope.sessions[$scope.indexOfSession].title = session.title;
                 $scope.sessions[$scope.indexOfSession].number = session.number;
-                $state.go('ues.sessions');
+                $state.go('app.ues.sessions');
             },
             function errorsCallback(error){
                 console.log(error);

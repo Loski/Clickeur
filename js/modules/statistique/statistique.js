@@ -82,7 +82,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 }
             }
         };
-
+        
         $scope.updateChart = function()
         {
 

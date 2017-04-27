@@ -52,7 +52,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             }
         })
         .state('app.ues.create', {
-            url:'/ues/create',
+            url:'/create',
             views:{
                 "main@": {
                     templateUrl: 'templates/ajouterUe.html',

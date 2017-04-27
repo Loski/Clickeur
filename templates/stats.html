@@ -2,8 +2,9 @@
 	<div class="row">
 		<div class="col-sm-3">
 			<a title="Retour à la liste de questions" ui-sref="app.ues.sessions.questions({ id_question: {{question.id}} })" >
-			<div class="back clickable flat"><i class="flat_link_left  fa fa-chevron-left" aria-hidden="true"></i><span>Retour</span>
-			</div></a>
+				<div class="back clickable flat"><i class="flat_link_left  fa fa-chevron-left" aria-hidden="true"></i><span>Retour</span>
+				</div>
+			</a>
 		</div>
 	</div>
 	<div class="row">
@@ -45,20 +46,31 @@
 						<i class="fa fa-chevron-left" ng-click="precedent()" aria-hidden="true"></i>
 					</span>
 		       		<span class="tour">Tour {{tour}}</span>
+		       		
 					<span title="Question suivantes">
 						<i class="fa fa-chevron-right" aria-hidden="true" ng-click="suivant()"></i>
 					</span>
 		       </div>
 	       </div>
 	       <ul id="chart">
-	       	 <li class="col-lg-6 col-sm-12">
-		       	<div class=" flat title"><h2>Statistiques globales</h2></div>
+	       	 <li class="col-lg-12 col-sm-12">
+		       	<div class=" flat title centerize">
+		       	<h2>Statistiques globales</h2>
+			       	<span class="flat" title="Rafraichir" ng-click="updateChart()">
+						<i class="fa fa-refresh" aria-hidden="true"></i>
+					</span>
+				</div>
 		       	<div class="flat">
 		       		<nvd3 options='rep_compare' data='true_false_values'></nvd3>
 		       	</div>
 	       	</li>
-	       	<li class="col-lg-6 col-sm-12">
-		       	<div class="flat title"><h2>Statistiques par propositions</h2></div>
+	       	<li class="col-lg-12 col-sm-12">
+		       	<div class="flat title centerize">
+		       		<h2>Statistiques par propositions</h2>    	
+					<span class="flat" title="Rafraichir" ng-click="updateChart()">
+						<i class="fa fa-refresh" aria-hidden="true"></i>
+					</span>
+				</div>
 		       	<div class="flat">
 		       		<nvd3 options='rep_compare' data='values_per_proposition'></nvd3>
 		       	</div>

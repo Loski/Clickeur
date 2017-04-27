@@ -8,12 +8,18 @@
            <!-- Text input-->
            <div class="form-group" ng-class="{'has-danger':ajouterUe.code_ue.$invalid && ajouterUe.$dirty}" >
              <input id="code_ue" ng-model-options="{ debounce: 500 }" ng-pattern="/[1-5](I|i)[0-9]{3}$/" ng-class="{ 'form-control-danger':ajouterUe.code_ue.$invalid}"  name="code_ue" placeholder="Code de l'UE" ng-model="code_ue" class="form-control" required="" type="text">
+              <p class="text-info">Exemple 5i471, 2I682</p>
              <p ng-show="ajouterUe.code_ue.$invalid" class="help-inline">{{error}}</p>
            </div>
            <div class="form-group">
              <input ng-model="nom_ue" placeholder="Nom de l'UE" class="form-control" required="" type="text">
            </div>
-           <button class="btn btn-primary btn-lg">Enregistrer</button>
+          <div class="centerize">
+          <a class="btn btn-primary" title="Retour à la liste des ues" ui-sref="app.ues" >
+            <span>Retour</span>
+          </a>
+          <button type="submit" title="Enregistrer" class="btn btn-primary" ng-click="envoyer()">Enregistrer</button>
+        </div>
         </fieldset>
       </form>
     </div>
