@@ -77,12 +77,13 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
 
         }
     }])
-     .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', '$stateParams', '$state', function($scope , ueService, item, formType, $stateParams, $state){
+     .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', 'ues_list', '$stateParams', '$state', function($scope , ueService, item, formType, ues_list, $stateParams, $state){
 
-        $scope.title = (formType === "CREATE") ? "Ajouter un UE" : "Edition de l'UE";
+        $scope.title = (formType === "CREATE") ? "Ajouter une UE" : "Edition de l'UE";
         $scope.code_ue = item.data.ue.code_ue || '';
         $scope.nom_ue = item.data.ue.name || '';
         $scope.formType = formType;
+                console.log(ues_list);
 
         $scope.submit = function(){
             if($scope.formType === "CREATE"){
@@ -107,6 +108,13 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
         {
             ueService.add($scope.code_ue,$scope.nom_ue,$scope).then(function successCallback(success){
                 var id_ue = success.data.ue.id;
+                console.log(ues_list);
+                ues_list.data.my_ues.push({
+                    'code_ue': $scope.code_ue,
+                    'name' : $scope.nom_ue,
+                    'id' :id_ue
+                });
+                console.log(ues_list);
                 $state.go('app.ues.sessions', {id_ue:id_ue});
             },
             function errorsCallback(error){

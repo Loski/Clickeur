@@ -43,7 +43,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 });;
         }
     }])
-	.controller('questionnairesFormController', ['$scope', '$stateParams', '$state', 'questionRepository', 'formType', 'question', function($scope, $stateParams, $state, questionRepository, formType, question){
+	.controller('questionnairesFormController', ['$scope', '$stateParams', '$state', 'questionRepository', 'formType', 'question', 'questionsList', function($scope, $stateParams, $state, questionRepository, formType, question, questionsList){
         if(formType === "CREATE"){
             $scope.title = "Ajouter une question";
         }else{
@@ -54,6 +54,8 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.question = question.question;
         $scope.id_session = $stateParams.id_session;
         $scope.deleted_response = [];
+
+
         $scope.addNewResponse = function() {
             var indice = $scope.deleted_response.length-1
             if(indice >= 0){
@@ -107,16 +109,27 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
         $scope.ajouter = function(){
             var question = "";
+            var objectQuestion = {};
+            objectQuestion.propositions = [];
+            objectQuestion.title = $scope.question.title;
             question+= '{"title":"' + $scope.question.title+ '", "propositions":{';
             for(var i = 0; i < $scope.question.propositions.length; i++){
                 question += '"'+i+'":{"title" : "' + $scope.question.propositions[i].title+ '", "verdict": "' + $scope.question.propositions[i].verdict +'"},';
+                objectQuestion.propositions.push({
+                    'title': $scope.question.propositions[i].title,
+                    'verdict': $scope.question.propositions[i].verdict
+                }); 
             }
             question = question.substring(0, question.length - 1);
             question += '}}';
             questionRepository.create($scope.id_session, question).then(function(response)
             {
-                console.log(response);
-                $state.go('ues.sessions.questions.statistique', {id_question:response.data.question.id});
+                var id = response.data.question.id;
+                objectQuestion.id = id;
+                console.log(id + " myid");
+                console.log(objectQuestion);
+                questionsList.data.session.questions.push(objectQuestion);
+                $state.go('^.statistique', {id_question:id});
             }, function(error){
                 console.log(error);
             });;
