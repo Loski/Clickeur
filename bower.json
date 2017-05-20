@@ -3,23 +3,25 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "1.6.2",
+    "ngstorage": "*",
+    "angular-ui-router": "*",
     "angular-animate": "*",
     "angular-nvd3": "*",
-    "angular-ui-router": "*",
-    "autoprefixer-core": "^5.2.1",
-    "grunt-ngdocs": "^0.2.10",
-    "jit-grunt": "^0.10.0",
     "jshint-stylish": "^1.0.0",
-    "ngstorage": "*",
-    "package": "^1.0.1"
+    "grunt": "^1.0.1",
+    "time-grunt": "^1.4.0"
   },
+  "directory": "bower_components",
   "analytics": false,
   "scripts": {
-    "prestart": "npm install",
+    "prestart": "bower",
     "start": "http-server ./app -a localhost -p 8000 -c-1"
   },
   "devDependencies": {
-    "dgeni": "^0.4.7",
-    "grunt-karma": "^2.0.0"
+    "angular-mocks": "^1.4.0",
+    "grunt": "^1.0.1"
+  },
+  "resolutions": {
+    "angular": "1.6.4"
   }
 }

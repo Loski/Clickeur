@@ -192,14 +192,14 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions"
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions"
                 });
          },
         getPropositions:function(question_id) {
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id+'/propositions'
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/'+question_id+'/propositions'
                 });
          },
         get:function(id_session, id_question) {
@@ -209,7 +209,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+question_id,
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/'+question_id,
                     data: 'title=' + title 
                 });
         },
@@ -217,7 +217,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/propositions/' + proposition_id,
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/propositions/' + proposition_id,
                     data: 'title=' + title 
                 });
         },
@@ -225,7 +225,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/question/' + question_id,
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/question/' + question_id,
                     data: 'title=' + title 
                 });
         },
@@ -233,7 +233,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
-                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
+                url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/sessions/'+id_session+"/questions",
                 data:question
             });
         },
@@ -241,13 +241,13 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
             method: 'DELETE',
             //url:'http://127.0.0.1:8000/api/sessions/'+$id,
-            url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/'+$id
+            url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/'+$id
             });
         },
         switchState: function(id){
             $http({
                 method: 'PUT',
-                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/switch/'+id
+                url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/switch/'+id
             }).then(function(response)
             {
                 return response.data;
@@ -256,7 +256,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
         getMyQuestionWithUeAndSessions: function(){
             return $http({
                 method: 'GET',
-                url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/questions/open'
+                url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/open'
             });
         }
     }

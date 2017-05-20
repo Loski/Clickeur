@@ -1,4 +1,11 @@
 'use strict';
+/**
+ * @ngdoc function
+ * @name myFunc
+ * @description
+ * This is a sample function
+ * @param {number} x - any number, don't matter which
+ */
 var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'nvd3', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     

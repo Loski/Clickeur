@@ -1,6 +1,9 @@
 /** Module Connexion **/
 'use strict';
-
+/**
+* @ngdoc controller
+* @name connexionUser.controller.connexionModule
+**/
 var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthModule'])
     .factory('connexionModule', ['$localStorage', '$http', 'userAuth', function($localStorage, $http, userAuth){
         return{
@@ -8,7 +11,7 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
                 return $http({
                 	method: 'POST',
                 	//url:'http://127.0.0.1:8000/api/auth',
-                    url:'http://ec2-54-242-216-40.compute-1.amazonaws.com/api/auth',
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/auth',
         			data: "username="+usernameUser+"&password="+passwordUser
  		   		});
             },
@@ -24,7 +27,7 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
             },
             getUser: function(){
                 //$http.get('http://127.0.0.1:8000/api/user');
-                $http.get('http://ec2-54-242-216-40.compute-1.amazonaws.com/api/user');
+                $http.get('http://ec2-34-201-121-8.compute-1.amazonaws.com/api/user');
             },
         }
     }])
