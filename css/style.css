@@ -84,7 +84,9 @@ main{
 .btn-primary:hover{
     background-color: #1a237e!important;
 }
-
+a.btn:hover{
+  font-weight: 400;
+}
 .flat>h2{
 	text-align: center;
     color: white!important;
@@ -188,7 +190,7 @@ div.clickable.name{
     margin-top: 70px;
 }
 
-button,input[type="checkbox"],label>input[type="checkbox"]{
+button,input[type="checkbox"],label>input[type="checkbox"], thead th{
     cursor: pointer;
 }
 

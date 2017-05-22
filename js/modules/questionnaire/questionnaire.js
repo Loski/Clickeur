@@ -113,24 +113,62 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 
         $scope.update = function(){
-            questionRepository.updateTitle($scope.id_question, $scope.question.title).then(function successCallback(success){
-                $timeout(auto_update, 1000);
-                console.log("update");
+          /*  questionRepository.updateTitle($scope.id_question, $scope.question.title).then(function successCallback(success){
+
             },
             function errorsCallback(error){
                 console.log(error);
-            });
+            });*/
             var questionToInsert = [];
             var questionToUpdate = [];
+            var questionToDelete = [];
+
+
+            // find change
             for(var i = 0; i < $scope.question.propositions.length; i++){
-                //update
-                if($scope.question.propositions[i].created_at == undefined){
-                    questionToUpdate.push($scope.question.propositions[i]); 
-                }else{
+                if($scope.question.propositions[i].created_at === undefined){
                     questionToInsert.push($scope.question.propositions[i]); 
+                    console.log(questionToInsert[0]);
+                }else{
+                    questionToUpdate.push($scope.question.propositions[i]); 
                 }
             }
-            
+
+            //to delete
+            for(var i = 0; i < $scope.deleted_response.length; i++){
+                if($scope.deleted_response[i].created_at !== undefined){
+                    questionToDelete.push($scope.deleted_response[i]); 
+                }
+            }
+
+
+            //envoi insert
+            for(var i = 0; i < questionToInsert.length; i++){
+                questionRepository.insertProposition($scope.id_question, questionToInsert[i].title, questionToInsert[i].verdict).then(function successCallback(success){
+                },
+                function errorsCallback(error){
+                    console.log(error);
+                });
+            }
+
+            //envoie update
+            for(var i = 0; i < questionToUpdate.length; i++){
+                questionRepository.updateProposition(questionToUpdate[i].id, questionToUpdate[i].title, questionToUpdate[i].verdict).then(function successCallback(success){
+                },
+                function errorsCallback(error){
+                    console.log(error);
+                });
+            }
+
+            //envoie delete
+            for(var i = 0; i < questionToDelete.length; i++){
+                questionRepository.deleteProposition(questionToDelete[i].id).then(function successCallback(success){
+                
+                },
+                function errorsCallback(error){
+                    console.log(error);
+                });
+            }
         };
         $scope.ajouter = function(){
             var question = "";
@@ -151,8 +189,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             {
                 var id = response.data.question.id;
                 objectQuestion.id = id;
-                console.log(id + " myid");
-                console.log(objectQuestion);
                 questionsList.data.session.questions.push(objectQuestion);
                 $state.go('^.statistique', {id_question:id});
             }, function(error){
@@ -257,24 +293,31 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                     url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/'+question_id,
-                    data: 'title=' + title 
+                    data: '{"title":"' + title+ '"}' 
                 });
         },
-        updateProposition : function(proposition_id, title) {
+        updateProposition : function(proposition_id, title, verdict) {
             return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                     url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/propositions/' + proposition_id,
-                    data: 'title=' + title 
+                    data: 'title=' + title+"&verdict="+verdict 
                 });
         },
-        insertProposition : function(question_id, title) {
+        insertProposition : function(question_id, title, verdict) {
             return $http({
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/question/' + question_id,
-                    data: 'title=' + title 
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/' + question_id+"/propositions",
+                    data: 'title=' + title +"&verdict="+verdict
                 });
+        },
+        deleteProposition: function($id){
+            return $http({
+            method: 'DELETE',
+            //url:'http://127.0.0.1:8000/api/sessions/'+$id,
+            url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/propositions/'+$id
+            });
         },
         create: function (id_session, question) {
             return $http({
