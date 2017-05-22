@@ -136,11 +136,18 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 
 	}])
-    .controller('questionNotClose', ['ues', '$scope', 'questionRepository', function(ues, $scope, questionRepository){
+    .controller('questionNotClose', ['ues', '$scope', 'questionRepository', '$state', function(ues, $scope, questionRepository, $state){
 
         $scope.propositions = {};
         $scope.ues = ues.data.ues;
-        
+        var verification = function(ues){
+            console.log(ues);
+            if(ues === undefined || ues.lenght < 1){
+                $state.go("app.ues");
+            }
+        }
+
+        verification($scope.ues);
         $scope.lancer = function(question){
             question.opened = !question.opened;
             questionRepository.switchState(question.id);
@@ -173,8 +180,10 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 function errorsCallback(error){
                     console.log(error.data);
                 });;
+                verification($scope.ues);
         }
     }])
+
 
 questionnaire.factory('questionRepository', ['$http','$state', function ($http,$state) {
 

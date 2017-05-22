@@ -1,13 +1,16 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <a ui-sref="app.index"><img src="includes/img/logo.jpg" class="navbar-brand img-responsive"> <span class="sr-only">(current)</span></a>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav  mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" ui-sref="app.ues">Mes UEs</a>
+<nav class="navigation">
+  <input type="checkbox" id="more" aria-hidden="true" tabindex="-1" class="toggle"/>
+  <div class="navigation__inner">
+    <div class="navigation__logo">
+        <a ui-sref="app.index"><img src="includes/img/logo.jpg" class="navbar-brand img-responsive"> <span class="sr-only">(current)</span></a>
+    </div>
+    <ul class="navigation__list">
+            <li class="navigation__item">
+                <a class="navigation__link" ui-sref="app.ues">Mes UEs</a>
             </li>
-            <li class="nav-item active">
-                <button class="btn btn-primary" ng-click="logout()">Se déconnecter</button>
+            <li class="navigation__item">
+                <a class="navigation__link" href='#' ng-click="logout()">Se déconnecter</a>
             </li>
         </ul>
-    </div>
+  </div>
 </nav>
