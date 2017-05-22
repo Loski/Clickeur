@@ -28,7 +28,7 @@
             </a>
             <hr/>
             <div class="container-reponse" ng-show="propositions[question.id].booleanVal" ng-repeat="rep in propositions[question.id] | orderBy:'+number'">
-                <div class="flat-reponse"><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span>{{rep.title}}</div>
+                <div class="flat-reponse"><span class="reponse">[{{$index + 1}}]</span><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span> {{rep.title}}</div>
             </div>
 
             <ul class="bottom-bar">

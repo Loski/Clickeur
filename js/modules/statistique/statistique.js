@@ -56,7 +56,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
                       var rows = 
                         "<tr>" +
-                          "<td class='key'> Nombre de réponses : " + series.value + "</td>" +
+                          "<td class='key'> Nombre de réponses : <strong>" + series.value + "</strong></td>" +
                         "</tr>";
 
                     var title = e.data.title;
@@ -117,9 +117,16 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 else
                     nb_reponse[1] += proposition.stat.responses_count;
 
+                var label = "sans opinion";
+
+                if(proposition.number>0)
+                {
+                    label = "["+proposition.number+"]";
+                }
+                
                 values.push(
                     {
-                        label: "n°"+proposition.number,
+                        label: label,
                         title:proposition.title,
                         value: proposition.stat.responses_count,
                         color : color
@@ -154,7 +161,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
             $scope.true_false_values = [
                 {
-                    key:"KEK",
+                    key:"key",
                     values:values
                 }
             ]
@@ -202,7 +209,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         $scope.updateStudents();
 
         /* AUTO - UPDATE*/
-        var auto_update = function()
+        var update = function(auto)
         {
            statistiqueRepository.getQuestionWithStatistique($scope.question.id).then(function successCallback(success){
                 
@@ -213,8 +220,8 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 $scope.updateStudents();
                 $scope.updateChart();
 
-                if($scope.question.opened==1  && $state.is("app.ues.sessions.questions.statistique"))
-                    $timeout(auto_update, 10000);
+                if(auto && $scope.question.opened==1  && $state.is("app.ues.sessions.questions.statistique"))
+                    $timeout(update.bind(null,true), 10000);
             },
             function errorsCallback(error){
                 console.log(error);
@@ -222,7 +229,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         }
 
         if($scope.question.opened==1)
-            $timeout(auto_update, 10000);  
+            $timeout(update.bind(null,true), 10000);  
 
         $scope.lancer = function(question){
             question.opened = !question.opened;
@@ -240,6 +247,11 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 function errorsCallback(error){
                     console.log(error.data);
                 });;
+        }
+
+        $scope.updateAllData = function()
+        {
+            update(false);
         }
 
 }]);
