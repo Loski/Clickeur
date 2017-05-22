@@ -168,13 +168,14 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
         $scope.updateChart();
 
+        $scope.sortType     = 'num_etu'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.searchStudent   = '';     // set the default search/filter term
+
         $scope.updateStudents = function()
         {
             /* Array of Students*/
-            $scope.sortType     = 'num_etu'; // set the default sort type
-            $scope.sortReverse  = false;  // set the default sort order
-            $scope.searchStudent   = '';     // set the default search/filter term
-
+            
             $scope.students = [];
 
             for(var indexProp in $scope.propositions)

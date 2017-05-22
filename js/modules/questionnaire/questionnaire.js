@@ -13,6 +13,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             question.opened = !question.opened;
             questionRepository.switchState(question.id);
         }
+
         $scope.getPropositions = function(id)
         {
             if (typeof $scope.propositions[id] == 'undefined')
@@ -42,6 +43,30 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                     console.log(error.data);
                 });;
         }
+
+        $scope.open_all = function()
+        {
+            for(var i = 0 ; i < $scope.questions.length; i++)
+            {
+                if(!$scope.questions[i].opened)
+                {
+                    $scope.lancer($scope.questions[i]);
+                }
+            }
+        }
+
+        $scope.close_all = function()
+        {
+            for(var i = 0 ; i < $scope.questions.length; i++)
+            {
+                if($scope.questions[i].opened)
+                {
+                    $scope.lancer($scope.questions[i]);
+                }
+            }
+        }
+
+
     }])
 	.controller('questionnairesFormController', ['$scope', '$stateParams', '$state', 'questionRepository', 'formType', 'question', 'questionsList', function($scope, $stateParams, $state, questionRepository, formType, question, questionsList){
         if(formType === "CREATE"){

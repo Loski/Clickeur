@@ -5,6 +5,20 @@
     <a ui-sref=".create" title="Ajouter une question">
         <div class="flat clickable">Ajouter une question<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div>
     </a>
+
+    <div class="flat animation" ng-show="questions.length">
+        <ul class="bottom-bar">
+                    <li title="Ouvrir toutes les questions" class="clickable" ng-click="open_all()">
+                        <i class="fa fa-play " aria-hidden="true"></i>
+                        <span>Ouvrir toutes les questions</span>
+                    </li>
+                    <li title="Fermer toutes les questions" class="clickable" ng-click="close_all()">
+                        <i class="fa fa-pause" aria-hidden="true"></i>
+                        <span>Fermer toutes les questions</span>
+                    </li>
+        </ul>
+    </div>
+
     <div class="question flat animation" ng-repeat="question in questions | orderBy:'+number'" ng-class-odd="'odd'" ng-class-even="'even'">
         <div class="questionTitle" >
             <a ui-sref=".statistique({ id_question: {{question.id}} })">
