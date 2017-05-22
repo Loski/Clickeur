@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,1200);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,900);
 
 html, body {
   height: 100%;
@@ -10,6 +10,7 @@ body{
     font-size: 0.9em;
     background-color: #e8eaf6;
     color: black;
+    font-weight: normal;
 }
 * {
   margin: 0;
@@ -132,14 +133,20 @@ li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-che
 }
 
 .clickable:hover .flat_link_left, .clickable:hover .flat_link, .clickable:hover .fa-chevron-left,li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a, .clickable .bottom-bar span:hover, .clickable .bottom-bar a:hover {
+    font-weight: 700;
     color: white;
     transition: .75s;
     transform:rotate(360deg);
 }
+
+a:hover{
+  font-weight: 700; 
+}
 div.clickable.name{
-    padding: 10px 0 10px 0px;
     line-height: 2;
 }
+
+
 .bottom-bar{
     margin:0;
     display: flex;
@@ -252,6 +259,9 @@ a:link
 { 
  text-decoration:none; 
 }
+a:hover{
+  color: #3f51b5;
+}
 .circle{
   height: 30px;
   width: 30px;
@@ -285,13 +295,37 @@ a:link
 }
 
 .ng-move{
-  animation: inherit;
+      -webkit-animation: bounceOut 1s;
+    -moz-animation: bounceOut 1s;
+    -ms-animation: bounceOut 1s;
+    animation: bounceOut 1s;
 }
-.ng-hide-add         { animation:0.5s lightSpeedOut ease; }
+.flat.animation.ng-enter {  
+    -webkit-animation: bounceIn 1s;
+    -moz-animation: bounceIn 1s;
+    -ms-animation: bounceIn 1s;
+    animation: bounceIn 1s;
+}
+.flat.animation.ng-leave {  
+    -webkit-animation: bounceOut 1s;
+    -moz-animation: bounceOut 1s;
+    -ms-animation: bounceOut 1s;
+    animation: bounceOut 1s;
+}
+.main-block.animation.ng-enter {  
+    -webkit-animation: pulse 1s;
+    -moz-animation: pulse 1s;
+    -ms-animation: pulse 1s;
+    animation: pulse 1s;
+}
+
+.container-reponse.ng-hide-add{
+    animation:0.5s lightSpeedOut ease;
+
+}
 
 /* when showing the picture */
-.ng-hide-remove      { animation:0.5s flipInX ease; }
-
+.container-reponse.ng-hide-remove      { animation:0.5s flipInX ease; }
 /* ANIMATIONS (FROM ANIMATE.CSS) ======================== */
 /* flip in */
 @keyframes flipInX {
@@ -326,6 +360,32 @@ a:link
     transform: perspective(400px);
     transform: perspective(400px);
     transform: perspective(400px);
+  }
+}
+
+
+@keyframes font-weight-up {
+  0% {
+      font-weight: 400 ;
+  }
+
+  40% {
+    font-weight: 500 ;
+  }
+
+  60% {
+        font-weight: 600 ;
+
+  }
+
+  80% {
+         font-weight: 800 ;
+
+  }
+
+  100% {
+       font-weight: 900 ;
+
   }
 }
 

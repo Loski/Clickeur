@@ -8,7 +8,7 @@
 	      	<div title="Ajouter une ue" class="flat even clickable">Ajouter une UE<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div>
 	      </a>
 	      <div class="flat" ng-show="!ues_list.my_ues.length && !ues_list.other_ues.length">Aucune UEs créées</div>
-	      <div class=" flat animation" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="ue in ues_list.my_ues | orderBy:'+code_ue'">
+	      <div class="flat animation" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="ue in ues_list.my_ues | orderBy:'+code_ue'">
 	        <div class="clickable name" title="Allez vers {{ue.name}}">
 	        	<a ui-sref-active="active" ui-sref="app.ues.sessions({ id_ue: {{ue.id}} })">
 	        	<div>[{{ue.code_ue}}] {{ue.name}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div>
