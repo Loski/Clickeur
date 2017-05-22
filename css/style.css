@@ -78,7 +78,13 @@ main{
 }
 .btn-primary{
   border-color: #0275d8;
+  background-color: #3f51b5!important;
 }
+
+.btn-primary:hover{
+    background-color: #1a237e!important;
+}
+
 .flat>h2{
 	text-align: center;
     color: white!important;
@@ -86,8 +92,8 @@ main{
     margin: 0;
     font-size: 1.3em;
 }
-.title, .btn.btn-primary{
-    background-color: #1a237e!important;
+.title{
+    background-color: #3f51b5!important;
 }
 .display-block .flat{
     margin:5px;
