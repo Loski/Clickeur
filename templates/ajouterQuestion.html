@@ -28,13 +28,13 @@
 
 			</div>
 				<button type="button" ng-click="addNewResponse()" class="btn btn-primary new_Rep">Nouvelle réponse</button>
-		<div class="centerize">
+  			<div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+  			<div class="centerize">
 			<a class="btn btn-primary" title="Retour à la liste de questions" ui-sref="app.ues.sessions.questions({ id_question: {{question.id}} })" >
 			<span>Retour</span>
 			</a>
 			<button type="submit" title="Enregistrer" class="btn btn-primary" ng-click="envoyer()">Enregistrer</button>
 		</div>
-		
 		</fieldset>
 	</form>
 	</div>

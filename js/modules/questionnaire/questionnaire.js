@@ -79,7 +79,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
 
 
     }])
-	.controller('questionnairesFormController', ['$scope', '$stateParams', '$state', 'questionRepository', 'formType', 'question', 'questionsList', function($scope, $stateParams, $state, questionRepository, formType, question, questionsList){
+	.controller('questionnairesFormController', ['$scope', '$stateParams', '$state', 'questionRepository', 'formType', 'question', 'questionsList',  function($scope, $stateParams, $state, questionRepository, formType, question, questionsList){
         if(formType === "CREATE"){
             $scope.title = "Ajouter une question";
         }else{
@@ -90,7 +90,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.question = question.question;
         $scope.id_session = $stateParams.id_session;
         $scope.deleted_response = [];
-
+        $scope.alerts = [];
 
         $scope.addNewResponse = function() {
             var indice = $scope.deleted_response.length-1
@@ -117,6 +117,23 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             $scope.question.propositions.splice(indice, 1);
         };
         $scope.envoyer =function(){
+            var checked = false;
+            $scope.alerts = [];
+
+            if($scope.question.propositions.length < 2){
+                $scope.addAlert("Rentrer au moins deux propositions");
+                return;
+            }
+            for(var i = 0 ; i < $scope.question.propositions.length; i++){
+                if($scope.question.propositions[i].verdict == 1){
+                    checked = true;
+                    break;
+                }
+            }
+            if(!checked){
+                $scope.addAlert("Impossible d'envoyer une proposition avec aucune proposition bonne");
+                return;
+            }
             if($scope.formType =="CREATE")
                 $scope.ajouter();
             else
@@ -205,6 +222,15 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 console.log(error);
             });;
         };
+
+
+        $scope.addAlert = function(message) {
+            $scope.alerts.push({msg: message});
+        };
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 
 	}])
     .controller('questionNotClose', ['ues', '$scope', 'questionRepository', '$state', 'modalService', function(ues, $scope, questionRepository, $state, modalService){
