@@ -150,7 +150,9 @@ li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-che
 .refresh:hover .fa{
   animation: infinite-spinning 1s infinite;
 }
-
+.my-alert{
+  margin: 10px;
+}
 a:hover{
   font-weight: 700; 
 }

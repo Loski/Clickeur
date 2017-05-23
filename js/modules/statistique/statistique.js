@@ -251,7 +251,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 questionRepository.delete(question.id).then(
                     function successCallback(success){
                     //$scope.questions.splice(index,1);
-                    $state.go("ues.sessions.questions");
+                    $state.go("app.ues.sessions.questions");
                 },
                 function errorsCallback(error){
                     console.log(error);

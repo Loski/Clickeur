@@ -117,12 +117,12 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             $scope.question.propositions.splice(indice, 1);
         };
         $scope.envoyer =function(){
-            var checked = false;
+            var checked = false, error = false;
             $scope.alerts = [];
 
             if($scope.question.propositions.length < 2){
+                error = true;
                 $scope.addAlert("Rentrer au moins deux propositions");
-                return;
             }
             for(var i = 0 ; i < $scope.question.propositions.length; i++){
                 if($scope.question.propositions[i].verdict == 1){
@@ -132,6 +132,10 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             }
             if(!checked){
                 $scope.addAlert("Impossible d'envoyer une proposition avec aucune proposition bonne");
+                return;
+            }
+
+            if(error){
                 return;
             }
             if($scope.formType =="CREATE")
