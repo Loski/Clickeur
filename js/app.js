@@ -6,7 +6,7 @@
  * This is a sample function
  * @param {number} x - any number, don't matter which
  */
-var app = angular.module('clicker', ['ui.router', 'ngStorage', 'ngAnimate', 'nvd3', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
+var app = angular.module('clicker', ['ui.router', 'ui.bootstrap', 'ngStorage', 'ngAnimate', 'nvd3', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     
     // app routes
@@ -201,7 +201,56 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   //  $urlRouterProvider.otherwise("/");
     //Interceptor of request and response
     $httpProvider.interceptors.push('APIInterceptor');
-}).service('APIInterceptor', function($rootScope, $localStorage) {
+}).service('modalService', ['$uibModal',
+    function ($uibModal) {
+
+        var modalDefaults = {
+            backdrop: true,
+            keyboard: true,
+            modalFade: true,
+            templateUrl: 'templates/confirmation.html'
+        };
+
+        var modalOptions = {
+            closeButtonText: 'Annuler',
+            actionButtonText: 'OK',
+            headerText: 'Proceed?',
+            bodyText: 'Perform this action?'
+        };
+
+        this.showModal = function (customModalDefaults, customModalOptions) {
+            if (!customModalDefaults) customModalDefaults = {};
+                customModalDefaults.backdrop = 'static';
+            return this.show(customModalDefaults, customModalOptions);
+        };
+
+        this.show = function (customModalDefaults, customModalOptions) {
+            //Create temp objects to work with since we're in a singleton service
+            var tempModalDefaults = {};
+            var tempModalOptions = {};
+
+            //Map angular-ui modal custom defaults to modal defaults defined in service
+            angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+
+            //Map modal.html $scope custom properties to defaults defined in service
+            angular.extend(tempModalOptions, modalOptions, customModalOptions);
+
+            if (!tempModalDefaults.controller) {
+                tempModalDefaults.controller = function ($scope, $uibModalInstance) {
+                    $scope.modalOptions = tempModalOptions;
+                    $scope.modalOptions.ok = function (result) {
+                        $uibModalInstance.close(result);
+                    };
+                    $scope.modalOptions.close = function (result) {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            }
+
+            return $uibModal.open(tempModalDefaults).result;
+        };
+
+    }]).service('APIInterceptor', function($rootScope, $localStorage) {
         var service = this;
         service.request = function(config) {
             config.params = config.params || {};

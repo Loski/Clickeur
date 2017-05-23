@@ -1,7 +1,7 @@
 /** Module UE **/
 'use strict';
 
-var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate'])
+var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate', 'clicker', 'ui.bootstrap' ])
     .factory('ueService', ['$http', function($http){
         return{
             query: function(){
@@ -52,15 +52,21 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
             }
         }
     }])
-    .controller('ueController', ['$scope','ueService','ues_list',  function($scope , ueService, ues_list){
+    .controller('ueController', ['$scope','ueService','ues_list', 'modalService',  function($scope , ueService, ues_list, modalService){
         $scope.code_ue ='';
         $scope.nom_ue = '';
         $scope.ues_list = ues_list.data;
 
         $scope.delete = function(ueParam)
         {
-
-            ueService.delete(ueParam.id).then(function successCallback(success){
+            var modalOptions = {
+                closeButtonText: 'Annuler',
+                actionButtonText: 'Confirmer',
+                headerText: 'Confirmation',
+                bodyText: 'Êtes-vous sûr sur de vouloir supprimer cette UE ?'
+            };
+            modalService.showModal({}, modalOptions).then(function (result) {
+                ueService.delete(ueParam.id).then(function successCallback(success){
                 var indexOf_ue = $scope.ues_list.my_ues.indexOf(ueParam);
                 if(indexOf_ue==-1)
                 {
@@ -73,8 +79,11 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 }
             },
             function errorsCallback(error){
-            });;
-
+                console.log(error);
+            });
+            }, function errorsCallback(error){
+                console.log(error);
+            });
         }
     }])
      .controller('ueControllerForm', ['$scope','ueService', 'item', 'formType', 'ues_list', '$stateParams', '$state', function($scope , ueService, item, formType, ues_list, $stateParams, $state){

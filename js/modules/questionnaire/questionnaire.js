@@ -1,7 +1,7 @@
 'use strict';
 
 var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModule'])
-    .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http', 'questionsList' , function($scope, $stateParams, questionRepository, $http,questionsList){
+    .controller('questionnairesController', ['$scope', '$stateParams', 'questionRepository', '$http', 'questionsList', 'modalService' , function($scope, $stateParams, questionRepository, $http, questionsList, modalService){
         
         $scope.id_session = $stateParams.id_session;
         $scope.id_ue = $stateParams.id_ue;
@@ -34,14 +34,25 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         }
         $scope.delete = function(question)
         {
-            var index = $scope.questions.indexOf(question);
-            questionRepository.delete(question.id).then(
-                function successCallback(success){
-                    $scope.questions.splice(index,1);
-                },
-                function errorsCallback(error){
-                    console.log(error.data);
-                });;
+            var modalOptions = {
+                closeButtonText: 'Annuler',
+                actionButtonText: 'Confirmer',
+                headerText: 'Confirmation',
+                bodyText: 'Êtes-vous sûr sur de vouloir supprimer cette question ?'
+            };
+
+            modalService.showModal({}, modalOptions).then(function (result) {
+                var index = $scope.questions.indexOf(question);
+                    questionRepository.delete(question.id).then(
+                    function successCallback(success){
+                        $scope.questions.splice(index,1);
+                    },
+                    function errorsCallback(error){
+                        console.log(error);
+                    });
+                    }, function errorsCallback(error){
+                        console.log(error);
+                    });
         }
 
         $scope.open_all = function()
@@ -113,16 +124,15 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 
         $scope.update = function(){
-          /*  questionRepository.updateTitle($scope.id_question, $scope.question.title).then(function successCallback(success){
+            questionRepository.updateTitle($scope.id_question, $scope.question.title).then(function successCallback(success){
 
             },
             function errorsCallback(error){
                 console.log(error);
-            });*/
+            });
             var questionToInsert = [];
             var questionToUpdate = [];
             var questionToDelete = [];
-
 
             // find change
             for(var i = 0; i < $scope.question.propositions.length; i++){
@@ -197,7 +207,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 
 	}])
-    .controller('questionNotClose', ['ues', '$scope', 'questionRepository', '$state', function(ues, $scope, questionRepository, $state){
+    .controller('questionNotClose', ['ues', '$scope', 'questionRepository', '$state', 'modalService', function(ues, $scope, questionRepository, $state, modalService){
 
         $scope.propositions = {};
         $scope.ues = ues.data.ues;
@@ -231,18 +241,32 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 $scope.propositions[id].booleanVal=!$scope.propositions[id].booleanVal;
             }            
         }
+
         $scope.delete = function(question)
         {
-            var index = $scope.questions.indexOf(question);
-            questionRepository.delete(question.id).then(
-                function successCallback(success){
-                    $scope.questions.splice(index,1);
-                },
-                function errorsCallback(error){
-                    console.log(error.data);
-                });;
-                verification($scope.ues);
+            var modalOptions = {
+                closeButtonText: 'Annuler',
+                actionButtonText: 'Confirmer',
+                headerText: 'Confirmation',
+                bodyText: 'Êtes-vous sûr sur de vouloir supprimer cette question ?'
+            };
+
+            modalService.showModal({}, modalOptions).then(
+                function (result) {
+                var index = $scope.questions.indexOf(question);
+                     questionRepository.delete(question.id).then(
+                        function successCallback(success){
+                            $scope.ues.splice(index,1);
+                            verification($scope.ues);
+                        },function errorsCallback(error){
+                            console.log(error);
+                        });
+                }, function errorsCallback(error){
+                        console.log(error);
+                });
         }
+
+
     }])
 
 

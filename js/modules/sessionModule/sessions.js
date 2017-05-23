@@ -60,7 +60,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
         }
     }])
-    .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList','$state', function($scope, sessionService, $stateParams, ues_list, sessionsList,$state){
+    .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList','$state', 'modalService', function($scope, sessionService, $stateParams, ues_list, sessionsList,$state, modalService){
         $scope.title ='';
         $scope.number = '';
         $scope.ues_list = ues_list.data;
@@ -73,15 +73,27 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
 
         $scope.delete = function(sessionParam)
         {
-            var index = $scope.sessions.indexOf(sessionParam);
 
+            var modalOptions = {
+                closeButtonText: 'Annuler',
+                actionButtonText: 'Confirmer',
+                headerText: 'Confirmation',
+                bodyText: 'Êtes-vous sûr sur de vouloir supprimer cette session ?'
+            };
+
+
+            modalService.showModal({}, modalOptions).then(function (result) {
+            var index = $scope.sessions.indexOf(sessionParam);
             sessionService.delete(sessionParam.id).then(function successCallback(success){ 
                 $scope.sessions.splice(index,1);
                 $state.go('app.ues.sessions');
             },
             function errorsCallback(error){
-                console.log(error.data);
-            });;
+                console.log(error);
+            });
+            }, function errorsCallback(error){
+                console.log(error);
+            });
         }
 
     }])
