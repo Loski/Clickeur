@@ -147,6 +147,10 @@ li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-che
     transform:rotate(360deg);
 }
 
+.refresh:hover .fa{
+  animation: infinite-spinning 1s infinite;
+}
+
 a:hover{
   font-weight: 700; 
 }
@@ -371,6 +375,15 @@ a:hover{
   }
 }
 
+
+@keyframes infinite-spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @keyframes font-weight-up {
   0% {

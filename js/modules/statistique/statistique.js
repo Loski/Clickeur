@@ -13,7 +13,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             },
         }
     }])
-    .controller('statsController', [ '$scope', 'questionWithStatistique','statistiqueRepository','questionRepository','$timeout','$state' , function($scope, questionWithStatistique,statistiqueRepository,questionRepository,$timeout,$state){
+    .controller('statsController', [ '$scope', 'questionWithStatistique','statistiqueRepository','questionRepository','$timeout','$state' , 'modalService', function($scope, questionWithStatistique,statistiqueRepository,questionRepository,$timeout,$state,modalService){
         $scope.question = questionWithStatistique.data.question;
         $scope.propositions = $scope.question.propositions;
 
@@ -238,15 +238,28 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
         $scope.delete = function(question)
         {
-            //var index = $scope.questions.indexOf(question);
-            questionRepository.delete(question.id).then(
-                function successCallback(success){
+
+            var modalOptions = {
+                closeButtonText: 'Annuler',
+                actionButtonText: 'Confirmer',
+                headerText: 'Confirmation',
+                bodyText: 'Êtes-vous sûr sur de vouloir supprimer cette question ?'
+            };
+
+
+            modalService.showModal({}, modalOptions).then(function (result) {
+                questionRepository.delete(question.id).then(
+                    function successCallback(success){
                     //$scope.questions.splice(index,1);
                     $state.go("ues.sessions.questions");
                 },
                 function errorsCallback(error){
-                    console.log(error.data);
-                });;
+                    console.log(error);
+                });
+            }, function errorsCallback(error){
+                console.log(error);
+            });
+
         }
 
         $scope.updateAllData = function()
