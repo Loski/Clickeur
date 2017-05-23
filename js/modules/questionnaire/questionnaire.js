@@ -347,7 +347,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
                     url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/questions/'+question_id,
-                    data: '{"title":"' + title+ '"}' 
+                    data: "title=" + title 
                 });
         },
         updateProposition : function(proposition_id, title, verdict) {
