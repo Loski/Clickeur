@@ -78,7 +78,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 closeButtonText: 'Annuler',
                 actionButtonText: 'Confirmer',
                 headerText: 'Confirmation',
-                bodyText: 'Êtes-vous sûr sur de vouloir supprimer cette session ?'
+                bodyText: 'Êtes-vous sûr de vouloir supprimer cette session ?'
             };
 
 
@@ -111,6 +111,19 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             return -1;
         }
 
+        $scope.findSeanceExistante = function(seance)
+        {
+            for(var i=0;i<$scope.sessions.length;i++)
+            {
+                if($scope.sessions[i].number==seance && $scope.indexOfSession!=i)
+                    return true;
+            }
+
+            return false;
+        }
+
+
+
         $scope.title = (formType === "CREATE") ? "Ajouter une session" : "Edition de la session";
         $scope.formType = formType;
         //$scope.sessions = sessionsList.data['ue'];
@@ -131,14 +144,32 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             }
         }
 
+        $scope.alerts=[];
+
+        $scope.addAlert = function(message) {
+            $scope.alerts.push({msg: message});
+        };
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+
+
         $scope.submit = function(){
-            if($scope.formType === "CREATE"){
-                $scope.add();
-            }else{
-                $scope.update();
+
+            $scope.alerts=[];
+
+            if($scope.findSeanceExistante($scope.session_number))
+                $scope.addAlert("La séance "+$scope.session_number+" existe déjà");
+            else
+            {
+                if($scope.formType === "CREATE"){
+                    $scope.add();
+                }else{
+                    $scope.update();
+                }
             }
         }
-
 
         $scope.add = function()
         {
@@ -167,5 +198,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 console.log(error);
             });
         }
+
  }
 ]);

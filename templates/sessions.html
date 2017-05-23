@@ -18,7 +18,7 @@
 		      <div class="flat animation session_row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in sessions| orderBy:'+number'">
 		       <div class="clickable name" title="Allez vers {{session.title}}">
 		       	<a ui-sref=".questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })">
-		       		<div>[{{session.number}}] {{session.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i>
+		       		<div>[Séance n°{{session.number}}] {{session.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i>
 		       		</div>
 		       	</a>
 		       	</div>

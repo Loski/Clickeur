@@ -273,7 +273,7 @@ a:link
 { 
  text-decoration:none; 
 }
-a:hover{
+a:hover,.clicked_row{
   color: #3f51b5;
 }
 .circle{
