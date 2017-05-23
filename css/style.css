@@ -42,7 +42,9 @@ nav{
         flex-flow: row nowrap;
     justify-content: space-between;
 }
-
+.reponse{
+  margin-left: 10px;
+}
 footer, .page-wrap:after {
   height: 70px; 
 }
@@ -453,6 +455,10 @@ a:hover,.clicked_row{
 }
 .toggle:checked ~ .navigation__inner {
   height: auto /* Full height when more is toggled */;
+}
+
+.fa .fa-pause, .fa .fa-play{
+  animation: inherit;
 }
 .navigation__link {
   display: block;

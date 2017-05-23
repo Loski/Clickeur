@@ -54,10 +54,14 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                     if(listeUe[i].id==id)
                         return i;
                 }
-
                 return -1;
             }
-
+            ,queryStudent: function(id_ue){
+                return $http({
+                    method: 'GET',
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/sessions/'+id_ue,
+                });
+            }
         }
     }])
     .controller('sessionController', ['$scope', 'sessionService','$stateParams', 'ues_list', 'sessionsList','$state', 'modalService', function($scope, sessionService, $stateParams, ues_list, sessionsList,$state, modalService){
@@ -68,9 +72,6 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
         $scope.myue = sessionService.findMyUe($scope.ues_list, $scope.id_ue);
         $scope.sessions = sessionsList.data['ue'].sessions;
         
-        console.log($scope.ues_list);
-        console.log($scope.myue);
-
         $scope.delete = function(sessionParam)
         {
 

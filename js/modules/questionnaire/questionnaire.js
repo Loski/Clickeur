@@ -93,29 +93,30 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.alerts = [];
 
         $scope.addNewResponse = function() {
-            var indice = $scope.deleted_response.length-1
+            var newItemNo = $scope.question.propositions.length+1;
+            $scope.question.propositions.push({'id': Math.floor((Math.random() * 10000) + 1), 'verdict': 0, 'title':""});
+        };
+
+
+        $scope.addOldResponse = function(indice) {
             if(indice >= 0){
                 $scope.question.propositions.push($scope.deleted_response[indice]);
                 $scope.deleted_response.splice(indice, 1);
                 return;
             }
-            var newItemNo = $scope.question.propositions.length+1;
-            $scope.question.propositions.push({'id': Math.floor((Math.random() * 10000) + 1), 'verdict': 0});
+        }
+
+        $scope.removeResponse = function(indice) {
+            console.log($scope.question.propositions[indice]);
+            if($scope.question.propositions[indice].created_at === undefined && $scope.question.propositions[indice].title ==""){
+                console.log("im in");
+            }else{
+                $scope.deleted_response.push($scope.question.propositions[indice]);
+            }
+            $scope.question.propositions.splice(indice, 1);
+
         };
 
-        $scope.removeResponse = function(id) {
-            var indice = (function(id){ 
-                if(id == undefined)
-                    return;
-                for(var i = 0 ; i < $scope.question.propositions.length; i++){
-                    if(parseInt($scope.question.propositions[i].id) == parseInt(id)){
-                        return i;
-                    }
-                }
-            })(id);
-            $scope.deleted_response.push($scope.question.propositions[indice]);
-            $scope.question.propositions.splice(indice, 1);
-        };
         $scope.envoyer =function(){
             var checked = false, error = false;
             $scope.alerts = [];
