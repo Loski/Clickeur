@@ -49,6 +49,13 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                     url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/ues/'+$id,
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
                 });
+            },
+            getStudent: function(id){
+                return $http({
+                    method: 'GET',
+                    //url:'http://127.0.0.1:8000/api/ues/'+id,
+                    url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/ues/'+id+'/students'
+                });
             }
         }
     }])

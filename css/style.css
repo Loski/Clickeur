@@ -136,13 +136,13 @@ a.btn:hover{
   border-radius: 50%;
   padding-top: 1px;
 }
-li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-chevron-left
+li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-chevron-left, .active i.fa-chevron-right
 {
     background-color: #3f51b5;
     transition: 1.05s;
 }
 
-.clickable:hover .flat_link_left, .clickable:hover .flat_link, .clickable:hover .fa-chevron-left,li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a, .clickable .bottom-bar span:hover, .clickable .bottom-bar a:hover {
+.clickable:hover .flat_link_left, .clickable:hover .flat_link, .clickable:hover .fa-chevron-left,li.clickable:hover>span, li.clickable:hover>i, li.clickable:hover>a, .clickable .bottom-bar span:hover, .clickable .bottom-bar a:hover, .active i.fa-chevron-right {
     font-weight: 700;
     color: white;
     transition: .75s;
@@ -155,7 +155,7 @@ li.clickable:hover, .clickable:hover .fa-chevron-right, .clickable:hover .fa-che
 .my-alert{
   margin: 10px;
 }
-a:hover{
+a:hover, .active .link{
   font-weight: 700; 
 }
 div.clickable.name{
@@ -337,9 +337,14 @@ a:hover,.clicked_row{
 
 .container-reponse.ng-hide-add{
     animation:0.5s lightSpeedOut ease;
-
+}
+.ng-hide.ng-hide-animate {
+display: none !important;
 }
 
+.container-reponse.ng-hide-add.bottom-bar, .container-reponse.ng-hide-remove.bottom-bar{
+  animation: inherit;
+}
 /* when showing the picture */
 .container-reponse.ng-hide-remove      { animation:0.5s flipInX ease; }
 /* ANIMATIONS (FROM ANIMATE.CSS) ======================== */

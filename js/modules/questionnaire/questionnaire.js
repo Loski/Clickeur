@@ -8,7 +8,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         $scope.questions = questionsList.data.session.questions;
         $scope.propositions = {};
         $scope.booleanLancer = false;
-
         $scope.lancer = function(question){
             question.opened = !question.opened;
             questionRepository.switchState(question.id);
@@ -107,14 +106,12 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         }
 
         $scope.removeResponse = function(indice) {
-            console.log($scope.question.propositions[indice]);
             if($scope.question.propositions[indice].created_at === undefined && $scope.question.propositions[indice].title ==""){
                 console.log("im in");
             }else{
                 $scope.deleted_response.push($scope.question.propositions[indice]);
             }
             $scope.question.propositions.splice(indice, 1);
-
         };
 
         $scope.envoyer =function(){

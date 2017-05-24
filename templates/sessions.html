@@ -15,9 +15,9 @@
 		      <h1>Sessions</h1>
 		      </div>
 		      	<a ui-sref=".create({ id_ue: {{id_ue}} })" title="Ajouter une session"><div class="flat clickable">Ajouter une session<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></div></a>
-		      <div class="flat animation session_row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in sessions| orderBy:'+number'">
+		      <div class="flat animation session_row" ui-sref-active="active" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="session in sessions| orderBy:'+number'">
 		       <div class="clickable name" title="Allez vers {{session.title}}">
-		       	<a ui-sref=".questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })">
+		       	<a class="link" ui-sref=".questions({ id_ue: {{id_ue}}, id_session: {{session.id}} })">
 		       		<div>[Séance n°{{session.number}}] {{session.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i>
 		       		</div>
 		       	</a>

@@ -1,0 +1,39 @@
+<div class="container top_elem display-block">
+  <div class="row top_elem">
+    <div class="display-block  col-md-2">
+      <a title="Retour à la liste d'ue" ui-sref="app.ues" >
+        <div class="back animation clickable flat"><i class="fa flat_link_left  fa-chevron-left" aria-hidden="true"></i><span>Retour</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="flat title">
+          <h1>Mes étudiants</h1>
+      </div>
+      <div class="flat" ng-show="students == undefined">Aucun étudiant inscrit</div>
+      <table ng-show="students.length > 0" id="statTab" class="table flat table-bordered table-striped">
+          <thead>
+            <tr>
+              <th ng-click="sortType = 'lastName' ; sortReverse = !sortReverse || sortType != 'lastName' ">
+              	Nom 
+              	<span ng-show="sortType == 'lastName' && sortReverse" class="fa fa-caret-up"></span>
+              	<span ng-show="sortType == 'lastName' && !sortReverse" class="fa fa-caret-down"></span>
+              </th>
+              <th ng-click="sortType = 'firstName' ; sortReverse = !sortReverse || sortType != 'firstName' ">
+              	Prénom 
+              	<span ng-show="sortType == 'firstName' && sortReverse" class="fa fa-caret-up"></span>
+              	<span ng-show="sortType == 'firstName' && !sortReverse" class="fa fa-caret-down"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent">
+            	<td>{{ student.lastName }}</td>
+              <td>{{ student.firstName }}</td>
+            </tr>
+          </tbody>  
+      </table>
+    </div>
+  </div>
+</div>

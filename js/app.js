@@ -6,7 +6,7 @@
  * This is a sample function
  * @param {number} x - any number, don't matter which
  */
-var app = angular.module('clicker', ['ui.router', 'ui.bootstrap', 'ngStorage', 'ngAnimate', 'nvd3', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule']);
+var app = angular.module('clicker', ['ui.router', 'ui.bootstrap', 'ngStorage', 'ngAnimate', 'nvd3', 'connexionUser', 'userAuthModule', 'ueModule', 'sessionModule', 'Questionnaire', 'StatistiqueModule', 'Student']);
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     
     // app routes
@@ -87,6 +87,21 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                 "main@": {
                     templateUrl: 'templates/ajouterUe.html',
                     controller: 'ueControllerForm',
+                }
+            },
+        })
+        .state('app.ues.students', {
+            url:'/{id_ue}/students',
+            resolve: {
+                students: ['ueService', '$stateParams', function(ueService, $stateParams){
+                    console.log($stateParams.id_ue);
+                    return ueService.getStudent($stateParams.id_ue);
+                }]
+            },
+            views:{
+                "main@": {
+                    templateUrl: 'templates/students.html',
+                    controller: 'studentController',
                 }
             },
         })

@@ -24,10 +24,14 @@
 						                    <i class="fa fa-play " aria-hidden="true"></i>
 						                    <span>Ouvrir</span>
 						                </li>
-						                <li title="Fermer {{question.title}}" ng-show="question.opened" class="clickable" ng-click="lancer(question)">
+						             	<li title="Fermer {{question.title}}" ng-show="question.opened" class="clickable" ng-click="lancer(question)">
 						                    <i class="fa fa-pause" aria-hidden="true"></i>
 						                    <span>Fermer</span>
 						                </li>
+						                <li class="clickable" ng-click="getPropositions(question.id)" class="clickable" title="Voir les réponses">
+                    						<i class="fa  fa-info" aria-hidden="true"></i>
+                    						<span>Voir</span>
+                						</li>
 						                <li title="Modifier {{question.title}}" class="clickable">
 						                    <a ui-sref="app.ues.sessions.questions.edit({id_ue: ue.id, id_session:session.id, id_question: {{question.id}} })">
 						                        <i class="fa  fa-cog" aria-hidden="true"></i>
