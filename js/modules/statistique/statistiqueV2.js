@@ -17,7 +17,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         $scope.question = questionWithStatistique.data.question;
         $scope.propositions = $scope.question.propositions;
         $scope.tour_actuel = 1;
-        $scope.tour_max = 1;
+        $scope.tour_max = Object.keys($scope.propositions[0].stat.tour).length;
 
         $scope.rep_compare = {
             chart: {
@@ -94,12 +94,25 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
             $scope.values_per_proposition = [];
             $scope.true_false_values = [];
-            var nb_reponse = [];
-            var sans_opinion = 0;
-            nb_reponse[0] = 0;
-            nb_reponse[1] = 0;
 
             var values = [];
+            var dicStudents = {};
+            var dicPropositions = {};
+            var nb_reponse = [];
+            nb_reponse[0]=0;
+            nb_reponse[1]=0;
+            $scope.students = [];
+
+            /** Local Fix, delete quand serveur est ok et envoie à nouveau sans opinion**/
+            values.push(
+                        {
+                            label: "Sans opinion",
+                            title: "Sans opinion",
+                            value: 0,
+                            color : "gray"
+                        }
+                    );
+            /****/
 
                 for(var index in $scope.propositions)
                 {
@@ -109,14 +122,55 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
                     var color = "red";
 
-                    console.log(proposition);
-
                     if(proposition.number==0)
                     {
-                        color="gray";
-                        sans_opinion += stat.count;
+                        dicPropositions[0] =
+                        {
+                            label: "sans opinion",
+                            title: "sans opinion",
+                            value: stat.count,
+                            color : "gray"
+                        }
                     }
-                    else if(proposition.verdict==1)
+                    else
+                    {
+
+                        var color = "red";
+                        if(proposition.verdict==1)
+                        {
+                            nb_reponse[0] += stat.count;
+                            color="green"; 
+                        }
+                        else
+                        {
+                            nb_reponse[1] += stat.count;
+                        }
+                        dicPropositions[proposition.number] =
+                        {
+                            label: "["+proposition.number+"]",
+                            title: proposition.title,
+                            value: stat.count,
+                            color : color
+                        }
+                    }
+
+                    for(var indexS in stat.users)
+                    {
+                        var student = stat.users[indexS];
+
+                        $scope.students.push(
+                        {
+                            num_etu:student.username,
+                            firstName:student.firstName,
+                            lastName:student.lastName,
+                            proposition:$scope.propositions[index].number,
+                            proposition_juste:$scope.propositions[index].verdict
+                        }
+                        );
+                    }
+
+                    
+                    /*else if(proposition.verdict==1)
                     {
                         color="green";
 
@@ -127,24 +181,21 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     {
                         if($scope.question.propositions_true_count<2)
                              nb_reponse[1] += stat.count;
-                    }
-                       
+                    }*/
+                }
 
-                    var label = "sans opinion";
-
-                    if(proposition.number>0)
+                for(var index in dicPropositions)
+                {
+                    var prop = dicPropositions[index];
+                    if($scope.question.propositions_true_count>=2)
                     {
-                        label = "["+proposition.number+"]";
+                           
                     }
-                    
+
                     values.push(
-                        {
-                            label: label,
-                            title:proposition.title,
-                            value: stat.count,
-                            color : color
-                        }
+                        dicPropositions[index]
                     );
+                            
                 }
 
                 $scope.values_per_proposition = [
@@ -154,7 +205,18 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     }
                 ]
 
+                if($scope.question.propositions_true_count>=2)
+                {
+
+                }
+
+
                values = [
+                    {
+                        label: "Sans opinion",
+                        value: 0,
+                        color: "gray"
+                    },
                     {
                         label: "Bonne réponse",
                         value: nb_reponse[0],
@@ -164,12 +226,8 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                         label: "Mauvaise réponse",
                         value: nb_reponse[1],
                         color: "#420405"
-                    },
-                    {
-                        label: "Sans opinion",
-                        value: sans_opinion,
-                        color: "gray"
                     }
+                    
                 ];
 
                 $scope.true_false_values = [
@@ -179,11 +237,11 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     }
                 ]
 
-            /*if(nb_reponse[0]==0 && nb_reponse[1]==0)
+            if(nb_reponse[0]==0 && nb_reponse[1]==0)
             {
                 $scope.true_false_values = [];
                 $scope.values_per_proposition = [];
-            }*/
+            }
 
         }
 
@@ -197,27 +255,6 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         {
             /* Array of Students*/
             
-            $scope.students = [];
-
-            for(var indexProp in $scope.propositions)
-            {
-                var stat = $scope.propositions[indexProp].stat;
-
-                for(var index in stat.users)
-                {
-                    var student = stat.users[index];
-
-                    $scope.students.push(
-                    {
-                        num_etu:student.username,
-                        firstName:student.firstName,
-                        lastName:student.lastName,
-                        proposition:$scope.propositions[indexProp].number,
-                        proposition_juste:$scope.propositions[indexProp].verdict
-                    }
-                    );
-                }
-            }
         }
 
         $scope.updateStudents();
@@ -279,6 +316,24 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
         $scope.updateAllData = function()
         {
             update(false);
+        }
+
+        $scope.nextTurn = function()
+        {
+            if($scope.tour_actuel>0)
+            {
+                $scope.tour_actuel--;
+                $scope.updateAllData();
+            }
+        }
+
+        $scope.previousTurn = function()
+        {
+            if($scope.tour_actuel<$scope.tour_max)
+            {
+                $scope.tour_actuel++;
+                $scope.updateAllData();
+            }
         }
 
 }]);

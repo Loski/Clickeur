@@ -17,7 +17,7 @@
 		    </div>
 	       <div class="animation">
 	       	<div ng-repeat="rep in propositions | orderBy:'+number'">
-	       		<div class="flat">[{{$index}}]<span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : rep.number ==0 ? 'sans-opinion' : 'bad'"></span>{{rep.title}}</div>
+	       		<div class="flat">[{{rep.number}}]<span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : rep.number ==0 ? 'sans-opinion' : 'bad'"></span>{{rep.title}}</div>
 	       	</div>
 	       	<ul class="bottom-bar flat">
                 <li title="Lancer la question" ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
@@ -43,12 +43,12 @@
 	       <div class="centerize">
 		       <div id="tour" class="flat  col-sm-6 ">
 		       		<span title="Question précédente">
-						<i class="fa fa-chevron-left" ng-click="precedent()" aria-hidden="true"></i>
+						<i class="fa fa-chevron-left" ng-click="nextTurn()" aria-hidden="true"></i>
 					</span>
-		       		<span class="tour">Tour {{tour}}</span>
+		       		<span class="tour">Tour {{tour_actuel}}/{{tour_max}}</span>
 		       		
 					<span title="Question suivantes">
-						<i class="fa fa-chevron-right" aria-hidden="true" ng-click="suivant()"></i>
+						<i class="fa fa-chevron-right" aria-hidden="true" ng-click="previousTurn()"></i>
 					</span>
 		       </div>
 	       </div>
@@ -108,7 +108,7 @@
 		        	<span ng-show="sortType == 'firstName' && !sortReverse" class="fa fa-caret-down"></span>
 		        </th>
 		        <th ng-click="sortType = 'proposition' ; sortReverse = !sortReverse || sortType != 'proposition' ">
-		        	Proposition répondue 
+		        	Proposition choisie 
 		        	<span ng-show="sortType == 'proposition' && sortReverse" class="fa fa-caret-up"></span>
 		        	<span ng-show="sortType == 'proposition' && !sortReverse" class="fa fa-caret-down"></span>
 		        </th>
