@@ -33,7 +33,7 @@
 		        <span class="sr-only">Split button!</span>
 		      </button>
 		      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-		      	<li ng-show="deleted_response.length == 0"><span>Aucune question supprimé.</span></li>
+		      	<li ng-show="deleted_response.length == 0"><span>Aucune question supprimée.</span></li>
 		        <li ng-repeat="question in deleted_response" role="menuitem">
 		        	<span ng-click="addOldResponse($index)">Ajouter {{question.title}}</span>
 		        </li>
@@ -41,7 +41,7 @@
 		    </div>
   			<div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" class="my-alert" close="closeAlert($index)">{{alert.msg}}</div>
   			<div class="centerize">
-			<a class="btn secondary" title="Retour à la liste de questions" ui-sref="app.ues.sessions.questions({ id_question: {{question.id}} })" >
+			<a class="btn btn-secondary" title="Retour à la liste de questions" ui-sref="app.ues.sessions.questions({ id_question: {{question.id}} })" >
 				<span>Retour</span>
 			</a>
 			<button type="submit" title="Enregistrer" class="btn btn-primary" ng-click="envoyer()">Enregistrer</button>

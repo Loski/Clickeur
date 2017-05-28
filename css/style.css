@@ -109,6 +109,15 @@ a.btn:hover{
 	margin-right: 12%;
 }
 
+ul li{
+  text-align: center;
+  margin:  0 14px;
+}
+
+ul li>span{
+  font-size: 0.9em;
+  cursor: pointer;
+}
 .clickable{
     cursor: pointer;
 }
