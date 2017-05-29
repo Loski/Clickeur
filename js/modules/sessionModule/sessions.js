@@ -8,14 +8,14 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
-                    url:'http://132.227.116.252/pstl/public/api/ues/'+$id+"/sessions"
+                    url:'https://132.227.116.252/pstl/public/api/ues/'+$id+"/sessions"
                 });
             },
             delete: function($id){
                 return $http({
                     method: 'DELETE',
                     //url:'http://127.0.0.1:8000/api/sessions/'+$id,
-                    url:'http://132.227.116.252/pstl/public/api/sessions/'+$id
+                    url:'https://132.227.116.252/pstl/public/api/sessions/'+$id
                 });
             },
 
@@ -24,7 +24,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 return $http({
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id+"/sessions/",
-                     url:'http://132.227.116.252/pstl/public/api/ues/'+$id+"/sessions",
+                     url:'https://132.227.116.252/pstl/public/api/ues/'+$id+"/sessions",
                     data: "title="+$title+"&number="+$number,
                 });
             },
@@ -39,7 +39,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
                 return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+$id,
-                    url:'http://132.227.116.252/pstl/public/api/sessions/'+$id,
+                    url:'https://132.227.116.252/pstl/public/api/sessions/'+$id,
                     data: "title="+$title+"&number="+$number,
                 });
             }, 
@@ -59,7 +59,7 @@ var session_module = angular.module('sessionModule', ['ngStorage','ui.router'])
             ,queryStudent: function(id_ue){
                 return $http({
                     method: 'GET',
-                    url:'http://132.227.116.252/pstl/public/api/sessions/'+id_ue,
+                    url:'https://132.227.116.252/pstl/public/api/sessions/'+id_ue,
                 });
             }
         }
