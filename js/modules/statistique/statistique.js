@@ -8,7 +8,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             getQuestionWithStatistique: function(id_question) {
                  return $http({
                         method: 'GET',
-                        url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/stat/question/' + id_question
+                        url:'http://132.227.116.252/pstl/public/api/stat/question/' + id_question
                 });
             },
         }

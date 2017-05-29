@@ -24,6 +24,10 @@ body{
   border-radius: 100%;
 
 }
+
+#statTab .display-block .flat, #statTab{
+  margin: 0px;
+}
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
