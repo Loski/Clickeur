@@ -128,6 +128,11 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     }
                     else
                     {
+                            var color = "red";
+
+                            if(proposition.verdict==1)
+                                color="green";
+
                             dicPropositions[student.username] =
                             {
                                 label: "["+proposition.number+"]",
