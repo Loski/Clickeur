@@ -102,6 +102,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             nb_reponse[0]=0;
             nb_reponse[1]=0;
             $scope.students = [];
+            var sans_opinion=0;
 
                 for(var index in $scope.propositions)
                 {
@@ -118,6 +119,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                         {
                             if(proposition.number==0)
                     {
+                        sans_opinion++;
                         dicPropositions[student.username] =
                         {
                             label: "sans opinion",
@@ -217,7 +219,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                values = [
                     {
                         label: "Sans opinion",
-                        value: dicPropositions[0].value,
+                        value: sans_opinion,
                         color: "gray"
                     },
                     {
