@@ -108,34 +108,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     var proposition = $scope.propositions[index];
                     var stat = proposition.stat.tour;
                     stat= stat[$scope.tour_actuel];
-
-                    var color = "red";
-
-                    if(proposition.number==0)
-                    {
-                        dicPropositions[0] =
-                        {
-                            label: "sans opinion",
-                            title: "sans opinion",
-                            value: stat.count,
-                            color : "gray"
-                        }
-                    }
-                    else
-                    {
-
-                        var color = "red";
-                        if(proposition.verdict==1)
-                        {
-                            nb_reponse[0] += stat.count;
-                            color="green"; 
-                        }
-                        else
-                        {
-                            nb_reponse[1] += stat.count;
-                        }
-                        
-                    }
+                    
 
                     for(var indexS in stat.users)
                     {
@@ -143,6 +116,18 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
                         if(!angular.isDefined(dicStudents[student.username]))
                         {
+                            if(proposition.number==0)
+                    {
+                        dicPropositions[student.username] =
+                        {
+                            label: "sans opinion",
+                            title: "sans opinion",
+                            value: stat.count,
+                            color : "gray"
+                        };
+                    }
+                    else
+                    {
                             dicPropositions[student.username] =
                             {
                                 label: "["+proposition.number+"]",
@@ -150,6 +135,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                                 value: stat.count,
                                 color : color
                             };
+                    }
 
                             dicStudents[student.username]=
                             {
@@ -172,7 +158,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                                 num_etu:student.username,
                                 firstName:student.firstName,
                                 lastName:student.lastName,
-                                proposition:dicStudents[student.username] ", " + $scope.propositions[index].number,
+                                proposition:dicStudents[student.username] + ", " + $scope.propositions[index].number,
                                 proposition_juste:verdict
                             };
                         }
@@ -207,7 +193,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                     if(dicStudents[student.username].proposition_juste==0)
                         nb_reponse[1]++;
                     else
-                        b_reponse[0]++;
+                        nb_reponse[0]++;
                 }
 
                 $scope.values_per_proposition = [
