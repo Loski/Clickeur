@@ -200,10 +200,13 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
                     console.log("index:"+indexS);
 
+                    if(dicStudents[indexS].proposition!="0")
+                    {
                     if(dicStudents[indexS].proposition_juste==0)
                         nb_reponse[1]++;
                     else
                         nb_reponse[0]++;
+                }
 
                     $scope.students.push(dicStudents[indexS]);
                 }
