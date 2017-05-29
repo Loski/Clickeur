@@ -8,7 +8,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             getQuestionWithStatistique: function(id_question) {
                  return $http({
                         method: 'GET',
-                        url:'http://ec2-34-201-121-8.compute-1.amazonaws.com/api/stat_tour/question/' + id_question
+                        url:'https://132.227.116.252/serveur/public/api/stat_tour/question/' + id_question
                 });
             },
         }
@@ -318,16 +318,16 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             update(false);
         }
 
-        $scope.nextTurn = function()
+        $scope.previousTurn = function()
         {
-            if($scope.tour_actuel>0)
+            if($scope.tour_actuel>1)
             {
                 $scope.tour_actuel--;
                 $scope.updateAllData();
             }
         }
 
-        $scope.previousTurn = function()
+        $scope.nextTurn = function()
         {
             if($scope.tour_actuel<$scope.tour_max)
             {
