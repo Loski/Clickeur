@@ -92,6 +92,8 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 return a.number - b.number;
             });
 
+            $scope.tour_max = Object.keys($scope.propositions[0].stat.tour).length;
+
             $scope.values_per_proposition = [];
             $scope.true_false_values = [];
 
@@ -103,6 +105,12 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             nb_reponse[1]=0;
             $scope.students = [];
             var sans_opinion=0;
+
+            if($scope.tour_max==0)
+            {
+                $scope.tour_actuel=0;
+                return;
+            }
 
                 for(var index in $scope.propositions)
                 {
