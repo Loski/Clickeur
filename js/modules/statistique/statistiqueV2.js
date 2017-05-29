@@ -149,7 +149,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                                 title: proposition.title,
                                 value: stat.count,
                                 color : color
-                            }
+                            };
 
                             dicStudents[student.username]=
                             {
