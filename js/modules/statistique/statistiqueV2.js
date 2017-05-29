@@ -102,6 +102,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
             nb_reponse[0]=0;
             nb_reponse[1]=0;
             $scope.students = [];
+            var sans_opinion=0;
 
             /** Local Fix, delete quand serveur est ok et envoie à nouveau sans opinion**/
             values.push(
@@ -124,7 +125,14 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
 
                     if(proposition.number==0)
                     {
+<<<<<<< HEAD
                         dicPropositions[0] =
+=======
+
+                        sans_opinion++;
+
+                        dicPropositions[student.username] =
+>>>>>>> 4ea46f2dcb156c3ea6f579dc1acfe7ccc2348f9c
                         {
                             label: "sans opinion",
                             title: "sans opinion",
@@ -216,7 +224,7 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                values = [
                     {
                         label: "Sans opinion",
-                        value: dicPropositions[0].value,
+                        value: sans_opinion,
                         color: "gray"
                     },
                     {
