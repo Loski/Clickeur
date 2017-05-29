@@ -195,12 +195,17 @@ var statistique = angular.module('StatistiqueModule', ['ui.router', 'nvd3'])
                 }
 
 
-                for(var indexS in stat.users)
+                for(var indexS in dicStudents)
                 {
-                    if(dicStudents[student.username].proposition_juste==0)
+
+                    console.log("index:"+indexS);
+
+                    if(dicStudents[indexS].proposition_juste==0)
                         nb_reponse[1]++;
                     else
                         nb_reponse[0]++;
+
+                    $scope.students.push(dicStudents[indexS]);
                 }
 
                 $scope.values_per_proposition = [
