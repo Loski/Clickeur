@@ -8,21 +8,21 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/ues/'
-                    url:'https://132.227.116.252/pstl/public/api/ues'
+                    url:'https://132.227.116.252/serveur/public/api/ues'
                 });
             },
             get: function(id){
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/ues/'+id,
-                    url:'https://132.227.116.252/pstl/public/api/ues/'+id
+                    url:'https://132.227.116.252/serveur/public/api/ues/'+id
                 });
             },
             delete: function($id){
                 return $http({
                     method: 'DELETE',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id,
-                    url:'https://132.227.116.252/pstl/public/api/ues/'+$id
+                    url:'https://132.227.116.252/serveur/public/api/ues/'+$id
                 });
             },
 
@@ -30,7 +30,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
             {
                 return $http({
                     method: 'POST',
-                    url:'https://132.227.116.252/pstl/public/api/ues',
+                    url:'https://132.227.116.252/serveur/public/api/ues',
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
                 });
             },
@@ -46,7 +46,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/ues/'+$id,
-                    url:'https://132.227.116.252/pstl/public/api/ues/'+$id,
+                    url:'https://132.227.116.252/serveur/public/api/ues/'+$id,
                     data: "code_ue="+$code_ue+"&name="+$nom_ue,
                 });
             },
@@ -54,7 +54,7 @@ var ue_module = angular.module('ueModule', ['ngStorage', 'ui.router', 'ngAnimate
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/ues/'+id,
-                    url:'https://132.227.116.252/pstl/public/api/ues/'+id+'/students'
+                    url:'https://132.227.116.252/serveur/public/api/ues/'+id+'/students'
                 });
             }
         }

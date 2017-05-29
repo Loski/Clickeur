@@ -327,14 +327,14 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'https://132.227.116.252/pstl/public/api/sessions/'+id_session+"/questions"
+                    url:'https://132.227.116.252/serveur/public/api/sessions/'+id_session+"/questions"
                 });
          },
         getPropositions:function(question_id) {
                 return $http({
                     method: 'GET',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'https://132.227.116.252/pstl/public/api/questions/'+question_id+'/propositions'
+                    url:'https://132.227.116.252/serveur/public/api/questions/'+question_id+'/propositions'
                 });
          },
         get:function(id_session, id_question) {
@@ -344,7 +344,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'https://132.227.116.252/pstl/public/api/questions/'+question_id,
+                    url:'https://132.227.116.252/serveur/public/api/questions/'+question_id,
                     data: "title=" + title 
                 });
         },
@@ -352,7 +352,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'PUT',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'https://132.227.116.252/pstl/public/api/propositions/' + proposition_id,
+                    url:'https://132.227.116.252/serveur/public/api/propositions/' + proposition_id,
                     data: 'title=' + title+"&verdict="+verdict 
                 });
         },
@@ -360,7 +360,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
                     method: 'POST',
                     //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/"
-                    url:'https://132.227.116.252/pstl/public/api/questions/' + question_id+"/propositions",
+                    url:'https://132.227.116.252/serveur/public/api/questions/' + question_id+"/propositions",
                     data: 'title=' + title +"&verdict="+verdict
                 });
         },
@@ -368,14 +368,14 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
             method: 'DELETE',
             //url:'http://127.0.0.1:8000/api/sessions/'+$id,
-            url:'https://132.227.116.252/pstl/public/api/propositions/'+$id
+            url:'https://132.227.116.252/serveur/public/api/propositions/'+$id
             });
         },
         create: function (id_session, question) {
             return $http({
                 method: 'POST',
                 //url:'http://127.0.0.1:8000/api/sessions/'+id_session+"/questions/",
-                url:'https://132.227.116.252/pstl/public/api/sessions/'+id_session+"/questions",
+                url:'https://132.227.116.252/serveur/public/api/sessions/'+id_session+"/questions",
                 data:question
             });
         },
@@ -383,13 +383,13 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
             return $http({
             method: 'DELETE',
             //url:'http://127.0.0.1:8000/api/sessions/'+$id,
-            url:'https://132.227.116.252/pstl/public/api/questions/'+$id
+            url:'https://132.227.116.252/serveur/public/api/questions/'+$id
             });
         },
         switchState: function(id){
             $http({
                 method: 'PUT',
-                url:'https://132.227.116.252/pstl/public/api/questions/switch/'+id
+                url:'https://132.227.116.252/serveur/public/api/questions/switch/'+id
             }).then(function(response)
             {
                 return response.data;
@@ -398,7 +398,7 @@ questionnaire.factory('questionRepository', ['$http','$state', function ($http,$
         getMyQuestionWithUeAndSessions: function(){
             return $http({
                 method: 'GET',
-                url:'https://132.227.116.252/pstl/public/api/questions/open'
+                url:'https://132.227.116.252/serveur/public/api/questions/open'
             });
         }
     }

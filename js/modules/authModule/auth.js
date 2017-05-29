@@ -11,7 +11,7 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
                 return $http({
                 	method: 'POST',
                 	//url:'http://127.0.0.1:8000/api/auth',
-                    url:'https://132.227.116.252/pstl/public/api/auth',
+                    url:'https://132.227.116.252/serveur/public/api/auth',
         			data: "username="+usernameUser+"&password="+passwordUser
  		   		});
             },
@@ -27,7 +27,7 @@ var connexionModule = angular.module('connexionUser', ['ngStorage', 'userAuthMod
             },
             getUser: function(){
                 //$http.get('http://127.0.0.1:8000/api/user');
-                $http.get('https://132.227.116.252/pstl/public/api/user');
+                $http.get('https://132.227.116.252/serveur/public/api/user');
             },
         }
     }])
