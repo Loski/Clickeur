@@ -22,8 +22,8 @@
 		       		</div>
 		       	</a>
 		       	</div>
-			<hr/>
-            <ul class="bottom-bar">
+			<hr/ ng-show="session.right == true || session.right == undefined">
+            <ul class="bottom-bar" ng-show="session.right == true || session.right == undefined">
                 <li title="Modifier la session {{session.number}}" class="clickable">
                 	<a ui-sref=".edit({ id_session: {{session.id}} })">
                     	<i class="fa fa-cog" aria-hidden="true"></i>

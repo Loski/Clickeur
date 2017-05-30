@@ -115,6 +115,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
         };
 
         $scope.envoyer =function(){
+
             var checked = false, error = false;
             $scope.alerts = [];
 
@@ -157,7 +158,6 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             for(var i = 0; i < $scope.question.propositions.length; i++){
                 if($scope.question.propositions[i].created_at === undefined){
                     questionToInsert.push($scope.question.propositions[i]); 
-                    console.log(questionToInsert[0]);
                 }else{
                     questionToUpdate.push($scope.question.propositions[i]); 
                 }
@@ -170,10 +170,11 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
                 }
             }
 
-
+            var propositions = [];
             //envoi insert
             for(var i = 0; i < questionToInsert.length; i++){
                 questionRepository.insertProposition($scope.id_question, questionToInsert[i].title, questionToInsert[i].verdict).then(function successCallback(success){
+                propositions.push({'id': Math.floor((Math.random() * 10000) + 1), 'verdict': questionToInsert[i].verdict, 'title':questionToInsert[i].title})
                 },
                 function errorsCallback(error){
                     console.log(error);
@@ -183,6 +184,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             //envoie update
             for(var i = 0; i < questionToUpdate.length; i++){
                 questionRepository.updateProposition(questionToUpdate[i].id, questionToUpdate[i].title, questionToUpdate[i].verdict).then(function successCallback(success){
+                propositions.push({'id':questionToUpdate[i].id, 'verdict': questionToUpdate[i].verdict, 'title': questionToUpdate[i].title})
                 },
                 function errorsCallback(error){
                     console.log(error);
@@ -192,12 +194,20 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             //envoie delete
             for(var i = 0; i < questionToDelete.length; i++){
                 questionRepository.deleteProposition(questionToDelete[i].id).then(function successCallback(success){
-                
                 },
                 function errorsCallback(error){
                     console.log(error);
                 });
             }
+
+            for(int i = 0; i < questionsList.data.session.questions.lenght; i++){
+                if(questionsList.data.session.questions[i].id == $scope.id_question){
+                    questionsList.data.session.questions[i].propositions = propositions;
+                    questionsList.data.session.questions[i].title = $scope.question.title;
+                    break;
+                }
+            }
+            $state.go('^.statistique', {id_question:id});
         };
         $scope.ajouter = function(){
             var question = "";
@@ -218,6 +228,7 @@ var questionnaire = angular.module('Questionnaire', ['ngStorage', 'userAuthModul
             {
                 var id = response.data.question.id;
                 objectQuestion.id = id;
+                objectQuestion.number = questionsList.data.session.questions.length;
                 questionsList.data.session.questions.push(objectQuestion);
                 $state.go('^.statistique', {id_question:id});
             }, function(error){

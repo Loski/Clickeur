@@ -26,12 +26,11 @@
                     <span>{{question.number}} - {{question.title}}<i class="pull-right flat_link fa fa-chevron-right" aria-hidden="true"></i></span>
                 </div>
             </a>
-            <hr/>
             <div class="container-reponse" ng-show="propositions[question.id].booleanVal" ng-repeat="rep in propositions[question.id] | orderBy:'+number'">
                 <div class="flat-reponse"><span class="reponse">[{{$index + 1}}]</span><span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : 'bad'"></span> {{rep.title}}</div>
             </div>
-
-            <ul class="bottom-bar">
+            <hr/ ng-show="question.right == true || question.right == undefined">
+            <ul class="bottom-bar" ng-show="question.right == true || question.right == undefined">
                 <li title="Lancer la question" ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-play " aria-hidden="true"></i>
                     <span>Ouvrir</span>

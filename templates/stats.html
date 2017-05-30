@@ -19,7 +19,7 @@
 	       	<div ng-repeat="rep in propositions | orderBy:'+number'">
 	       		<div class="flat">[{{rep.number}}]<span class="circle reponse" ng-class="rep.verdict==1 ? 'good' : rep.number ==0 ? 'sans-opinion' : 'bad'"></span>{{rep.title}}</div>
 	       	</div>
-	       	<ul class="bottom-bar flat">
+	       	<ul class="bottom-bar flat"  ng-show="question.right == true || question.right == undefined">
                 <li title="Lancer la question" ng-show="!question.opened" class="clickable" ng-click="lancer(question)">
                     <i class="fa fa-play " aria-hidden="true"></i>
                     <span>Ouvrir</span>
